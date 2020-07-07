@@ -1,5 +1,5 @@
-#!/usr/env/bin #!/usr/bin/env bash
-
+#!/usr/bin/env bash
+#
 #Unknowns & Removed
 #--noscan
 #--cache=1024
