@@ -67,7 +67,7 @@ HandBrakeCLI --json -i /home/jlivin25/Rips/blurays/THE_DARK_KNIGHT -t $auto_find
 #we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
 sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
 #now we need to delete the top line left as "JSON Title Set: {"
-sed -i '1d' main_feature_scan_trimmed
+sed -i '1d' main_feature_scan_trimmed.json
 #we now  need to insert a spare {' at the start of the file
 sed -i '1s/^/{\n/' main_feature_scan_trimmed.json
 #now trim out the error line where '  HandBrake has exited.' is in the middle of the .json data
