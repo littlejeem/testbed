@@ -1,0 +1,3 @@
+C_RX_(((X|H)\.?265)|(HEVC)) - H265
+C_RX_SUBS - Simple Hardcoded Subs
+C_RXRQ_(((DD|AAC|DDP| )(7|6|5).1)|(DTS|DTS-HD|TRUEHD|AC3|6CH)) - 
