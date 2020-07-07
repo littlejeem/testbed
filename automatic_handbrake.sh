@@ -1,4 +1,4 @@
-#!/usr/env/bin global_enable_pushover
+#!/usr/env/bin #!/usr/bin/env bash
 
 #Unknowns & Removed
 #--noscan
