@@ -1,0 +1,1042 @@
+[
+{
+    "MainFeature": 0,
+    "TitleList": [
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 640000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 640000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 128000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 33554432,
+                    "CodecName": "truehd",
+                    "Description": "English (TrueHD) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 448000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "Francais (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "Francais",
+                    "LanguageCode": "fra",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 448000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "Deutsch (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "Deutsch",
+                    "LanguageCode": "deu",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 448000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "italiano (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "italiano",
+                    "LanguageCode": "ita",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 448000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "español (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "español",
+                    "LanguageCode": "spa",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 448000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "Portugues (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "Portugues",
+                    "LanguageCode": "por",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 24,
+                        "Ticks": 34557022
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 12,
+                        "Ticks": 22706434
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 16,
+                        "Ticks": 17668900
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 2,
+                        "Ticks": 21745474
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 45,
+                        "Ticks": 20262742
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 31,
+                        "Ticks": 24361838
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 26,
+                        "Ticks": 18562294
+                    },
+                    "Name": "Chapter 7"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 6,
+                        "Ticks": 11358848
+                    },
+                    "Name": "Chapter 8"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 7,
+                        "Ticks": 32991708
+                    },
+                    "Name": "Chapter 9"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 45,
+                        "Ticks": 31051020
+                    },
+                    "Name": "Chapter 10"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 5,
+                        "Ticks": 16692926
+                    },
+                    "Name": "Chapter 11"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 18,
+                        "Ticks": 12439928
+                    },
+                    "Name": "Chapter 12"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 22,
+                        "Ticks": 23551028
+                    },
+                    "Name": "Chapter 13"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 56,
+                        "Ticks": 21257486
+                    },
+                    "Name": "Chapter 14"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 11,
+                        "Ticks": 11764252
+                    },
+                    "Name": "Chapter 15"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 33,
+                        "Ticks": 24594570
+                    },
+                    "Name": "Chapter 16"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 24,
+                        "Ticks": 23753730
+                    },
+                    "Name": "Chapter 17"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 25,
+                        "Ticks": 13029266
+                    },
+                    "Name": "Chapter 18"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 37,
+                        "Ticks": 19493224
+                    },
+                    "Name": "Chapter 19"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 41,
+                        "Ticks": 19864846
+                    },
+                    "Name": "Chapter 20"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 17,
+                        "Ticks": 23111838
+                    },
+                    "Name": "Chapter 21"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 26,
+                        "Ticks": 13153140
+                    },
+                    "Name": "Chapter 22"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 0,
+                        "Ticks": 32387356
+                    },
+                    "Name": "Chapter 23"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 17,
+                        "Ticks": 17687670
+                    },
+                    "Name": "Chapter 24"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 53,
+                        "Ticks": 31752970
+                    },
+                    "Name": "Chapter 25"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 8,
+                        "Ticks": 11493982
+                    },
+                    "Name": "Chapter 26"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 54,
+                        "Ticks": 15698184
+                    },
+                    "Name": "Chapter 27"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 1,
+                        "Ticks": 10885874
+                    },
+                    "Name": "Chapter 28"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 9,
+                        "Ticks": 22413642
+                    },
+                    "Name": "Chapter 29"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 5,
+                        "Ticks": 16625358
+                    },
+                    "Name": "Chapter 30"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 49,
+                        "Ticks": 15243980
+                    },
+                    "Name": "Chapter 31"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 10,
+                        "Ticks": 17120852
+                    },
+                    "Name": "Chapter 32"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 23,
+                        "Ticks": 18299532
+                    },
+                    "Name": "Chapter 33"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 30,
+                        "Ticks": 29703424
+                    },
+                    "Name": "Chapter 34"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 20,
+                        "Ticks": 17972954
+                    },
+                    "Name": "Chapter 35"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 55,
+                        "Ticks": 15792028
+                    },
+                    "Name": "Chapter 36"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 36,
+                        "Ticks": 24831056
+                    },
+                    "Name": "Chapter 37"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 28,
+                        "Ticks": 24117844
+                    },
+                    "Name": "Chapter 38"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 47,
+                        "Ticks": 41989446
+                    },
+                    "Name": "Chapter 39"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 11262
+                    },
+                    "Name": "Chapter 40"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                140,
+                140,
+                0,
+                2
+            ],
+            "Duration": {
+                "Hours": 2,
+                "Minutes": 32,
+                "Seconds": 13,
+                "Ticks": 821999928
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 8,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "The Dark Knight",
+            "Path": "/home/jlivin25/Rips/blurays/THE_DARK_KNIGHT",
+            "Playlist": 100,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Francais [PGS]",
+                    "LanguageCode": "fra",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Deutsch [PGS]",
+                    "LanguageCode": "deu",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Deutsch [PGS]",
+                    "LanguageCode": "deu",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "italiano [PGS]",
+                    "LanguageCode": "ita",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "italiano [PGS]",
+                    "LanguageCode": "ita",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Nederlands [PGS]",
+                    "LanguageCode": "nld",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "中文 [PGS]",
+                    "LanguageCode": "zho",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "한국어 [PGS]",
+                    "LanguageCode": "kor",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Portugues [PGS]",
+                    "LanguageCode": "por",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "dansk [PGS]",
+                    "LanguageCode": "dan",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "suomi [PGS]",
+                    "LanguageCode": "fin",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "norsk [PGS]",
+                    "LanguageCode": "nor",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Portugues [PGS]",
+                    "LanguageCode": "por",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "svenska [PGS]",
+                    "LanguageCode": "swe",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Francais [PGS]",
+                    "LanguageCode": "fra",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Deutsch [PGS]",
+                    "LanguageCode": "deu",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "italiano [PGS]",
+                    "LanguageCode": "ita",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                  },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "Portugues [PGS]",
+                    "LanguageCode": "por",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "vc1"
+        }
+    ]
+}
+]
