@@ -1,0 +1,22 @@
+#https://stackoverflow.com/questions/34543829/jq-cannot-index-array-with-string
+#using the below with jq_test_data_2 works
+.[].TitleList[].AudioList[].Description
+#gives
+"English (AC3) (5.1 ch)"
+"English (AC3) (5.1 ch)"
+"English (TrueHD) (5.1 ch)"
+"English (AC3) (2.0 ch) (Dolby Surround)"
+"Francais (AC3) (5.1 ch)"
+"Deutsch (AC3) (5.1 ch)"
+"italiano (AC3) (5.1 ch)"
+"español (AC3) (5.1 ch)"
+"Portugues (AC3) (5.1 ch)"
+
+#moving to command line and in same directory as the test file, this generates a file with out output
+test2jq=$(jq '.[].TitleList[].AudioList[].Description' jq_test_data_2 > audio_track_test_live)
+
+#counting the line the result is on that we want
+#A send the result of the above to a file (see audio_track_test_file)
+#in terminal and in the same folder as the file use
+grep -hnr "True" audio_track_test_file
+#-h removes the file name in the result,-n give the line number,-n
