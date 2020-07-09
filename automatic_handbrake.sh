@@ -85,6 +85,7 @@ sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #now we search the file for the line number of our preferred source because line number = track number of the audio
 selected_audio_track=$(grep -hn "TrueHD" parsed_audio_tracks)
+selected_audio_track=$($selected_audio_track cut -c2-40)
 echo $selected_audio_track
 #
 ###NEED TO DO SOMETHING ABOUT 'WEIGHTING' OF RETURNED AUDIO TRACKS?? DOES THE MAIN FEATURE HAVE MULTIPLE TRACKS WITH TRUEHD DTS-HD ETC?
