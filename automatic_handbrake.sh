@@ -26,7 +26,7 @@ video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-pro
 #audio_options="-E copy:dtshd,copy:truehd,copy:dts --audio-copy-mask dtshd,truehd,dts"
 #"this one worked"
 #audio_options="-a 3 -E copy --audio-copy-mask dtshd,truehd,dts,flac"
-audio_options="-a 3,3 -E ac3,copy:truehd -6 dpl2,none -R Auto,Auto -B 160,0 -D 0,0 --gain 0,0 --audio-fallback ac3"
+#audio_options="-a 3,3 -E ac3,copy:truehd -6 dpl2,none -R Auto,Auto -B 160,0 -D 0,0 --gain 0,0 --audio-fallback ac3"
 picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
 filter_options="--decomb"
 subtitle_options="-N eng -F scan"
@@ -78,16 +78,17 @@ sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
 #+-----------------------+
 #+---"Parse JSON Data"---+
 #+-----------------------+
-
-
-
-
-
-
-
-
-
+#this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
+main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
+#now we search the file for the line number of our preferred source because line number = track number of the audio
+selected_audio_track=$(grep -hn "TrueHD" parsed_audio_tracks)
+echo $selected_audio_track
+#
+###NEED TO DO SOMETHING ABOUT 'WEIGHTING' OF RETURNED AUDIO TRACKS?? DOES THE MAIN FEATURE HAVE MULTIPLE TRACKS WITH TRUEHD DTS-HD ETC?
+#
 #+-------------------------------+
 #+---"Run Handbrake to Encode"---+
 #+-------------------------------+
+#insert the audio selection into the audio_options variable
+#audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
