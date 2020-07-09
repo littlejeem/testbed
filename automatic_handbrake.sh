@@ -84,8 +84,7 @@ sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #now we search the file for the line number of our preferred source because line number = track number of the audio
-selected_audio_track=$(grep -hn "TrueHD" parsed_audio_tracks)
-selected_audio_track=$($selected_audio_track cut -c2-40)
+selected_audio_track=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
 echo $selected_audio_track
 #
 ###NEED TO DO SOMETHING ABOUT 'WEIGHTING' OF RETURNED AUDIO TRACKS?? DOES THE MAIN FEATURE HAVE MULTIPLE TRACKS WITH TRUEHD DTS-HD ETC?
@@ -94,5 +93,5 @@ echo $selected_audio_track
 #+---"Run Handbrake to Encode"---+
 #+-------------------------------+
 #insert the audio selection into the audio_options variable
-#audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
-#HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
+HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
