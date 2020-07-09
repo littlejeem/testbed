@@ -17,9 +17,9 @@
 #+---"User Set Options"---+
 #+------------------------+
 options="--no-dvdna"
-source_loc=
+source_loc="/home/jlivin25/Rips/blurays/THE_DARK_KNIGHT"
 source_options="--main-feature"
-output_loc=
+output_loc="/home/jlivin25/Rips/blurays/THE_DARK_KNIGHT_AUTO.mkv"
 output_options="-f mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q 20.0"
 #audio_options="-E copy --audio-copy-mask dtshd,truehd,dts,ac3 --audio-fallback ffac3 -B 160,160 --mixdown 5point1 -R Auto,Auto"
@@ -36,7 +36,7 @@ subtitle_options="-N eng -F scan"
 #+---Handbrake Titles Scan---+
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
-HandBrakeCLI --json -i /home/jlivin25/Rips/blurays/THE_DARK_KNIGHT -t 0 --main-feature &> titles_scan.json
+HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
 
 #+---------------------------+
 #+---"Identify Main Title"---+
@@ -56,7 +56,7 @@ auto_find_main_feature=${auto_find_main_feature:25}
 #+---"Get main title details"---+
 #+------------------------------+
 #now we know the main title we scan it using handbrake and dump into another .json file
-HandBrakeCLI --json -i /home/jlivin25/Rips/blurays/THE_DARK_KNIGHT -t $auto_find_main_feature --scan &> main_feature_scan.json
+HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan &> main_feature_scan.json
 #
 #
 #+------------------------------------------------------+
