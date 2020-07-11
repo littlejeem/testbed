@@ -22,7 +22,9 @@ main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_s
 #now we search the file for the line number of our preferred source because line number = track number of the audio
 True_HD=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
 echo $True_HD
-DTS_HD=$(grep -hn "DTS-HD" parsed_audio_tracks | echo $DTS_HD | cut -c1)
+#DTS_HD=$(grep -hn "DTS-HD" parsed_audio_tracks | echo $DTS_HD | cut -c1)
+DTS_HD=$(grep -hn "DTS-HD" parsed_audio_tracks)
+DTS_HD=$(echo $DTS_HD | cut -c1)
 echo $DTS_HD
 if [[ $True_HD != "" ]]; then
   True_HD_boolean=true
