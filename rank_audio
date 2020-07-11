@@ -19,24 +19,62 @@ sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
 #+-----------------------+
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
-#now we search the file for the line number of our preferred source because line number = track number of the audio
+#
+#
+#+--------------------------------+
+#+---Determine Availiable Audio---+
+#+--------------------------------+
+#First we search the file for the line number of our preferred source because line number = track number of the audio
+#First lets test for TrueHD
 True_HD=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
 echo $True_HD
-#DTS_HD=$(grep -hn "DTS-HD" parsed_audio_tracks | echo $DTS_HD | cut -c1)
-DTS_HD=$(grep -hn "DTS-HD" parsed_audio_tracks)
-DTS_HD=$(echo $DTS_HD | cut -c1)
-echo $DTS_HD
-if [[ $True_HD != "" ]]; then
+#Now lets test for DTS-HD
+Dts_hd=$(grep -hn "DTS-HD" parsed_audio_tracks)
+Dts_hd=$(echo $Dts_hd | cut -c1)
+echo $Dts_hd
+#Now lets test for DTS
+Dts=$(grep -hn "(DTS)" parsed_audio_tracks)
+Dts=$(echo $Dts | cut -c1)
+echo $Dts
+#Finally lets test for AAC
+Aac=$(grep -hn "AAC" parsed_audio_tracks)
+Aac=$(echo $Aac | cut -c1)
+echo $Aac
+#
+#Now assign the results booleans
+if [[ "$True_HD" != "" ]]; then
   True_HD_boolean=true
 else
   True_HD_boolean=false
 fi
 echo $True_HD_boolean
 #
-if [[ $DTS_HD != "" ]]; then
-  DTS_HD_boolean=true
+if [[ "$Dts_hd" != "" ]]; then
+  Dts_hd_boolean=true
 else
-  DTS_HD_boolean=false
+  Dts_hd_boolean=false
 fi
-
+echo $Dts_hd_boolean
 #
+if [[ "$Dts" != "" ]]; then
+  Dts_boolean=true
+else
+  Dts_boolean=false
+fi
+echo $Dts_boolean
+#
+if [[ "$Aac" != "" ]]; then
+  Aac_boolean=true
+else
+  Aac_boolean=false
+fi
+echo $Aac_boolean
+#
+#Now we make some decisons about audio choices
+if [[ "$True_HD_boolean" == true ]] && [[ "$Dts_boolean" == false ]]; then
+  selected_audio_track=$(echo $True_HD)
+  echo "Selecting True_HD audio, track $True_HD"
+elif [[ "$Dts_boolean" == true ]] && [[ "$True_HD_boolean" == false ]]; then
+  selected_audio_track=$(echo $Dts_hd)
+  echo "Selecting True_HD audio, track $Dts_hd"
+fi
