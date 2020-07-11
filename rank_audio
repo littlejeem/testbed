@@ -24,17 +24,17 @@ True_HD=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
 echo $True_HD
 DTS_HD=$(grep -hn "DTS-HD" parsed_audio_tracks | echo $DTS_HD | cut -c1)
 echo $DTS_HD
-if [[ $True_HD == "True_HD" ]]; then
+if [[ $True_HD != "" ]]; then
   True_HD_boolean=true
 else
-  True_HD_boolean=true
+  True_HD_boolean=false
 fi
 echo $True_HD_boolean
 #
-if [[ $True_HD == "True_HD" ]]; then
-  True_HD_boolean=true
+if [[ $DTS_HD != "" ]]; then
+  DTS_HD_boolean=true
 else
-  True_HD_boolean=true
+  DTS_HD_boolean=false
 fi
 
 #
