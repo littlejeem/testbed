@@ -24,9 +24,9 @@ Dts=$(grep -hn "(DTS)" parsed_audio_tracks)
 Dts=$(echo $Dts | cut -c1)
 echo $Dts
 #Finally lets test for AAC
-Aac=$(grep -hn "AAC" parsed_audio_tracks)
-Aac=$(echo $Aac | cut -c1)
-echo $Aac
+Ac3=$(grep -hn "AC3" parsed_audio_tracks)
+Ac3=$(echo $Aac | cut -c1)
+echo $Ac3
 #
 #Now assign the results booleans
 if [[ "$True_HD" != "" ]]; then
@@ -34,28 +34,28 @@ if [[ "$True_HD" != "" ]]; then
 else
   True_HD_boolean=false
 fi
-echo $True_HD_boolean
+echo "True HD= $True_HD_boolean"
 #
 if [[ "$Dts_hd" != "" ]]; then
   Dts_hd_boolean=true
 else
   Dts_hd_boolean=false
 fi
-echo $Dts_hd_boolean
+echo "DTS-HD MA= $Dts_hd_boolean"
 #
 if [[ "$Dts" != "" ]]; then
   Dts_boolean=true
 else
   Dts_boolean=false
 fi
-echo $Dts_boolean
+echo "DTS= $Dts_boolean"
 #
-if [[ "$Aac" != "" ]]; then
-  Aac_boolean=true
+if [[ "$Ac3" != "" ]]; then
+  Ac3_boolean=true
 else
-  Aac_boolean=false
+  Ac3_boolean=false
 fi
-echo $Aac_boolean
+echo "AC3= $Ac3_boolean"
 #
 #Now we make some decisons about audio choices
 if [[ "$True_HD_boolean" == true ]] && [[ "$Dts_boolean" == false ]]; then
