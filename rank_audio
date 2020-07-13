@@ -25,7 +25,7 @@ Dts=$(echo $Dts | cut -c1)
 echo $Dts
 #Finally lets test for AAC
 Ac3=$(grep -hn "AC3" parsed_audio_tracks)
-Ac3=$(echo $Aac | cut -c1)
+Ac3=$(echo $Ac3 | cut -c1)
 echo $Ac3
 #
 #Now assign the results booleans
