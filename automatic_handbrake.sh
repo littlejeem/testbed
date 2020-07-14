@@ -83,11 +83,77 @@ sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
 #+-----------------------+
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
-#now we search the file for the line number of our preferred source because line number = track number of the audio
-selected_audio_track=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
+#
+#
+#+--------------------------------+
+#+---Determine Availiable Audio---+
+#+--------------------------------+
+#First we search the file for the line number of our preferred source because line number = track number of the audio
+#First lets test for TrueHD
+True_HD=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
+echo $True_HD
+#Now lets test for DTS-HD
+Dts_hd=$(grep -hn "DTS-HD" parsed_audio_tracks)
+Dts_hd=$(echo $Dts_hd | cut -c1)
+echo $Dts_hd
+#Now lets test for DTS
+Dts=$(grep -hn "(DTS)" parsed_audio_tracks)
+Dts=$(echo $Dts | cut -c1)
+echo $Dts
+#Finally lets test for AAC
+Ac3=$(grep -hn "AC3" parsed_audio_tracks)
+Ac3=$(echo $Ac3 | cut -c1)
+echo $Ac3
+#
+#Now assign the results booleans
+if [[ "$True_HD" != "" ]]; then
+  True_HD_boolean=true
+else
+  True_HD_boolean=false
+fi
+echo "True HD= $True_HD_boolean"
+#
+if [[ "$Dts_hd" != "" ]]; then
+  Dts_hd_boolean=true
+else
+  Dts_hd_boolean=false
+fi
+echo "DTS-HD MA= $Dts_hd_boolean"
+#
+if [[ "$Dts" != "" ]]; then
+  Dts_boolean=true
+else
+  Dts_boolean=false
+fi
+echo "DTS= $Dts_boolean"
+#
+if [[ "$Ac3" != "" ]]; then
+  Ac3_boolean=true
+else
+  Ac3_boolean=false
+fi
+echo "AC3= $Ac3_boolean"
+#
+#
+#+--------------------------------+
+#+---Determine Availiable Audio---+
+#+--------------------------------+
+#Now we make some decisons about audio choices
+if [[ "$True_HD_boolean" == true ]] && [[ "$Dts_hd_boolean" == false ]]; then
+  selected_audio_track=$(echo $True_HD)
+  echo "Selecting True_HD audio, track $True_HD"
+elif [[ "$Dts_hd_boolean" == true ]] && [[ "$True_HD_boolean" == false ]]; then
+  selected_audio_track=$(echo $Dts_hd)
+  echo "Selecting DTS-HD audio, track $Dts_hd"
+elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[ "$Dts_boolean" == true ]]; then
+  selected_audio_track=$(echo $Dts)
+  echo "Selecting DTS audio, track $Dts"
+elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[ "$Dts_boolean" == false ]]; then
+  selected_audio_track=1
+  echo "no matches for audio types, defaulting to track 1"
+fi
 echo $selected_audio_track
 #
-###NEED TO DO SOMETHING ABOUT 'WEIGHTING' OF RETURNED AUDIO TRACKS?? DOES THE MAIN FEATURE HAVE MULTIPLE TRACKS WITH TRUEHD DTS-HD ETC?
 #
 #+-------------------------------+
 #+---"Run Handbrake to Encode"---+
