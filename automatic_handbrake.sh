@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 #
-#Unknowns & Removed
-#--noscan
-#--cache=1024
-#--directio=true
-#-D 0.0,0.0 -4
+#
+#+----------------------------+
+#+---Configure Disc Ripping---+
+#+----------------------------+
+source_drive="disc:0"
+dev_drive="/dev/sr0"
+working_dir="/home/jlivin25"
+rip_dest="Rips/blurays"
+bluray_name=$(blkid -o value -s LABEL "$source_drive")
+bluray_name=${bluray_name// /_}
+makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
 #
 #
 #+-------------------------------+
@@ -13,13 +19,20 @@
 #HandBrakeCLI [options] -i <source> source_options -o <destination> output_options video_options audio_options picture_options filter_options
 #
 #
+#Unknowns & Removed
+#--noscan
+#--cache=1024
+#--directio=true
+#-D 0.0,0.0 -4
 #+------------------------+
 #+---"User Set Options"---+
 #+------------------------+
 options="--no-dvdna"
-source_loc="/home/jlivin25/Rips/blurays/Interstellar"
+#source_loc="/home/jlivin25/Rips/blurays/Interstellar"
+source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
 source_options="--main-feature"
-output_loc="/home/jlivin25/Rips/blurays/Interstellar_AUTO.mkv"
+#output_loc="/home/jlivin25/Rips/blurays/Interstellar_AUTO.mkv"
+output_loc="$working_dir"/"$rip_dest"/"$bluray_name".mkv
 output_options="-f mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q 20.0"
 #audio_options="-E copy --audio-copy-mask dtshd,truehd,dts,ac3 --audio-fallback ffac3 -B 160,160 --mixdown 5point1 -R Auto,Auto"
