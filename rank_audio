@@ -58,10 +58,16 @@ fi
 echo "AC3= $Ac3_boolean"
 #
 #Now we make some decisons about audio choices
-if [[ "$True_HD_boolean" == true ]] && [[ "$Dts_boolean" == false ]]; then
+if [[ "$True_HD_boolean" == true ]] && [[ "$Dts_hd_boolean" == false ]]; then
   selected_audio_track=$(echo $True_HD)
   echo "Selecting True_HD audio, track $True_HD"
-elif [[ "$Dts_boolean" == true ]] && [[ "$True_HD_boolean" == false ]]; then
+elif [[ "$Dts_hd_boolean" == true ]] && [[ "$True_HD_boolean" == false ]]; then
   selected_audio_track=$(echo $Dts_hd)
   echo "Selecting DTS-HD audio, track $Dts_hd"
+elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[ "$Dts_boolean" == true ]]; then
+  selected_audio_track=$(echo $Dts)
+  echo "Selecting DTS audio, track $Dts"
+elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[ "$Dts_boolean" == false ]]; then
+  selected_audio_track=1
+  echo "no matches for audio types, defaulting to track 1"
 fi
