@@ -5,7 +5,7 @@
 #+---"Parse JSON Data"---+
 #+-----------------------+
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
-main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
+#main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #
 #
 #+--------------------------------+
