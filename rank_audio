@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 #
+#
 #+-----------------------+
 #+---"Parse JSON Data"---+
 #+-----------------------+
@@ -71,3 +72,4 @@ elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[
   selected_audio_track=1
   echo "no matches for audio types, defaulting to track 1"
 fi
+echo $selected_audio_track
