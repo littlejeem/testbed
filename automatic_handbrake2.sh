@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 #
+log=/home/jlivin25/bin/scriptlogs/automatic_handbrake2.log
 #+----------------------------+
 #+---Configure Disc Ripping---+
 #+----------------------------+
@@ -10,7 +11,7 @@ working_dir="/home/jlivin25/Rips"
 rip_dest="blurays"
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
-echo "$bluray_name" > $log
+echo "bluray name is $bluray_name" > $log
 #makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
 #
 #
@@ -57,6 +58,8 @@ HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> $working_dir/temp/titl
 #+---------------------------+
 #we search the file created in Handbrake Title Scan for the main titles and store in a variable
 auto_find_main_feature=$(grep -w "Found main feature title" $working_dir/temp/titles_scan.json)
+echo "$auto_find_main_feature" >> $log
+echo $auto_find_main_feature
 ############################################################################################
 ### NEED SOME KIND OF TEST TO IDENTIFY IF THIS HAS FAILED AND USE ALTERNATIVE METHOD?    ###
 ### SOMETHING LIKE IF $main_feature IS EMPTY DO ALTERNATIVE ACTION, ELSE DO THE NEXT BIT ###
@@ -64,6 +67,8 @@ auto_find_main_feature=$(grep -w "Found main feature title" $working_dir/temp/ti
 #
 #we cut unwanted "Found main feature title " text from the variable
 auto_find_main_feature=${auto_find_main_feature:25}
+echo "auto_find_main_feature cut to $auto_find_main_feature" >> $log
+echo $auto_find_main_feature
 #
 #
 #+------------------------------+
@@ -78,8 +83,8 @@ HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan &> $working
 #+------------------------------------------------------+
 #we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
 #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
-#we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
-sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' $working_dir/temp/main_feature_scan.json
+#we use sed to take all text after (exclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+sed -n '/JSON Title Set: {/,$w $working_dir/temp/main_feature_scan_trimmed.json' $working_dir/temp/main_feature_scan.json
 #now we need to delete the top line left as "JSON Title Set: {"
 sed -i '1d' $working_dir/temp/main_feature_scan_trimmed.json
 #we now  need to insert a spare '{' & a '[' at the start of the file
