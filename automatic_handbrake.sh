@@ -49,13 +49,13 @@ subtitle_options="-N eng -F scan"
 #+---Handbrake Titles Scan---+
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
-HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> $working_dir/titles_scan.json
+HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> $working_dir/temp/titles_scan.json
 
 #+---------------------------+
 #+---"Identify Main Title"---+
 #+---------------------------+
 #we search the file created in Handbrake Title Scan for the main titles and store in a variable
-auto_find_main_feature=$(grep -w "Found main feature title" $working_dir/titles_scan.json)
+auto_find_main_feature=$(grep -w "Found main feature title" $working_dir/temp/titles_scan.json)
 ############################################################################################
 ### NEED SOME KIND OF TEST TO IDENTIFY IF THIS HAS FAILED AND USE ALTERNATIVE METHOD?    ###
 ### SOMETHING LIKE IF $main_feature IS EMPTY DO ALTERNATIVE ACTION, ELSE DO THE NEXT BIT ###
@@ -69,7 +69,7 @@ auto_find_main_feature=${auto_find_main_feature:25}
 #+---"Get main title details"---+
 #+------------------------------+
 #now we know the main title we scan it using handbrake and dump into another .json file
-HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan &> $working_dir/main_feature_scan.json
+HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan &> $working_dir/temp/main_feature_scan.json
 #
 #
 #+------------------------------------------------------+
@@ -78,16 +78,16 @@ HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan &> $working
 #we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
 #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
 #we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
-sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' $working_dir/main_feature_scan.json
+sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' $working_dir/temp/main_feature_scan.json
 #now we need to delete the top line left as "JSON Title Set: {"
-sed -i '1d' $working_dir/main_feature_scan_trimmed.json
+sed -i '1d' $working_dir/temp/main_feature_scan_trimmed.json
 #we now  need to insert a spare '{' & a '[' at the start of the file
-sed -i '1s/^/{\n/' $working_dir/main_feature_scan_trimmed.json
-sed -i '1s/^/[\n/' $working_dir/main_feature_scan_trimmed.json
+sed -i '1s/^/{\n/' $working_dir/temp/main_feature_scan_trimmed.json
+sed -i '1s/^/[\n/' $working_dir/temp/main_feature_scan_trimmed.json
 #and now we need to add ']' to the end of the file
-echo "]" >> $working_dir/main_feature_scan_trimmed.json
+echo "]" >> $working_dir/temp/main_feature_scan_trimmed.json
 #now trim out the error line where '  HandBrake has exited.' is in the middle of the .json data
-sed -i '/  HandBrake has exited./d' $working_dir/main_feature_scan_trimmed.json
+sed -i '/  HandBrake has exited./d' $working_dir/temp/main_feature_scan_trimmed.json
 #at this point the data is ready for 'parsing'
 #
 #
@@ -95,7 +95,7 @@ sed -i '/  HandBrake has exited./d' $working_dir/main_feature_scan_trimmed.json
 #+---"Parse JSON Data"---+
 #+-----------------------+
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
-main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' $working_dir/main_feature_scan_trimmed.json > parsed_audio_tracks)
+main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' $working_dir/temp/main_feature_scan_trimmed.json > parsed_audio_tracks)
 #
 #
 #+--------------------------------+
@@ -103,18 +103,18 @@ main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' $working_dir/m
 #+--------------------------------+
 #First we search the file for the line number of our preferred source because line number = track number of the audio
 #First lets test for TrueHD
-True_HD=$(grep -hn "TrueHD" $working_dir/parsed_audio_tracks | cut -c1)
+True_HD=$(grep -hn "TrueHD" $working_dir/temp/parsed_audio_tracks | cut -c1)
 echo $True_HD
 #Now lets test for DTS-HD
-Dts_hd=$(grep -hn "DTS-HD" $working_dir/parsed_audio_tracks)
+Dts_hd=$(grep -hn "DTS-HD" $working_dir/temp/parsed_audio_tracks)
 Dts_hd=$(echo $Dts_hd | cut -c1)
 echo $Dts_hd
 #Now lets test for DTS
-Dts=$(grep -hn "(DTS)" $working_dir/parsed_audio_tracks)
+Dts=$(grep -hn "(DTS)" $working_dir/temp/parsed_audio_tracks)
 Dts=$(echo $Dts | cut -c1)
 echo $Dts
 #Finally lets test for AAC
-Ac3=$(grep -hn "AC3" $working_dir/parsed_audio_tracks)
+Ac3=$(grep -hn "AC3" $working_dir/temp/parsed_audio_tracks)
 Ac3=$(echo $Ac3 | cut -c1)
 echo $Ac3
 #
