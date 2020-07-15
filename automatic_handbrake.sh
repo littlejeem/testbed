@@ -2,16 +2,18 @@
 #
 #
 log=/home/jlivin25/bin/scriptlogs/automatic_handbrake2.log
+echo "############################################################## - $date: Script Complete - ##############################################################" > $log
 #+----------------------------+
 #+---Configure Disc Ripping---+
 #+----------------------------+
+quality="20.0"
 source_drive="disc:0"
 dev_drive="/dev/sr0"
 working_dir="/home/jlivin25/Rips"
 rip_dest="blurays"
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
-echo "bluray name is $bluray_name" > $log
+echo "bluray name is $bluray_name" >> $log
 makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
 #
 #
@@ -29,7 +31,7 @@ source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
 source_options="--main-feature"
 output_loc="$working_dir"/"$rip_dest"/"$bluray_name".mkv
 output_options="-f mkv"
-video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q 20.0"
+video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality"
 picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
 filter_options="--decomb"
 subtitle_options="-N eng -F scan"
@@ -177,3 +179,6 @@ echo $selected_audio_track
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 echo "audio options passed to HandBrakeCLI are $audio_options"
 HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+cd $working_dir/temp
+rm *
+echo "############################################################## - $date: Script Complete - ##############################################################"
