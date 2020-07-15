@@ -60,7 +60,7 @@ cd $working_dir/temp
 #+---Handbrake Titles Scan---+
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
-HandBrakeCLI --json -i $source_loc -t 0 --main-feature > titles_scan.json
+HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
 #+---------------------------+
 #+---"Identify Main Title"---+
 #+---------------------------+
@@ -83,7 +83,7 @@ echo $auto_find_main_feature
 #+---"Get main title details"---+
 #+------------------------------+
 #now we know the main title we scan it using handbrake and dump into another .json file
-HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan &> main_feature_scan.json
+HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
 #
 #
 #+------------------------------------------------------+
