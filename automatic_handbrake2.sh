@@ -187,4 +187,5 @@ echo $selected_audio_track
 #+-------------------------------+
 #insert the audio selection into the audio_options variable
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
-#HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+echo "audio options passed to HandBrakeCLI are $audio_options"
+HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
