@@ -60,8 +60,7 @@ cd $working_dir/temp
 #+---Handbrake Titles Scan---+
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
-HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
-
+HandBrakeCLI --json -i $source_loc -t 0 --main-feature > titles_scan.json
 #+---------------------------+
 #+---"Identify Main Title"---+
 #+---------------------------+
@@ -102,7 +101,7 @@ sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
 #and now we need to add ']' to the end of the file
 echo "]" >> main_feature_scan_trimmed.json
 #now trim out the error line where '  HandBrake has exited.' is in the middle of the .json data
-sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
+#sed -i '/  HandBrake has exited./d' main_feature_scan_trimmed.json
 #at this point the data is ready for 'parsing'
 #
 #
