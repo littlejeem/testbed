@@ -7,7 +7,7 @@ echo "############################################################## - $date: Sc
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
-while getopts t:q:c: flag
+while getopts r:e:t:q:c:d: flag
 do
     case "${flag}" in
         r) rip_only=${OPTARG};;
