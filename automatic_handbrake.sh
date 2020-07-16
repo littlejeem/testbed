@@ -217,6 +217,8 @@ echo "audio options passed to HandBrakeCLI are $audio_options"
 if [[ $title_override != "" ]]; then
   source_options="-t $title_override"
 fi
+echo "source options are: $source_options"
+echo "source options are: $source_options" >> $log
 #
 #
 HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
