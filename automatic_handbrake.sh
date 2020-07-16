@@ -110,7 +110,7 @@ if [[ $title_override == "" ]]; then
   HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
   #
 elif [[ $title_override != "" ]]; then
-  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+  HandBrakeCLI --json -i $source_loc -t $title_override --scan > main_feature_scan.json
 fi
 #
 #
