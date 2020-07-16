@@ -2,11 +2,31 @@
 #
 #
 log=/home/jlivin25/bin/scriptlogs/automatic_handbrake2.log
-echo "############################################################## - $date: Script Complete - ##############################################################" > $log
+echo "############################################################## - $date: Script Started - ##############################################################"
+echo "############################################################## - $date: Script Started - ##############################################################" > $log
+#+----------------------------------------------+
+#+---"Read In Command Line Overrides (flags)"---+
+#+----------------------------------------------+
+while getopts t:q: flag
+do
+    case "${flag}" in
+        t) title_override=${OPTARG};;
+        q) quality_override=${OPTARG};;
+    esac
+done
+echo "title: $title_override";
+echo "title: $title_override"; >> $log
+echo "quality override: $quality_override";
+echo "quality override: $quality_override"; >> $log
+#
+#
 #+----------------------------+
 #+---Configure Disc Ripping---+
 #+----------------------------+
-quality="20.0"
+if [[ $quality_override == "" ]]; then
+  quality="18.0"
+  echo $quality
+fi
 source_drive="disc:0"
 dev_drive="/dev/sr0"
 working_dir="/home/jlivin25/Rips"
@@ -14,7 +34,7 @@ rip_dest="blurays"
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
-makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
+#makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
 #
 #
 #+-------------------------------+
@@ -50,32 +70,36 @@ cd $working_dir/temp
 #+---Handbrake Titles Scan---+
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
-HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
-#
-#
-#+---------------------------+
-#+---"Identify Main Title"---+
-#+---------------------------+
-#we search the file created in Handbrake Title Scan for the main titles and store in a variable
-auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
-echo "$auto_find_main_feature" >> $log
-echo $auto_find_main_feature
-############################################################################################
-### NEED SOME KIND OF TEST TO IDENTIFY IF THIS HAS FAILED AND USE ALTERNATIVE METHOD?    ###
-### SOMETHING LIKE IF $main_feature IS EMPTY DO ALTERNATIVE ACTION, ELSE DO THE NEXT BIT ###
-############################################################################################
-#
-#we cut unwanted "Found main feature title " text from the variable
-auto_find_main_feature=${auto_find_main_feature:25}
-echo "auto_find_main_feature cut to $auto_find_main_feature" >> $log
-echo $auto_find_main_feature
-#
-#
-#+------------------------------+
-#+---"Get main title details"---+
-#+------------------------------+
-#now we know the main title we scan it using handbrake and dump into another .json file
-HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+if [[ $title_override == "" ]]; then
+  HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
+  #
+  #
+  #+---------------------------+
+  #+---"Identify Main Title"---+
+  #+---------------------------+
+  #we search the file created in Handbrake Title Scan for the main titles and store in a variable
+  auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
+  echo "$auto_find_main_feature" >> $log
+  echo $auto_find_main_feature
+  #we cut unwanted "Found main feature title " text from the variable
+  auto_find_main_feature=${auto_find_main_feature:25}
+  echo "auto_find_main_feature cut to $auto_find_main_feature" >> $log
+  echo $auto_find_main_feature
+  ############################################################################################
+  ### NEED SOME KIND OF TEST TO IDENTIFY IF THIS HAS FAILED AND USE ALTERNATIVE METHOD?    ###
+  ### SOMETHING LIKE IF $main_feature IS EMPTY DO ALTERNATIVE ACTION, ELSE DO THE NEXT BIT ###
+  ############################################################################################
+  #
+  #
+  #+------------------------------+
+  #+---"Get main title details"---+
+  #+------------------------------+
+  #now we know the main title we scan it using handbrake and dump into another .json file
+  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+  #
+elif [[ $title_override != "" ]]; then
+  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+fi
 #
 #
 #+------------------------------------------------------+
