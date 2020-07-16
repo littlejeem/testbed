@@ -16,9 +16,11 @@ do
     esac
 done
 echo "title: $title_override";
-echo "title: $title_override"; >> $log
+echo "title: $title_override" >> $log
 echo "quality override: $quality_override";
-echo "quality override: $quality_override"; >> $log
+echo "quality override: $quality_override" >> $log
+echo "title: $clean_override";
+echo "title: $clean_override" >> $log
 #
 #
 #+----------------------------+
