@@ -214,7 +214,14 @@ echo $selected_audio_track
 #insert the audio selection into the audio_options variable
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 echo "audio options passed to HandBrakeCLI are $audio_options"
+if [[ $title_override != "" ]]; then
+  source_options=""
+fi
+#
+#
 HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+#
+#
 if [[ $clean_override != "1" ]]; then
   cd $working_dir/temp
   rm *
