@@ -7,11 +7,12 @@ echo "############################################################## - $date: Sc
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
-while getopts t:q: flag
+while getopts t:q:c: flag
 do
     case "${flag}" in
         t) title_override=${OPTARG};;
         q) quality_override=${OPTARG};;
+        c) clean_override=${OPTARG};;
     esac
 done
 echo "title: $title_override";
@@ -203,6 +204,8 @@ echo $selected_audio_track
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 echo "audio options passed to HandBrakeCLI are $audio_options"
 HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
-cd $working_dir/temp
-rm *
+if [[ $clean_override != "1" ]]; then
+  cd $working_dir/temp
+  rm *
+fi
 echo "############################################################## - $date: Script Complete - ##############################################################"
