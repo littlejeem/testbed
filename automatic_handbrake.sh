@@ -215,7 +215,7 @@ echo $selected_audio_track
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 echo "audio options passed to HandBrakeCLI are $audio_options"
 if [[ $title_override != "" ]]; then
-  source_options=""
+  source_options="-t $title_override"
 fi
 #
 #
