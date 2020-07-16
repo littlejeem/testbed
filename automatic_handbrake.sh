@@ -10,17 +10,26 @@ echo "############################################################## - $date: Sc
 while getopts t:q:c: flag
 do
     case "${flag}" in
+        r) rip_only=${OPTARG};;
+        e) encde_only=${OPTARG};;
         t) title_override=${OPTARG};;
         q) quality_override=${OPTARG};;
         c) clean_override=${OPTARG};;
+        d) delete_override=${OPTARG};;
     esac
 done
+echo "only rip blu-ray, no encode: $rip_only";
+echo "only rip blu-ray, no encode: $rip_only" >> $log
+echo "only encode, no rip: $encode_only";
+echo "only encode, no rip: $encode_only" >> $log
 echo "title: $title_override";
 echo "title: $title_override" >> $log
 echo "quality override: $quality_override";
 echo "quality override: $quality_override" >> $log
 echo "title: $clean_override";
 echo "title: $clean_override" >> $log
+echo "delete_source: $delete_override";
+echo "delete_source: $delete_override" >> $log
 #
 #
 #+----------------------------+
