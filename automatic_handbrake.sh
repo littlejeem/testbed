@@ -46,7 +46,10 @@ rip_dest="blurays"
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
-#makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
+#
+if [[ $encode_only != "y" ]]; then
+  makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
+fi
 #
 #
 #+-------------------------------+
@@ -225,7 +228,9 @@ echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o
 echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options" >> $log
 #
 #
-HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+if [[ $rip_only != "y" ]]; then
+  HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+fi
 #
 #
 if [[ $clean_override != "1" ]]; then
