@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 assigned_user="jlivin25"
+dir_name="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 #
 #+------------------------------------+
 #+---"Test for root running script"---+
@@ -33,9 +34,18 @@ apt install -y libchromaprint-tools
 #+--------------------------------+
 # conversion destinations
 mkdir -p $HOME/Music/Library/alacimports
-mkdir -p $HOME/Music/Library/flacimports/
-mkdir -p $HOME/Music/Library/PlayUploads/
+mkdir -p $HOME/Music/Library/flacimports
+mkdir -p $HOME/Music/Library/PlayUploads
 # library file sources
-mkdir -p $HOME/.config/beets/alac/
-mkdir -p $HOME/.config/beets/flac/
-mkdir -p $HOME/.config/beets/upload/
+mkdir -p $HOME/.config/beets/alac
+mkdir -p $HOME/.config/beets/flac
+mkdir -p $HOME/.config/beets/upload
+#
+#
+#+-------------------------+
+#+---"Copy config files"---+
+#+-------------------------+
+cp $dir_name/alac_config.yaml $HOME/.config/beets/alac
+cp $dir_name/alac_config.yaml $HOME/.config/beets/flac
+cp $dir_name/alac_config.yaml $HOME/.config/beets/PlayUploads
+#
