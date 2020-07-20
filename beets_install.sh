@@ -39,13 +39,14 @@ mkdir -p $HOME/Music/Library/PlayUploads
 # library file sources
 mkdir -p $HOME/.config/beets/alac
 mkdir -p $HOME/.config/beets/flac
-mkdir -p $HOME/.config/beets/upload
+mkdir -p $HOME/.config/beets/uploads
 #
 #
 #+-------------------------+
 #+---"Copy config files"---+
 #+-------------------------+
-cp $dir_name/alac_config.yaml $HOME/.config/beets/alac
-cp $dir_name/alac_config.yaml $HOME/.config/beets/flac
-cp $dir_name/alac_config.yaml $HOME/.config/beets/PlayUploads
+cp $dir_name/alac_config.yaml $HOME/.config/beets/alac/
+cp $dir_name/flac_config.yaml $HOME/.config/beets/flac/
+cp $dir_name/uploads_config.yaml $HOME/.config/beets/uploads/
+#
 #
