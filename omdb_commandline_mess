@@ -1,1 +1,2 @@
+#!/usr/bin/env bash
 result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=f4c0ee09&t=harry+potter+and+the+deathly+hallows")
