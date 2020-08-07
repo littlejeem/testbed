@@ -1,2 +1,11 @@
 #!/usr/bin/env bash
+#
+#this works for accessing OMDB api
 result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=f4c0ee09&t=harry+potter+and+the+deathly+hallows")
+#
+#this works for grabbing the movie duration from OMDB
+duration=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=f4c0ee09&t=harry+potter+and+the+deathly+hallows" | jq --raw-output '.Runtime')
+#
+#this works for grabbing the name from bluray
+bluray_name_grab=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json)
+#
