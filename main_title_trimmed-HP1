@@ -1,0 +1,5136 @@
+[
+{
+    "MainFeature": 13,
+    "TitleList": [
+        {
+            "AngleCount": 1,
+            "AudioList": [],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 12,
+                        "Ticks": 1054802
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22524
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                78,
+                78,
+                362,
+                360
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 11,
+                "Ticks": 1077326
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 1,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 0,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 17,
+                        "Ticks": 1512760
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22522
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                164,
+                172,
+                294,
+                298
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 17,
+                "Ticks": 1535282
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 2,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 1,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 448000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 11,
+                        "Ticks": 968466
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22524
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 11,
+                "Ticks": 990990
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 3,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 2,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 7"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 8"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 9"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 10"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 11"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 12"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 13"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 14"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 15"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 16"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 17"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 18"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 19"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 20"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 21"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 22"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 23"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 24"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 25"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 26"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 27"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 28"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 29"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 30"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 31"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 32"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 900900
+                    },
+                    "Name": "Chapter 33"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 878376
+                    },
+                    "Name": "Chapter 34"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 18770
+                    },
+                    "Name": "Chapter 35"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                178,
+                140,
+                422,
+                420
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 5,
+                "Seconds": 40,
+                "Ticks": 30626846
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 4,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 7,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 10,
+                        "Ticks": 874622
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26278
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 10,
+                "Ticks": 900900
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 5,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 10,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1536000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 8192,
+                    "CodecName": "dca",
+                    "Description": "English (DTS) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 262144,
+                    "CodecName": "dca",
+                    "Description": "English (DTS-HD MA) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 640000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "español (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "español",
+                    "LanguageCode": "spa",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 640000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "català (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "català",
+                    "LanguageCode": "cat",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 640000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "čeština (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "čeština",
+                    "LanguageCode": "ces",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 19,
+                        "Ticks": 23265740
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 28,
+                        "Ticks": 29530750
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 30,
+                        "Ticks": 29662132
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 57,
+                        "Ticks": 21362590
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 51,
+                        "Ticks": 36959420
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 34,
+                        "Ticks": 30018736
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 6,
+                        "Ticks": 22098326
+                    },
+                    "Name": "Chapter 7"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 54,
+                        "Ticks": 31880598
+                    },
+                    "Name": "Chapter 8"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 8,
+                        "Ticks": 22327302
+                    },
+                    "Name": "Chapter 9"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 28,
+                        "Ticks": 24162888
+                    },
+                    "Name": "Chapter 10"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 49,
+                        "Ticks": 25975946
+                    },
+                    "Name": "Chapter 11"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 28,
+                        "Ticks": 18761242
+                    },
+                    "Name": "Chapter 12"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 10,
+                        "Ticks": 27916636
+                    },
+                    "Name": "Chapter 13"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 21,
+                        "Ticks": 34275488
+                    },
+                    "Name": "Chapter 14"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 29,
+                        "Ticks": 24185408
+                    },
+                    "Name": "Chapter 15"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 18,
+                        "Ticks": 23213190
+                    },
+                    "Name": "Chapter 16"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 29,
+                        "Ticks": 18787518
+                    },
+                    "Name": "Chapter 17"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 37,
+                        "Ticks": 14174158
+                    },
+                    "Name": "Chapter 18"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 8,
+                        "Ticks": 16929410
+                    },
+                    "Name": "Chapter 19"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 31,
+                        "Ticks": 24388110
+                    },
+                    "Name": "Chapter 20"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 6,
+                        "Ticks": 27545018
+                    },
+                    "Name": "Chapter 21"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 57,
+                        "Ticks": 26760480
+                    },
+                    "Name": "Chapter 22"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 17,
+                        "Ticks": 28490960
+                    },
+                    "Name": "Chapter 23"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 54,
+                        "Ticks": 31858074
+                    },
+                    "Name": "Chapter 24"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 43,
+                        "Ticks": 20056286
+                    },
+                    "Name": "Chapter 25"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 57,
+                        "Ticks": 21332560
+                    },
+                    "Name": "Chapter 26"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 14,
+                        "Ticks": 22875352
+                    },
+                    "Name": "Chapter 27"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 1,
+                        "Ticks": 21651628
+                    },
+                    "Name": "Chapter 28"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 33,
+                        "Ticks": 19196676
+                    },
+                    "Name": "Chapter 29"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 31,
+                        "Ticks": 8198190
+                    },
+                    "Name": "Chapter 30"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 18,
+                        "Ticks": 61009696
+                    },
+                    "Name": "Chapter 31"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22524
+                    },
+                    "Name": "Chapter 32"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                140,
+                140,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 2,
+                "Minutes": 26,
+                "Seconds": 5,
+                "Ticks": 788873032
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 10,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 100,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "dansk [PGS]",
+                    "LanguageCode": "dan",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "suomi [PGS]",
+                    "LanguageCode": "fin",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "íslenska [PGS]",
+                    "LanguageCode": "isl",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "norsk [PGS]",
+                    "LanguageCode": "nor",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "svenska [PGS]",
+                    "LanguageCode": "swe",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1536000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 8192,
+                    "CodecName": "dca",
+                    "Description": "English (DTS) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 262144,
+                    "CodecName": "dca",
+                    "Description": "English (DTS-HD MA) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 640000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "日本語 (AC3) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "日本語",
+                    "LanguageCode": "jpn",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 19,
+                        "Ticks": 23265740
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 28,
+                        "Ticks": 29530750
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 30,
+                        "Ticks": 29662132
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 57,
+                        "Ticks": 21362590
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 51,
+                        "Ticks": 36959420
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 34,
+                        "Ticks": 30018736
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 6,
+                        "Ticks": 22098326
+                    },
+                    "Name": "Chapter 7"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 54,
+                        "Ticks": 31880598
+                    },
+                    "Name": "Chapter 8"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 8,
+                        "Ticks": 22327302
+                    },
+                    "Name": "Chapter 9"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 28,
+                        "Ticks": 24162888
+                    },
+                    "Name": "Chapter 10"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 49,
+                        "Ticks": 25975946
+                    },
+                    "Name": "Chapter 11"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 28,
+                        "Ticks": 18761242
+                    },
+                    "Name": "Chapter 12"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 10,
+                        "Ticks": 27916636
+                    },
+                    "Name": "Chapter 13"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 21,
+                        "Ticks": 34275488
+                    },
+                    "Name": "Chapter 14"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 29,
+                        "Ticks": 24185408
+                    },
+                    "Name": "Chapter 15"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 18,
+                        "Ticks": 23213190
+                    },
+                    "Name": "Chapter 16"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 29,
+                        "Ticks": 18787518
+                    },
+                    "Name": "Chapter 17"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 37,
+                        "Ticks": 14174158
+                    },
+                    "Name": "Chapter 18"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 8,
+                        "Ticks": 16929410
+                    },
+                    "Name": "Chapter 19"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 31,
+                        "Ticks": 24388110
+                    },
+                    "Name": "Chapter 20"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 6,
+                        "Ticks": 27545018
+                    },
+                    "Name": "Chapter 21"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 57,
+                        "Ticks": 26760480
+                    },
+                    "Name": "Chapter 22"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 17,
+                        "Ticks": 28490960
+                    },
+                    "Name": "Chapter 23"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 54,
+                        "Ticks": 31858074
+                    },
+                    "Name": "Chapter 24"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 43,
+                        "Ticks": 20056286
+                    },
+                    "Name": "Chapter 25"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 57,
+                        "Ticks": 21332560
+                    },
+                    "Name": "Chapter 26"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 14,
+                        "Ticks": 22875352
+                    },
+                    "Name": "Chapter 27"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 1,
+                        "Ticks": 21651628
+                    },
+                    "Name": "Chapter 28"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 33,
+                        "Ticks": 19196676
+                    },
+                    "Name": "Chapter 29"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 31,
+                        "Ticks": 8198190
+                    },
+                    "Name": "Chapter 30"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 18,
+                        "Ticks": 61009696
+                    },
+                    "Name": "Chapter 31"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22524
+                    },
+                    "Name": "Chapter 32"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                140,
+                140,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 2,
+                "Minutes": 26,
+                "Seconds": 5,
+                "Ticks": 788873032
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 11,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 101,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 41,
+                        "Ticks": 3704950
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22522
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 41,
+                "Ticks": 3727472
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 12,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 120,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1536000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 8192,
+                    "CodecName": "dca",
+                    "Description": "English (DTS) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 262144,
+                    "CodecName": "dca",
+                    "Description": "English (DTS-HD MA) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 5,
+                        "Ticks": 16689170
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 33,
+                        "Ticks": 62394830
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 41,
+                        "Ticks": 9069060
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 55,
+                        "Ticks": 64384318
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 25,
+                        "Ticks": 40063772
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 43,
+                        "Ticks": 14673408
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 6,
+                        "Ticks": 38314524
+                    },
+                    "Name": "Chapter 7"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 56,
+                        "Ticks": 37436148
+                    },
+                    "Name": "Chapter 8"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 33,
+                        "Ticks": 13813798
+                    },
+                    "Name": "Chapter 9"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 59,
+                        "Ticks": 16148632
+                    },
+                    "Name": "Chapter 10"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 7,
+                        "Ticks": 27646368
+                    },
+                    "Name": "Chapter 11"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 34,
+                        "Ticks": 8449690
+                    },
+                    "Name": "Chapter 12"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 7,
+                        "Ticks": 38400862
+                    },
+                    "Name": "Chapter 13"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 27,
+                        "Ticks": 24054026
+                    },
+                    "Name": "Chapter 14"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 8,
+                        "Ticks": 33104320
+                    },
+                    "Name": "Chapter 15"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 14,
+                        "Ticks": 28231950
+                    },
+                    "Name": "Chapter 16"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 58,
+                        "Ticks": 21441418
+                    },
+                    "Name": "Chapter 17"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 59,
+                        "Ticks": 26880604
+                    },
+                    "Name": "Chapter 18"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 8,
+                        "Seconds": 26,
+                        "Ticks": 45506710
+                    },
+                    "Name": "Chapter 19"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 43,
+                        "Ticks": 14695928
+                    },
+                    "Name": "Chapter 20"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 8,
+                        "Seconds": 27,
+                        "Ticks": 45589292
+                    },
+                    "Name": "Chapter 21"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 28,
+                        "Ticks": 13280764
+                    },
+                    "Name": "Chapter 22"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 9,
+                        "Seconds": 18,
+                        "Ticks": 50195144
+                    },
+                    "Name": "Chapter 23"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 43,
+                        "Ticks": 41632838
+                    },
+                    "Name": "Chapter 24"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 21,
+                        "Ticks": 12695180
+                    },
+                    "Name": "Chapter 25"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 29,
+                        "Ticks": 61970658
+                    },
+                    "Name": "Chapter 26"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 9,
+                        "Ticks": 6253744
+                    },
+                    "Name": "Chapter 27"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 47,
+                        "Ticks": 9662152
+                    },
+                    "Name": "Chapter 28"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 4,
+                        "Ticks": 21970698
+                    },
+                    "Name": "Chapter 29"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 26,
+                        "Ticks": 61707896
+                    },
+                    "Name": "Chapter 30"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 6,
+                        "Ticks": 514262
+                    },
+                    "Name": "Chapter 31"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26278
+                    },
+                    "Name": "Chapter 32"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                136,
+                140,
+                0,
+                80
+            ],
+            "Duration": {
+                "Hours": 2,
+                "Minutes": 47,
+                "Seconds": 56,
+                "Ticks": 906898442
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 13,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 200,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 36,
+                        "Ticks": 14024010
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 2,
+                "Seconds": 36,
+                "Ticks": 14050286
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 14,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 201,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 1,
+                        "Ticks": 21670398
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 4,
+                "Seconds": 1,
+                "Ticks": 21696674
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 15,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 202,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 51,
+                        "Ticks": 15371606
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 2,
+                "Seconds": 51,
+                "Ticks": 15397882
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 16,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 203,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 48,
+                        "Ticks": 20544272
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26278
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                48,
+                2
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 3,
+                "Seconds": 48,
+                "Ticks": 20570550
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 17,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 204,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 18,
+                        "Ticks": 12458696
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22522
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 2,
+                "Seconds": 18,
+                "Ticks": 12481218
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 18,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 205,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 45,
+                        "Ticks": 20281510
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 3,
+                "Seconds": 45,
+                "Ticks": 20307786
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 19,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 206,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 36,
+                        "Ticks": 14050286
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 1,
+                        "Ticks": 21696674
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 19,
+                        "Ticks": 12481218
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 51,
+                        "Ticks": 15397882
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 49,
+                        "Ticks": 20570550
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 45,
+                        "Ticks": 20281510
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 7"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 19,
+                "Seconds": 21,
+                "Ticks": 104504396
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 20,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 207,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "español [PGS]",
+                    "LanguageCode": "spa",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "العربية [PGS]",
+                    "LanguageCode": "ara",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "čeština [PGS]",
+                    "LanguageCode": "ces",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "slovenčina [PGS]",
+                    "LanguageCode": "slk",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1536000,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 8192,
+                    "CodecName": "dca",
+                    "Description": "English (DTS) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                },
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 1,
+                    "ChannelCount": 6,
+                    "ChannelLayout": 1551,
+                    "ChannelLayoutName": "5.1(side)",
+                    "Codec": 262144,
+                    "CodecName": "dca",
+                    "Description": "English (DTS-HD MA) (5.1 ch)",
+                    "LFECount": 1,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 5,
+                        "Ticks": 16689170
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 33,
+                        "Ticks": 62394830
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 41,
+                        "Ticks": 9069060
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 55,
+                        "Ticks": 64384318
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 25,
+                        "Ticks": 40063772
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 43,
+                        "Ticks": 14673408
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 6,
+                        "Ticks": 38314524
+                    },
+                    "Name": "Chapter 7"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 56,
+                        "Ticks": 37436148
+                    },
+                    "Name": "Chapter 8"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 33,
+                        "Ticks": 13813798
+                    },
+                    "Name": "Chapter 9"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 59,
+                        "Ticks": 16148632
+                    },
+                    "Name": "Chapter 10"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 7,
+                        "Ticks": 27646368
+                    },
+                    "Name": "Chapter 11"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 34,
+                        "Ticks": 8449690
+                    },
+                    "Name": "Chapter 12"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 7,
+                        "Ticks": 38400862
+                    },
+                    "Name": "Chapter 13"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 27,
+                        "Ticks": 24054026
+                    },
+                    "Name": "Chapter 14"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 6,
+                        "Seconds": 8,
+                        "Ticks": 33104320
+                    },
+                    "Name": "Chapter 15"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 5,
+                        "Seconds": 14,
+                        "Ticks": 28231950
+                    },
+                    "Name": "Chapter 16"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 58,
+                        "Ticks": 21441418
+                    },
+                    "Name": "Chapter 17"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 59,
+                        "Ticks": 26880604
+                    },
+                    "Name": "Chapter 18"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 8,
+                        "Seconds": 26,
+                        "Ticks": 45506710
+                    },
+                    "Name": "Chapter 19"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 43,
+                        "Ticks": 14695928
+                    },
+                    "Name": "Chapter 20"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 8,
+                        "Seconds": 27,
+                        "Ticks": 45589292
+                    },
+                    "Name": "Chapter 21"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 28,
+                        "Ticks": 13280764
+                    },
+                    "Name": "Chapter 22"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 9,
+                        "Seconds": 18,
+                        "Ticks": 50195144
+                    },
+                    "Name": "Chapter 23"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 7,
+                        "Seconds": 43,
+                        "Ticks": 41632838
+                    },
+                    "Name": "Chapter 24"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 21,
+                        "Ticks": 12695180
+                    },
+                    "Name": "Chapter 25"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 29,
+                        "Ticks": 61970658
+                    },
+                    "Name": "Chapter 26"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 9,
+                        "Ticks": 6253744
+                    },
+                    "Name": "Chapter 27"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 1,
+                        "Seconds": 47,
+                        "Ticks": 9662152
+                    },
+                    "Name": "Chapter 28"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 4,
+                        "Ticks": 21970698
+                    },
+                    "Name": "Chapter 29"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 11,
+                        "Seconds": 26,
+                        "Ticks": 61707896
+                    },
+                    "Name": "Chapter 30"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 6,
+                        "Ticks": 514262
+                    },
+                    "Name": "Chapter 31"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26278
+                    },
+                    "Name": "Chapter 32"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                136,
+                140,
+                0,
+                80
+            ],
+            "Duration": {
+                "Hours": 2,
+                "Minutes": 47,
+                "Seconds": 56,
+                "Ticks": 906898442
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 21,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 300,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 36,
+                        "Ticks": 14024010
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 2,
+                "Seconds": 36,
+                "Ticks": 14050286
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 22,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 301,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 1,
+                        "Ticks": 21670398
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 4,
+                "Seconds": 1,
+                "Ticks": 21696674
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 23,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 302,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 51,
+                        "Ticks": 15371606
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 2,
+                "Seconds": 51,
+                "Ticks": 15397882
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 24,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 303,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 48,
+                        "Ticks": 20544272
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26278
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                48,
+                2
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 3,
+                "Seconds": 48,
+                "Ticks": 20570550
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 25,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 304,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 18,
+                        "Ticks": 12458696
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 22522
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 2,
+                "Seconds": 18,
+                "Ticks": 12481218
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 26,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 305,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 45,
+                        "Ticks": 20281510
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 2"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 3,
+                "Seconds": 45,
+                "Ticks": 20307786
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 27,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 306,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [
+                {
+                    "Attributes": {
+                        "AltCommentary": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Normal": false,
+                        "Secondary": false,
+                        "VisuallyImpaired": false
+                    },
+                    "BitRate": 192000,
+                    "ChannelCount": 2,
+                    "ChannelLayout": 1610612736,
+                    "ChannelLayoutName": "downmix",
+                    "Codec": 2048,
+                    "CodecName": "ac3",
+                    "Description": "English (AC3) (2.0 ch) (Dolby Surround)",
+                    "LFECount": 0,
+                    "Language": "English",
+                    "LanguageCode": "eng",
+                    "SampleRate": 48000
+                }
+            ],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 36,
+                        "Ticks": 14050286
+                    },
+                    "Name": "Chapter 1"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 4,
+                        "Seconds": 1,
+                        "Ticks": 21696674
+                    },
+                    "Name": "Chapter 2"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 19,
+                        "Ticks": 12481218
+                    },
+                    "Name": "Chapter 3"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 2,
+                        "Seconds": 51,
+                        "Ticks": 15397882
+                    },
+                    "Name": "Chapter 4"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 49,
+                        "Ticks": 20570550
+                    },
+                    "Name": "Chapter 5"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 3,
+                        "Seconds": 45,
+                        "Ticks": 20281510
+                    },
+                    "Name": "Chapter 6"
+                },
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 0,
+                        "Ticks": 26276
+                    },
+                    "Name": "Chapter 7"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                6,
+                6,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 19,
+                "Seconds": 21,
+                "Ticks": 104504396
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 28,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 307,
+            "SubtitleList": [
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "日本語 [PGS]",
+                    "LanguageCode": "jpn",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                },
+                {
+                    "Attributes": {
+                        "4By3": false,
+                        "Children": false,
+                        "ClosedCaption": false,
+                        "Commentary": false,
+                        "Default": false,
+                        "Forced": false,
+                        "Large": false,
+                        "Letterbox": false,
+                        "Normal": false,
+                        "PanScan": false,
+                        "Wide": false
+                    },
+                    "Format": "bitmap",
+                    "Language": "English [PGS]",
+                    "LanguageCode": "eng",
+                    "Source": 7,
+                    "SourceName": "PGS"
+                }
+            ],
+            "Type": 1,
+            "VideoCodec": "h264"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 15,
+                        "Ticks": 1351350
+                    },
+                    "Name": "Chapter 1"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 15,
+                "Ticks": 1351350
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 29,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 900,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "vc1"
+        },
+        {
+            "AngleCount": 1,
+            "AudioList": [],
+            "ChapterList": [
+                {
+                    "Duration": {
+                        "Hours": 0,
+                        "Minutes": 0,
+                        "Seconds": 15,
+                        "Ticks": 1351350
+                    },
+                    "Name": "Chapter 1"
+                }
+            ],
+            "Color": {
+                "Matrix": 1,
+                "Primary": 1,
+                "Transfer": 1
+            },
+            "Crop": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "Duration": {
+                "Hours": 0,
+                "Minutes": 0,
+                "Seconds": 15,
+                "Ticks": 1351350
+            },
+            "FrameRate": {
+                "Den": 1126125,
+                "Num": 27000000
+            },
+            "Geometry": {
+                "Height": 1080,
+                "PAR": {
+                    "Den": 1,
+                    "Num": 1
+                },
+                "Width": 1920
+            },
+            "Index": 30,
+            "InterlaceDetected": false,
+            "Metadata": {},
+            "Name": "Harry Potter and the Deathly Hallows Part 1",
+            "Path": "/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1",
+            "Playlist": 901,
+            "SubtitleList": [],
+            "Type": 1,
+            "VideoCodec": "vc1"
+        }
+    ]
+}
+
+]
