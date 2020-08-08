@@ -150,6 +150,8 @@ echo "]" >> main_feature_scan_trimmed.json
 #+-----------------------+
 #+---"Parse JSON Data"---+
 #+-----------------------+
+#this command uses 'jq' and will extract the Name of the movie according to the bluray data with spaces replaced by underscores
+feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #
@@ -157,13 +159,17 @@ main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_s
 #+--------------------------+
 #+---Get OMDB information---+
 #+--------------------------+
+#OMDB Syntax is: http://www.omdbapi.com /? SEARCHTERM & apikey=APIKEY
+#eg https://www.omdbapi.com/?t=Harry%20Potter&apikey=452a0e3
 echo "submitting info to omdb"
 echo "submitting info to omdb" >> $log
-omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=$omdb_apikey=$bluray_name")
+omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
 echo "returned data from omdb is $omdb_title_result"
 echo "returned data from omdb is $omdb_title_result" >> $log
-omdb_runtime_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=$omdb_apikey=$bluray_name" | jq --raw-output '.Runtime')
-echo "omdb runtime is $omdb_runtime_result"
+#
+omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
+omdb_runtime_result=${omdb_runtime_result%????}
+echo "omdb runtime is $omdb_runtime_result mins"
 echo "omdb runtime is $omdb_runtime_result" >> $log
 #
 #
