@@ -39,6 +39,38 @@ echo "delete_source: $delete_override" >> $log
 source /home/jlivin25/bin/omdb_key
 #
 #
+#+-------------------+
+#+---Set functions---+
+#+-------------------+
+function convert_secs () {
+  #from here https://stackoverflow.com/questions/12199631/convert-seconds-to-hours-minutes-seconds
+  num=$(secs)
+  min=0
+  hour=0
+  if((num>59));then
+      ((sec=num%60))
+      ((num=num/60))
+          if((num>59));then
+          ((min=num%60))
+          ((num=num/60))
+              if((num>23));then
+                  ((hour=num%24))
+              else
+                  ((hour=num))
+              fi
+          else
+              ((min=num))
+          fi
+      else
+      ((sec=num))
+  fi
+  hour=`seq -w 00 $hour | tail -n 1`
+  min=`seq -w 00 $min | tail -n 1`
+  sec=`seq -w 00 $sec | tail -n 1`
+  printf "$day:$hour:$min"
+}
+#
+#
 #+----------------------------+
 #+---Configure Disc Ripping---+
 #+----------------------------+
@@ -176,9 +208,16 @@ omdb_runtime_result=${omdb_runtime_result%????}
 echo "omdb runtime is $omdb_runtime_result mins"
 echo "omdb runtime is $omdb_runtime_result" >> $log
 
-#+-----------------------------
-#
-
+#+-------------------------------+
+#+---Sanity check chosen title---+
+#+-------------------------------+
+#add some checking of chosen title
+#FIRST NEED TO FIND WAY TO CONVERT $omdb_runtime_result to seconds
+secs=
+#now we convert seconds to HH:MM using defined function
+check=$(convert_secs)
+#we use this to grep handbrake titles_scan.json. -A is lines after, -B lines before, -C is for both, the didgit is how many
+grep -C 2 $check titles_scan.json
 #
 #
 #+--------------------------------+
