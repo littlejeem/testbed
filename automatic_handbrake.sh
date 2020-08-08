@@ -43,8 +43,11 @@ source /home/jlivin25/bin/omdb_key
 #+----------------------------+
 if [[ $quality_override == "" ]]; then
   quality="18.0"
-  echo $quality
+else
+  quality=$(echo $quality_override)
 fi
+echo $quality
+echo "quality selected is $quality" >> $log
 source_drive="disc:0"
 dev_drive="/dev/sr0"
 working_dir="/home/jlivin25/Rips"
