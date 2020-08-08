@@ -83,9 +83,9 @@ subtitle_options="-N eng -F scan"
 #+---Temp directory---+
 #+--------------------+
 #make the working directory if no already exisiting
-mkdir -p $working_dir/temp
+mkdir -p $working_dir/temp/$bluray_name
 #this step is vital, otherwise the files below are created whereever the script is run from and will fail
-cd $working_dir/temp
+cd $working_dir/temp/$bluray_name
 #
 #
 #+---------------------------+
