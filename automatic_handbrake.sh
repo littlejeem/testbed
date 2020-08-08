@@ -50,15 +50,17 @@ echo $quality
 echo "quality selected is $quality" >> $log
 source_drive="disc:0"
 dev_drive="/dev/sr0"
-working_dir="/home/jlivin25/Rips"
-rip_dest="blurays"
+working_dir="/home/jlivin25"
+category="blurays"
+rip_dest="Rips"
+encode_dest="Encodes"
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
 #
 #
 if [[ $encode_only != "y" ]]; then
-  makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
+  makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 fi
 #
 #
@@ -72,9 +74,10 @@ fi
 #+---"User Set Options"---+
 #+------------------------+
 options="--no-dvdna"
-source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
+#source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
+source_loc="$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 source_options="--main-feature"
-output_loc="$working_dir"/"$rip_dest"/"$bluray_name".mkv
+output_loc="$working_dir"/"$encode_dest"/"$category"/"$bluray_name".mkv
 output_options="-f mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
 picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
@@ -154,12 +157,16 @@ main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_s
 #+--------------------------+
 #+---Get OMDB information---+
 #+--------------------------+
-curl http://www.omdbapi.com/?"$omdb_apikey"t=harry+potter+and+the+deathly+hallows+part+2 |
-runtime=$(curl 'https://www.omdbapi.com/?apikey=f4c0ee09&t=harry+potter+and+the+deathly+hallows' | jq --raw-output '.Runtime')
+echo "submitting info to omdb"
+echo "submitting info to omdb" >> $log
+omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=$omdb_apikey=$bluray_name")
+echo "returned data from omdb is $omdb_title_result"
+echo "returned data from omdb is $omdb_title_result" >> $log
+omdb_runtime_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?apikey=$omdb_apikey=$bluray_name" | jq --raw-output '.Runtime')
+echo "omdb runtime is $omdb_runtime_result"
+echo "omdb runtime is $omdb_runtime_result" >> $log
 #
 #
-
-
 #+--------------------------------+
 #+---Determine Availiable Audio---+
 #+--------------------------------+
