@@ -32,6 +32,12 @@ echo "delete_source: $delete_override";
 echo "delete_source: $delete_override" >> $log
 #
 #
+#+---------------------+
+#+---Source OMDB api---+
+#+---------------------+
+source /home/jlivin25/bin/omdb_key
+#
+#
 #+----------------------------+
 #+---Configure Disc Ripping---+
 #+----------------------------+
@@ -46,6 +52,7 @@ rip_dest="blurays"
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
+#
 #
 if [[ $encode_only != "y" ]]; then
   makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$bluray_name"
@@ -66,7 +73,7 @@ source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
 source_options="--main-feature"
 output_loc="$working_dir"/"$rip_dest"/"$bluray_name".mkv
 output_options="-f mkv"
-video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality"
+video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
 picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
 filter_options="--decomb"
 subtitle_options="-N eng -F scan"
@@ -86,7 +93,7 @@ cd $working_dir/temp
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
 if [[ $title_override == "" ]]; then
-  HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
+  HandBrakeCLI --json -i $source_loc -t 0 &> titles_scan.json
   #
   #
   #+---------------------------+
@@ -141,6 +148,15 @@ echo "]" >> main_feature_scan_trimmed.json
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #
 #
+#+--------------------------+
+#+---Get OMDB information---+
+#+--------------------------+
+curl http://www.omdbapi.com/?"$omdb_apikey"t=harry+potter+and+the+deathly+hallows+part+2 |
+runtime=$(curl 'https://www.omdbapi.com/?apikey=f4c0ee09&t=harry+potter+and+the+deathly+hallows' | jq --raw-output '.Runtime')
+#
+#
+
+
 #+--------------------------------+
 #+---Determine Availiable Audio---+
 #+--------------------------------+
