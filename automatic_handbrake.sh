@@ -2,8 +2,9 @@
 #
 #
 log=/home/jlivin25/bin/scriptlogs/automatic_handbrake2.log
-echo "############################################################## - $date: Script Started - ##############################################################"
-echo "############################################################## - $date: Script Started - ##############################################################" > $log
+logging_date=$(echo "`date +%d/%m/%Y` - `date +%H:%M:%S`")
+echo "############################################################## - $logging_date: Script Started - ##############################################################"
+echo "############################################################## - $logging_date: Script Started - ##############################################################" > $log
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
@@ -155,6 +156,9 @@ feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #
+chosen_title_duration=
+
+#
 #
 #+--------------------------+
 #+---Get OMDB information---+
@@ -171,6 +175,10 @@ omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
 omdb_runtime_result=${omdb_runtime_result%????}
 echo "omdb runtime is $omdb_runtime_result mins"
 echo "omdb runtime is $omdb_runtime_result" >> $log
+
+#+-----------------------------
+#
+
 #
 #
 #+--------------------------------+
@@ -249,8 +257,11 @@ echo $selected_audio_track
 #insert the audio selection into the audio_options variable
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 echo "audio options passed to HandBrakeCLI are $audio_options"
+echo "audio options passed to HandBrakeCLI are $audio_options" >> $log
 if [[ $title_override != "" ]]; then
   source_options="-t $title_override"
+  echo "title override selected, using $title_override"
+  echo "title override selected, using $title_override" >> $log
 fi
 echo "source options are: $source_options"
 echo "source options are: $source_options" >> $log
@@ -265,9 +276,9 @@ if [[ $rip_only != "y" ]]; then
 fi
 #
 #
-if [[ $clean_override != "1" ]]; then
+if [[ $clean_override != "y" ]]; then
   cd $working_dir/temp
   rm *
 fi
-echo "############################################################## - $date: Script Complete - ##############################################################"
-echo "############################################################## - $date: Script Complete - ##############################################################" >> $log
+echo "############################################################## - $logging_date: Script Complete - ##############################################################"
+echo "############################################################## - $logging_date: Script Complete - ##############################################################" >> $log
