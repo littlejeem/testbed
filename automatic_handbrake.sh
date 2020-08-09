@@ -75,7 +75,7 @@ function convert_secs () {
 #+---Configure Disc Ripping---+
 #+----------------------------+
 if [[ $quality_override == "" ]]; then
-  quality="18.0"
+  quality="19.0"
 else
   quality=$(echo $quality_override)
 fi
@@ -189,7 +189,6 @@ feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
 #
 chosen_title_duration=
-
 #
 #
 #+--------------------------+
@@ -213,10 +212,10 @@ echo "omdb runtime is $omdb_runtime_result" >> $log
 #+-------------------------------+
 #add some checking of chosen title
 #FIRST NEED TO FIND WAY TO CONVERT $omdb_runtime_result to seconds
-secs=
+secs=$((omdb_runtime_result*60))
 #now we convert seconds to HH:MM using defined function
 check=$(convert_secs)
-#we use this to grep handbrake titles_scan.json. -A is lines after, -B lines before, -C is for both, the didgit is how many
+#we use this to grep handbrake titles_scan.json. -A is lines after, -B lines before, -C is for both, the digit is how many
 grep -C 2 $check titles_scan.json
 #
 #
