@@ -55,7 +55,6 @@ function test_title_match () {
 }
 #
 #
-
 source /home/jlivin25/bin/omdb_key
 source_loc="/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_2"
 cd /home/jlivin25/Rips/temp/HARRY_POTTER_7_PART_2
@@ -73,6 +72,21 @@ echo $auto_find_main_feature
 auto_find_main_feature=${auto_find_main_feature:25}
 echo "auto_find_main_feature cut to $auto_find_main_feature" >> $log
 echo $auto_find_main_feature
+#+------------------------------------------------------+
+#+---"Trim unwanted text from main_feature_scan.json"---+
+#+------------------------------------------------------+
+#we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+#sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
+#we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+
+sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
+#now we need to delete the top line left as "JSON Title Set: {"
+sed -i '1d' main_feature_scan_trimmed.json
+#we now  need to insert a spare '{' & a '[' at the start of the file
+sed -i '1s/^/{\n/' main_feature_scan_trimmed.json
+sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
+#and now we need to add ']' to the end of the file
+echo "]" >> main_feature_scan_trimmed.json
 #
 #
 feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
