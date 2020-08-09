@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 #
-source_loc="/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_2"
 #
 function convert_secs () {
   #from here https://stackoverflow.com/questions/12199631/convert-seconds-to-hours-minutes-seconds
@@ -56,8 +55,10 @@ function test_title_match () {
 }
 #
 #
+
 source /home/jlivin25/bin/omdb_key
-cd $source_loc
+source_loc="/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_2"
+cd /home/jlivin25/Rips/temp/HARRY_POTTER_7_PART_2
 HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
 #
 #
