@@ -35,7 +35,7 @@ function test_title_match () {
   then
     echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
   else
-    echo "online check resulted in title(s) $title1, $title2 being identified. Neither match handbrakes automatically found main feature whcih is title $auto_find_main_feature, selecting one of these at random."
+    echo -e "${red_highlight} online check resulted in title(s) $title1, $title2 being identified. Neither match handbrakes automatically found main feature whcih is title $auto_find_main_feature, selecting one of these at random."
     rm main_feature_scan.json main_feature_scan_trimmed.json
     auto_find_main_feature=$(echo $title1)
     prep_title_file
@@ -58,6 +58,7 @@ function prep_title_file() {
 }
 #
 #
+red_highlight='\033[0;31m'
 source /home/jlivin25/bin/omdb_key
 source_loc="/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_2"
 cd /home/jlivin25/Rips/temp/HARRY_POTTER_7_PART_2
