@@ -36,7 +36,7 @@ function test_title_match () {
     echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
   else
     echo "online check resulted in title(s) $title1, $title2 being identified. Neither match handbrakes automatically found main feature whcih is title $auto_find_main_feature, selecting one of these at random."
-    rm main_feature_scan main_feature_scan_trimmed
+    rm main_feature_scan.json main_feature_scan_trimmed.json
     auto_find_main_feature=$(echo $title1)
     prep_title_file
   fi
