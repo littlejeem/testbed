@@ -35,8 +35,26 @@ function test_title_match () {
   then
     echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
   else
-    echo "online check resulted in title(s) $title1, $title2 being identified. Neither match handbrakes automatically found main feature whcih is title $auto_find_main_feature"
+    echo "online check resulted in title(s) $title1, $title2 being identified. Neither match handbrakes automatically found main feature whcih is title $auto_find_main_feature, selecting one of these at random."
+    rm main_feature_scan main_feature_scan_trimmed
+    auto_find_main_feature=$(echo $title1)
+    prep_title_file
   fi
+}
+#
+function prep_title_file() {
+  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+  #we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+  #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
+  #we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+  sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
+  #now we need to delete the top line left as "JSON Title Set: {"
+  sed -i '1d' main_feature_scan_trimmed.json
+  #we now  need to insert a spare '{' & a '[' at the start of the file
+  sed -i '1s/^/{\n/' main_feature_scan_trimmed.json
+  sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
+  #and now we need to add ']' to the end of the file
+  echo "]" >> main_feature_scan_trimmed.json
 }
 #
 #
@@ -65,23 +83,12 @@ echo $auto_find_main_feature
 
 #
 #
-HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
 #
 #
-#+------------------------------------------------------+
-#+---"Trim unwanted text from main_feature_scan.json"---+
-#+------------------------------------------------------+
-#we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
-#sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
-#we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
-sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
-#now we need to delete the top line left as "JSON Title Set: {"
-sed -i '1d' main_feature_scan_trimmed.json
-#we now  need to insert a spare '{' & a '[' at the start of the file
-sed -i '1s/^/{\n/' main_feature_scan_trimmed.json
-sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
-#and now we need to add ']' to the end of the file
-echo "]" >> main_feature_scan_trimmed.json
+#+-------------------------------------------------------------------------------------+
+#+---"Grab data from found title and trim unwanted text from main_feature_scan.json"---+
+#+-------------------------------------------------------------------------------------+
+prep_title_file
 #
 #
 #+---------------------+
@@ -97,7 +104,6 @@ echo $omdb_title_result
 #####################################################################
 #
 #
-
 #+---------------------------------------------+
 #+---Generate checking data from online info---+
 #+---------------------------------------------+
@@ -129,14 +135,3 @@ echo $title2
 #+------------------------------------+
 #
 test_title_match
-
-
-
-
-
-if [ $title2 == "" ]
-then
-  title_message2
-else
-  title_message1
-fi
