@@ -125,8 +125,6 @@ check=$(convert_secs)
 #
 title1=$(grep -B 2 $check titles_scan.json | awk 'NR==1')
 title2=$(grep -B 2 $check titles_scan.json | awk 'NR==5')
-echo $title1
-echo $title2
 title1=${title1: -2}
 title2=${title2: -2}
 echo $title1
