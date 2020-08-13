@@ -60,8 +60,8 @@ function prep_title_file() {
 #
 red_highlight='\033[0;31m'
 source /home/jlivin25/bin/omdb_key
-source_loc="/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_2"
-cd /home/jlivin25/Rips/temp/HARRY_POTTER_7_PART_2
+source_loc="/home/jlivin25/Rips/blurays/HARRY_POTTER_7_PART_1"
+cd /home/jlivin25/Rips/temp/HARRY_POTTER_7_PART_1
 #
 #
 HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
