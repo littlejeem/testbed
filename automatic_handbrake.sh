@@ -44,7 +44,7 @@ source /home/jlivin25/bin/omdb_key
 #+-------------------+
 function convert_secs () {
   #from here https://stackoverflow.com/questions/12199631/convert-seconds-to-hours-minutes-seconds
-  num=$(secs)
+  num=$(echo $secs)
   min=0
   hour=0
   if((num>59));then
@@ -67,7 +67,39 @@ function convert_secs () {
   hour=`seq -w 00 $hour | tail -n 1`
   min=`seq -w 00 $min | tail -n 1`
   sec=`seq -w 00 $sec | tail -n 1`
-  printf "$day:$hour:$min"
+  printf "$hour:$min"
+}
+#
+function test_title_match () {
+  if [[ "$auto_find_main_feature" = ["$title1""$title2"] ]]; then
+    #read this for the above https://stackoverflow.com/questions/22259259/bash-if-statement-to-check-if-string-is-equal-to-one-of-several-string-literals
+    echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
+  elif [[ "$title2" = "" ]]; then
+    #then title 1 is set but if $title2 is valid $title2 is set
+    echo -e "${red_highlight} online check resulted in title $title1 being identified. No match found to handbrakes automatically found main feature which is currently title $auto_find_main_feature,"
+    auto_find_main_feature=$(echo $title1)
+    prep_title_file
+  else
+    echo -e "${red_highlight} online check resulted in titles $title1, $title2 being identified. No match to handbrakes automatically found main feature which is title $auto_find_main_feature, selecting title2."
+    auto_find_main_feature=$(echo $title2)
+    #we choose title 2 when there are 2 detected as this a better than 50% of being right.
+    prep_title_file
+  fi
+}
+#
+function prep_title_file() {
+  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+  #we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+  #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
+  #we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
+  sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
+  #now we need to delete the top line left as "JSON Title Set: {"
+  sed -i '1d' main_feature_scan_trimmed.json
+  #we now  need to insert a spare '{' & a '[' at the start of the file
+  sed -i '1s/^/{\n/' main_feature_scan_trimmed.json
+  sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
+  #and now we need to add ']' to the end of the file
+  echo "]" >> main_feature_scan_trimmed.json
 }
 #
 #
@@ -135,9 +167,9 @@ if [[ $title_override == "" ]]; then
   HandBrakeCLI --json -i $source_loc -t 0 &> titles_scan.json
   #
   #
-  #+---------------------------+
-  #+---"Identify Main Title"---+
-  #+---------------------------+
+  #+--------------------------------------+
+  #+---"Identify Main Title - METHOD 1"---+
+  #+--------------------------------------+
   #we search the file created in Handbrake Title Scan for the main titles and store in a variable
   auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
   echo "$auto_find_main_feature" >> $log
@@ -146,17 +178,46 @@ if [[ $title_override == "" ]]; then
   auto_find_main_feature=${auto_find_main_feature:25}
   echo "auto_find_main_feature cut to $auto_find_main_feature" >> $log
   echo $auto_find_main_feature
-  ############################################################################################
-  ### NEED SOME KIND OF TEST TO IDENTIFY IF THIS HAS FAILED AND USE ALTERNATIVE METHOD?    ###
-  ### SOMETHING LIKE IF $main_feature IS EMPTY DO ALTERNATIVE ACTION, ELSE DO THE NEXT BIT ###
-  ############################################################################################
   #
   #
-  #+------------------------------+
-  #+---"Get main title details"---+
-  #+------------------------------+
-  #now we know the main title we scan it using handbrake and dump into another .json file
-  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+  #+-------------------------------------------------------------------------------------+
+  #+---"Grab data from found title and trim unwanted text from main_feature_scan.json"---+
+  #+-------------------------------------------------------------------------------------+
+  prep_title_file
+  #
+  #
+  #+---------------------+
+  #+---Get online data---+
+  #+---------------------+
+  feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
+  omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
+  echo $omdb_title_result
+  #
+  #
+  #+---------------------------------------------+
+  #+---Generate checking data from online info---+
+  #+---------------------------------------------+
+  omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
+  echo $omdb_runtime_result
+  omdb_runtime_result=${omdb_runtime_result%????}
+  echo "omdb runtime is $omdb_runtime_result mins"
+  echo $omdb_runtime_result
+  secs=$((omdb_runtime_result*60))
+  echo $secs
+  check=$(convert_secs)
+  title1=$(grep -B 2 $check titles_scan.json | awk 'NR==1')
+  title2=$(grep -B 2 $check titles_scan.json | awk 'NR==5')
+  title1=${title1: -2}
+  title2=${title2: -2}
+  echo $title1
+  echo $title2
+  #
+  #
+  #+------------------------------------+
+  #+---Method 1 checked against Method 2---+
+  #+------------------------------------+
+  test_title_match
+  #
   #
 elif [[ $title_override != "" ]]; then
   HandBrakeCLI --json -i $source_loc -t $title_override --scan > main_feature_scan.json
@@ -166,18 +227,7 @@ fi
 #+------------------------------------------------------+
 #+---"Trim unwanted text from main_feature_scan.json"---+
 #+------------------------------------------------------+
-#we use sed to take all text after (inclusive) "Version: {"from main_feature_scan.json and put it into main_feature_scan_trimmed.json
-#sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
-#we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
-sed -n '/JSON Title Set: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
-#now we need to delete the top line left as "JSON Title Set: {"
-sed -i '1d' main_feature_scan_trimmed.json
-#we now  need to insert a spare '{' & a '[' at the start of the file
-sed -i '1s/^/{\n/' main_feature_scan_trimmed.json
-sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
-#and now we need to add ']' to the end of the file
-echo "]" >> main_feature_scan_trimmed.json
-#at this point the data is ready for 'parsing'
+prep_title_file
 #
 #
 #+-----------------------+
@@ -187,36 +237,6 @@ echo "]" >> main_feature_scan_trimmed.json
 feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
 #this command pipes our trimmed file into 'jq' what we get out is a list of audio track names
 main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
-#
-chosen_title_duration=
-#
-#
-#+--------------------------+
-#+---Get OMDB information---+
-#+--------------------------+
-#OMDB Syntax is: http://www.omdbapi.com /? SEARCHTERM & apikey=APIKEY
-#eg https://www.omdbapi.com/?t=Harry%20Potter&apikey=452a0e3
-echo "submitting info to omdb"
-echo "submitting info to omdb" >> $log
-omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
-echo "returned data from omdb is $omdb_title_result"
-echo "returned data from omdb is $omdb_title_result" >> $log
-#
-omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
-omdb_runtime_result=${omdb_runtime_result%????}
-echo "omdb runtime is $omdb_runtime_result mins"
-echo "omdb runtime is $omdb_runtime_result" >> $log
-
-#+-------------------------------+
-#+---Sanity check chosen title---+
-#+-------------------------------+
-#add some checking of chosen title
-#FIRST NEED TO FIND WAY TO CONVERT $omdb_runtime_result to seconds
-secs=$((omdb_runtime_result*60))
-#now we convert seconds to HH:MM using defined function
-check=$(convert_secs)
-#we use this to grep handbrake titles_scan.json. -A is lines after, -B lines before, -C is for both, the digit is how many
-grep -C 2 $check titles_scan.json
 #
 #
 #+--------------------------------+
