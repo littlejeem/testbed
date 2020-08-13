@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 #
-log=/home/jlivin25/bin/scriptlogs/automatic_handbrake2.log
+log=/home/jlivin25/bin/scriptlogs/automatic_handbrake.log
 logging_date=$(echo "`date +%d/%m/%Y` - `date +%H:%M:%S`")
 echo "############################################################## - $logging_date: Script Started - ##############################################################"
 echo "############################################################## - $logging_date: Script Started - ##############################################################" > $log
@@ -164,7 +164,7 @@ cd $working_dir/temp/$bluray_name
 #+---------------------------+
 #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
 if [[ $title_override == "" ]]; then
-  HandBrakeCLI --json -i $source_loc -t 0 &> titles_scan.json
+  HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
   #
   #
   #+--------------------------------------+
