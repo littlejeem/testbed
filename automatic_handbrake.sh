@@ -335,7 +335,7 @@ echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o
 #
 #
 if [[ $rip_only == "" ]]; then
-  #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+  HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
 fi
 #
 #
