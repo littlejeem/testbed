@@ -144,7 +144,6 @@ fi
 options="--no-dvdna"
 #source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
 source_loc="$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-source_options="-t "$auto_find_main_feature""
 output_loc="$working_dir"/"$encode_dest"/"$category"/"$bluray_name".mkv
 output_options="-f mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
