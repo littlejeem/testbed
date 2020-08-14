@@ -21,16 +21,16 @@ do
 done
 echo "only rip blu-ray, no encode: $rip_only";
 echo "only rip blu-ray, no encode: $rip_only" >> $log
-echo "only encode, no rip: $encode_only";
-echo "only encode, no rip: $encode_only" >> $log
-echo "title: $title_override";
-echo "title: $title_override" >> $log
+echo "only encode, don't rip bluray: $encode_only";
+echo "only encode, don't rip bluray: $encode_only" >> $log
+echo "title override: $title_override";
+echo "title override: $title_override" >> $log
 echo "quality override: $quality_override";
 echo "quality override: $quality_override" >> $log
-echo "clean temp: $clean_override";
-echo "clean temp: $clean_override" >> $log
-echo "delete_source: $delete_override";
-echo "delete_source: $delete_override" >> $log
+echo "override cleaning temp files: $clean_override";
+echo "override cleaning temp files: $clean_override" >> $log
+echo "override deleting source files: $delete_override";
+echo "override deleting source files: $delete_override" >> $log
 #
 #
 #+---------------------+
@@ -74,15 +74,18 @@ function test_title_match () {
   if [[ "$auto_find_main_feature" = ["$title1""$title2"] ]]; then
     #read this for the above https://stackoverflow.com/questions/22259259/bash-if-statement-to-check-if-string-is-equal-to-one-of-several-string-literals
     echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
+    echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is" >> $log
   elif [[ "$title2" = "" ]]; then
     #then title 1 is set but if $title2 is valid $title2 is set
-    echo -e "${red_highlight} online check resulted in title $title1 being identified. No match found to handbrakes automatically found main feature which is currently title $auto_find_main_feature,"
+    echo -e "${red_highlight} online check resulted in title $title1 being identified. No match found to handbrakes automatically found main feature which is currently title $auto_find_main_feature."
+    echo -e "${red_highlight} online check resulted in title $title1 being identified. No match found to handbrakes automatically found main feature which is currently title $auto_find_main_feature." >> $log
     auto_find_main_feature=$(echo $title1)
     prep_title_file
   else
-    echo -e "${red_highlight} online check resulted in titles $title1, $title2 being identified. No match to handbrakes automatically found main feature which is title $auto_find_main_feature, selecting title2."
+    echo -e "${red_highlight} online check resulted in titles $title1, $title2 being identified. No match to handbrakes automatically found main feature which is title $auto_find_main_feature, selecting title $title2."
+    echo -e "${red_highlight} online check resulted in titles $title1, $title2 being identified. No match to handbrakes automatically found main feature which is title $auto_find_main_feature, selecting title $title2." >> $log
     auto_find_main_feature=$(echo $title2)
-    #we choose title 2 when there are 2 detected as this a better than 50% of being right.
+    #we choose title 2 when there are 2 detected as this better than 50% right most of the time imo.
     prep_title_file
   fi
 }
@@ -141,7 +144,7 @@ fi
 options="--no-dvdna"
 #source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
 source_loc="$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-source_options="--main-feature"
+source_options="-t "$auto_find_main_feature""
 output_loc="$working_dir"/"$encode_dest"/"$category"/"$bluray_name".mkv
 output_options="-f mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
@@ -317,7 +320,7 @@ audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,d
 echo "audio options passed to HandBrakeCLI are $audio_options"
 echo "audio options passed to HandBrakeCLI are $audio_options" >> $log
 if [[ $title_override != "" ]]; then
-  source_options="-t $title_override"
+  source_options="-t "$title_override""
   echo "title override selected, using $title_override"
   echo "title override selected, using $title_override" >> $log
 fi
@@ -330,7 +333,7 @@ echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o
 #
 #
 if [[ $rip_only != "y" ]]; then
-  HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+  #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
 fi
 #
 #
