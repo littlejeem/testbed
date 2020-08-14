@@ -319,15 +319,18 @@ echo $selected_audio_track
 audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 echo "audio options passed to HandBrakeCLI are $audio_options"
 echo "audio options passed to HandBrakeCLI are $audio_options" >> $log
+#use our found main feature from the work at the top...
+source_options="-t $auto_find_main_feature"
+#...but override it if override is set
 if [[ $title_override != "" ]]; then
   source_options="-t "$title_override""
   echo "title override selected, using $title_override"
   echo "title override selected, using $title_override" >> $log
 fi
+#dispaly what the result is
 echo "source options are: $source_options"
 echo "source options are: $source_options" >> $log
-#
-#
+#display the final full options passed to handbrake
 echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
 echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options" >> $log
 #
