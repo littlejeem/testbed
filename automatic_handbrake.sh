@@ -144,7 +144,6 @@ fi
 options="--no-dvdna"
 #source_loc="$working_dir"/"$rip_dest"/"$bluray_name"
 source_loc="$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-output_loc="$working_dir"/"$encode_dest"/"$category"/"$bluray_name".mkv
 output_options="-f mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
 picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
@@ -326,13 +325,14 @@ if [[ $title_override != "" ]]; then
   echo "title override selected, using $title_override"
   echo "title override selected, using $title_override" >> $log
 fi
-#dispaly what the result is
+#display what the result is
 echo "source options are: $source_options"
 echo "source options are: $source_options" >> $log
 #display the final full options passed to handbrake
 echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
 echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options" >> $log
-#
+#lets use our fancy name IF found online
+output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name".mkv
 #
 if [[ $rip_only == "" ]]; then
   HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
