@@ -8,15 +8,15 @@ echo "############################################################## - $logging_
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
-while getopts r:e:t:q:c:d: flag
+while getopts "r:e:t:q:c:d:" flag
 do
-    case "${flag}" in
-        r) rip_only=${OPTARG};;
-        e) encde_only=${OPTARG};;
-        t) title_override=${OPTARG};;
-        q) quality_override=${OPTARG};;
-        c) clean_override=${OPTARG};;
-        d) delete_override=${OPTARG};;
+    case "$flag" in
+        r ) rip_only="$OPTARG" ;;
+        e ) encde_only="$OPTARG" ;;
+        t ) title_override="$OPTARG" ;;
+        q ) quality_override="$OPTARG" ;;
+        c ) clean_override="$OPTARG" ;;
+        d ) delete_override="$OPTARG" ;;
     esac
 done
 echo "only rip blu-ray, no encode: $rip_only";
