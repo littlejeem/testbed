@@ -127,7 +127,7 @@ bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
 #
 #
-if [[ $encode_only == "" ]]; then
+if [ "$encode_only" = "" ]; then
   makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 fi
 #
@@ -321,7 +321,7 @@ echo "audio options passed to HandBrakeCLI are $audio_options" >> $log
 source_options="-t $auto_find_main_feature"
 #...but override it if override is set
 if [[ $title_override != "" ]]; then
-  source_options="-t "$title_override""
+  source_options=-"t $title_override"
   echo "title override selected, using $title_override"
   echo "title override selected, using $title_override" >> $log
 fi
