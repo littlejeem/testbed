@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 #
 #
+#+---------------------------------------------+#
+#+---Use Geopts for flag selected parameters---+#
+#+---------------------------------------------+#
 while getopts t:q:s:c: flag
 do
     case "${flag}" in
@@ -11,6 +14,11 @@ do
     esac
 done
 
+
+#+---------------------------------------------+#
+#+---Test selected Geopts flags for validity---+#
+#+---------------------------------------------+#
+# -t
 if [[ $title_override == "" ]]; then
   echo "no title override applied"
 #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
@@ -20,19 +28,23 @@ elif echo "$title_override" | grep -qE '^[0-9]+$'; then
     echo "Error: -t is not a number."
     exit 2
 fi
-
+# -q
 if [[ $quality_override == "" ]]; then
   echo "no quality override applied"
-elif [[ $quality_override == "y" ]]; then
+#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
   echo -e "quality override selected, chosen title is $quality_override"
+else
+  echo "Error: -q is not a number."
+  exit 2
 fi
-
+# -s
 if [[ $source_clean_override == "" ]]; then
   echo "no source clean override selected"
 elif [[ $source_clean_override == "y" ]]; then
   echo -e "source clean override applied, not deleting source files"
 fi
-
+# -c
 if [[ $tmep_clean_override == "" ]]; then
   echo "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
