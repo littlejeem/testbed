@@ -5,32 +5,57 @@ log=/home/jlivin25/bin/scriptlogs/automatic_handbrake.log
 logging_date=$(echo "`date +%d/%m/%Y` - `date +%H:%M:%S`")
 echo "############################################################## - $logging_date: Script Started - ##############################################################"
 echo "############################################################## - $logging_date: Script Started - ##############################################################" > $log
+#
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
-while getopts "r:e:t:q:c:d:" flag
+while getopts t:q:s:c: flag
 do
-    case "$flag" in
-        r ) rip_only="$OPTARG" ;;
-        e ) encde_only="$OPTARG" ;;
-        t ) title_override="$OPTARG" ;;
-        q ) quality_override="$OPTARG" ;;
-        c ) clean_override="$OPTARG" ;;
-        d ) delete_override="$OPTARG" ;;
+    case "${flag}" in
+        r) rip_only=${OPTARG};;
+        e) encde_only=${OPTARG};;
+        t) title_override=${OPTARG};;
+        q) quality_override=${OPTARG};;
+        s) source_clean_override=${OPTARG};;
+        c) temp_clean_override=${OPTARG};;
     esac
 done
-echo "only rip blu-ray, no encode: $rip_only";
-echo "only rip blu-ray, no encode: $rip_only" >> $log
-echo "only encode, don't rip bluray: $encode_only";
-echo "only encode, don't rip bluray: $encode_only" >> $log
-echo "title override: $title_override";
-echo "title override: $title_override" >> $log
-echo "quality override: $quality_override";
-echo "quality override: $quality_override" >> $log
-echo "override cleaning temp files: $clean_override";
-echo "override cleaning temp files: $clean_override" >> $log
-echo "override deleting source files: $delete_override";
-echo "override deleting source files: $delete_override" >> $log
+#
+#+---------------------------------------------+#
+#+---Test selected Geopts flags for validity---+#
+#+---------------------------------------------+#
+# -t
+if [[ $title_override == "" ]]; then
+  echo "no title override applied"
+#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+elif echo "$title_override" | grep -qE '^[0-9]+$'; then
+  echo -e "title override selected, chosen title is $title_override"
+  else
+    echo "Error: -t is not a number."
+    exit 2
+fi
+# -q
+if [[ $quality_override == "" ]]; then
+  echo "no quality override applied"
+#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
+  echo -e "quality override selected, chosen title is $quality_override"
+else
+  echo "Error: -q is not a number."
+  exit 2
+fi
+# -s
+if [[ $source_clean_override == "" ]]; then
+  echo "no source clean override selected"
+elif [[ $source_clean_override == "y" ]]; then
+  echo -e "source clean override applied, not deleting source files"
+fi
+# -c
+if [[ $tmep_clean_override == "" ]]; then
+  echo "no temp files clean override selected"
+elif [[ $temp_clean_override == "y" ]]; then
+  echo -e "temp clean override applied, keeping temp files for debugging"
+fi
 #
 #
 #+---------------------+
