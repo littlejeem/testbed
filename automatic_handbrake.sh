@@ -172,7 +172,7 @@ bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
 #
 #
-if [ "$encode_only" = "" ]; then
+if [ "$encode_only" == "" ]; then
   makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 fi
 #
@@ -384,7 +384,7 @@ if [[ $rip_only == "" ]]; then
 fi
 #
 #
-if [[ $clean_override == "" ]]; then
+if [[ $temp_clean_override == "" ]]; then
   cd $working_dir/temp
   rm *
 fi
