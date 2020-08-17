@@ -1,0 +1,1 @@
+HandBrakeCLI --preset-export JAMES_HQ --preset-export-file JAMES_HQ.json --no-dvdna --main-feature -f mkv -e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q 18 --crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2 --decomb -N eng -F scan"
