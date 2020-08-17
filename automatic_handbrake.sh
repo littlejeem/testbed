@@ -9,11 +9,11 @@ echo "############################################################## - $logging_
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
-while getopts t:q:s:c: flag
+while getopts r:e:t:q:s:c: flag
 do
     case "${flag}" in
         r) rip_only=${OPTARG};;
-        e) encde_only=${OPTARG};;
+        e) encode_only=${OPTARG};;
         t) title_override=${OPTARG};;
         q) quality_override=${OPTARG};;
         s) source_clean_override=${OPTARG};;
@@ -24,6 +24,26 @@ done
 #+---------------------------------------------+#
 #+---Test selected Geopts flags for validity---+#
 #+---------------------------------------------+#
+# -r
+if [[ $rip_only == "" ]]; then
+  echo "no rip override, script will rip disc"
+#now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
+elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
+  echo "rip override selected, skipping rip"
+  else
+    echo "Error: -r is not a 'y' or 'yes'."
+    exit 2
+fi
+# -e
+if [[ $encode_only == "" ]]; then
+  echo "no encode override, script will encode to container"
+#now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
+elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
+  echo "encode override selected, skipping encode"
+  else
+    echo "Error: -e is not a 'y' or 'yes'"
+    exit 2
+fi
 # -t
 if [[ $title_override == "" ]]; then
   echo "no title override applied"
@@ -51,7 +71,7 @@ elif [[ $source_clean_override == "y" ]]; then
   echo -e "source clean override applied, not deleting source files"
 fi
 # -c
-if [[ $tmep_clean_override == "" ]]; then
+if [[ $temp_clean_override == "" ]]; then
   echo "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
   echo -e "temp clean override applied, keeping temp files for debugging"
