@@ -28,7 +28,7 @@ do
         q) quality_override=${OPTARG};;
         s) source_clean_override=${OPTARG};;
         c) temp_clean_override=${OPTARG};;
-        ?) helpFunction;;
+        h) helpFunction;;
     esac
 done
 #
