@@ -10,10 +10,6 @@ do
         c) temp_clean_override=${OPTARG};;
     esac
 done
-echo "title overriden now: $title_override";
-echo "quality overriden, now: $quality_override";
-echo "cleaning source overriden?: $source_clean_override";
-echo "cleaning temp overriden?: $temp_clean_override";
 
 if [[ $title_override == "" ]]; then
   echo "no title override applied"
