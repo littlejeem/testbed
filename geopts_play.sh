@@ -8,7 +8,7 @@ while getopts r:e:t:q:s:c: flag
 do
     case "${flag}" in
         r) rip_only=${OPTARG};;
-        e) encde_only=${OPTARG};;
+        e) encode_only=${OPTARG};;
         t) title_override=${OPTARG};;
         q) quality_override=${OPTARG};;
         s) source_clean_override=${OPTARG};;
