@@ -23,15 +23,23 @@ done
 # -r
 if [[ $rip_only == "" ]]; then
   echo "no rip override, script will rip disc"
-#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+#now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$rip_only" =~ ^(y|yes)$ ]]; then
   echo -e "rip override selected, skipping rip"
   else
     echo "Error: -r is not a 'y' / 'yes'."
     exit 2
 fi
-#
-#
+# -e
+if [[ $encode_only == "" ]]; then
+  echo "no encode override, script will encode to container"
+#now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
+elif [[ "$encode_only" =~ ^(y|yes)$ ]]; then
+  echo -e "encode override selected, skipping encode"
+  else
+    echo "Error: -e is not a 'y' / 'yes'."
+    exit 2
+fi
 # -t
 if [[ $title_override == "" ]]; then
   echo "no title override applied"
