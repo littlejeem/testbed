@@ -17,8 +17,12 @@ echo "cleaning temp overriden?: $temp_clean_override";
 
 if [[ $title_override == "" ]]; then
   echo "no title override applied"
-elif [[ $title_override == "y" ]]; then
+#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+elif echo "$title_override" | grep -qE '^[0-9]+$'; then
   echo -e "title override selected\chosen title is $title_override"
+  else
+    echo "Error: -t is not a number."
+    exit 2
 fi
 
 if [[ $quality_override == "" ]]; then
