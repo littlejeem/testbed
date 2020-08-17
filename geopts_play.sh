@@ -67,7 +67,7 @@ elif [[ $source_clean_override == "y" ]]; then
   echo "source clean override applied, not deleting source files"
 fi
 # -c
-if [[ $tmep_clean_override == "" ]]; then
+if [[ $temp_clean_override == "" ]]; then
   echo "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
   echo "temp clean override applied, keeping temp files for debugging"
