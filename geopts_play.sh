@@ -24,13 +24,13 @@ if [[ $quality_override == "" ]]; then
 fi
 
 if [[ $source_clean_override == "" ]]; then
-  echo "no source clean override applied"
+  echo "no source clean override selected"
 elif [[ $source_clean_override == "y" ]]; then
   echo -e "source clean override applied" \ "not deleting source files"
 fi
 
 if [[ $tmep_clean_override == "" ]]; then
-  echo "no source clean override applied"
+  echo "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
   echo -e "temp clean override applied" \ "keeping temp files for debugging"
 fi
