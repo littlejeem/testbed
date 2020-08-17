@@ -14,3 +14,23 @@ echo "title overriden now: $title_override";
 echo "quality overriden, now: $quality_override";
 echo "cleaning source overriden?: $source_clean_override";
 echo "cleaning temp overriden?: $temp_clean_override";
+
+if [[ $title_override == "" ]]; then
+  echo "no title override applied"
+fi
+
+if [[ $quality_override == "" ]]; then
+  echo "no quality override applied"
+fi
+
+if [[ $source_clean_override == "" ]]; then
+  echo "no source clean override applied"
+elif [[ $source_clean_override == "y" ]]; then
+  echo -e "source clean override applied" \ "not deleting source files"
+fi
+
+if [[ $tmep_clean_override == "" ]]; then
+  echo "no source clean override applied"
+elif [[ $temp_clean_override == "y" ]]; then
+  echo -e "temp clean override applied" \ "keeping temp files for debugging"
+fi
