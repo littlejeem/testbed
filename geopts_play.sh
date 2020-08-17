@@ -4,20 +4,34 @@
 #+---------------------------------------------+#
 #+---Use Geopts for flag selected parameters---+#
 #+---------------------------------------------+#
-while getopts t:q:s:c: flag
+while getopts r:e:t:q:s:c: flag
 do
     case "${flag}" in
+        r) rip_only=${OPTARG};;
+        e) encde_only=${OPTARG};;
         t) title_override=${OPTARG};;
         q) quality_override=${OPTARG};;
         s) source_clean_override=${OPTARG};;
         c) temp_clean_override=${OPTARG};;
     esac
 done
-
-
+#
+#
 #+---------------------------------------------+#
 #+---Test selected Geopts flags for validity---+#
 #+---------------------------------------------+#
+# -r
+if [[ $rip_only == "" ]]; then
+  echo "no rip override, script will rip disc"
+#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+elif [[ "$rip_only" =~ ^(y|yes)$ ]]; then
+  echo -e "title override selected, chosen title is $rip_only"
+  else
+    echo "Error: -r is not a 'y' / 'yes'."
+    exit 2
+fi
+#
+#
 # -t
 if [[ $title_override == "" ]]; then
   echo "no title override applied"
