@@ -19,7 +19,7 @@ helpFunction()
    exit 1 # Exit script after printing help
 }
 #
-while getopts r:e:t:q:s:c: flag
+while getopts r:e:t:q:s:c:h flag
 do
     case "${flag}" in
         r) rip_only=${OPTARG};;
