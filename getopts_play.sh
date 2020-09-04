@@ -29,7 +29,7 @@ do
         s) source_clean_override=${OPTARG};;
         c) temp_clean_override=${OPTARG};;
         h) helpFunction;;
-        ?) echo "No -${OPTARG} argument found.";;
+        ?) helpFunction;;
     esac
 done
 #
