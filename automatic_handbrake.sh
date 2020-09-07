@@ -168,6 +168,16 @@ fi
 source $HOME/.config/
 source /home/jlivin25/bin/omdb_key
 #
+#+----------------------------------+
+#+---Check Enough Space Remaining---+
+#+----------------------------------+
+#will only work once variables moved to config script
+space_left=$(df $working_dir | awk '/[0-9]%/{print $(NF-2)}')
+if [ "$space_left" -le "65000000" ]; then
+  echo "not enough space to run script"
+  exit 1
+fi
+#
 #
 #+----------------------------+
 #+---Configure Disc Ripping---+
