@@ -40,10 +40,10 @@ done
 # -r
 if [[ $rip_only == "" ]]; then
   echo "no rip override, script will rip disc"
-  echo "HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "rip override selected, skipping rip"
+  rip_only=1
   else
     echo "Error: -r is not a 'y' or 'yes'."
     helpFunction
@@ -51,10 +51,10 @@ fi
 # -e
 if [[ $encode_only == "" ]]; then
   echo "no encode override, script will encode to container"
-  echo "makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name""
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "encode override selected, skipping encode"
+  encode_only=1
   else
     echo "Error: -e is not a 'y' or 'yes'"
     helpFunction
@@ -92,5 +92,10 @@ elif [[ $temp_clean_override == "y" ]]; then
   echo "temp clean override applied, keeping temp files for debugging"
 fi
 
+if [[ $encode_only != "1" ]]; then
+  echo "makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name""
+fi
 
-"rip_only
+if [[ $rip_only != "1" ]]; then
+  echo "HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
+fi
