@@ -45,7 +45,7 @@ elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "rip override selected, skipping rip"
   else
     echo "Error: -r is not a 'y' or 'yes'."
-    exit 2
+    helpFunction
 fi
 # -e
 if [[ $encode_only == "" ]]; then
@@ -55,7 +55,7 @@ elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "encode override selected, skipping encode"
   else
     echo "Error: -e is not a 'y' or 'yes'"
-    exit 2
+    helpFunction
 fi
 # -t
 if [[ $title_override == "" ]]; then
@@ -65,7 +65,7 @@ elif echo "$title_override" | grep -qE '^[0-9]+$'; then
   echo "title override selected, chosen title is $title_override"
   else
     echo "Error: -t is not a number."
-    exit 2
+    helpFunction
 fi
 # -q
 if [[ $quality_override == "" ]]; then
@@ -75,7 +75,7 @@ elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
   echo "quality override selected, chosen title is $quality_override"
 else
   echo "Error: -q is not a number."
-  exit 2
+  helpFunction
 fi
 # -s
 if [[ $source_clean_override == "" ]]; then
