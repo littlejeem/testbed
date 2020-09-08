@@ -91,3 +91,6 @@ if [[ $temp_clean_override == "" ]]; then
 elif [[ $temp_clean_override == "y" ]]; then
   echo "temp clean override applied, keeping temp files for debugging"
 fi
+
+
+"rip_only
