@@ -92,10 +92,12 @@ elif [[ $temp_clean_override == "y" ]]; then
   echo "temp clean override applied, keeping temp files for debugging"
 fi
 
-if [[ $rip_only != "1" ]]; then
-  echo "I would rip"
+if [[ $encode_only != "1" ]]; then
+  echo "**** I would rip"
+  makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 fi
 
 if [[ $encode_only != "1" ]]; then
-  echo "**** i would encode"
+  echo "**** I would encode"
+  HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
 fi
