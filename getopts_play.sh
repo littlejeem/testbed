@@ -92,7 +92,7 @@ elif [[ $temp_clean_override == "y" ]]; then
   echo "temp clean override applied, keeping temp files for debugging"
 fi
 
-if [[ $encode_only != "1" ]]; then
+if [[ $rip_only != "1" ]]; then
   echo "**** I would rip"
   makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 fi
