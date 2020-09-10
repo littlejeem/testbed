@@ -95,9 +95,7 @@ fi
 if [[ $rip_only != "1" ]]; then
   echo "**** I would rip"
   makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-fi
-
-if [[ $encode_only != "1" ]]; then
+elif [[ $encode_only != "1" ]]; then
   echo "**** I would encode"
   HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
 fi
