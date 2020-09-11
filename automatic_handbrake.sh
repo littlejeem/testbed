@@ -146,7 +146,7 @@ if [[ $quality_override == "" ]]; then
   echo "no quality override applied"
 #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
-  echo -e "quality override selected, chosen title is $quality_override"
+  echo -e "quality override selected, chosen quality is $quality_override"
 else
   echo "Error: -q is not a number."
   helpFunction
@@ -168,7 +168,7 @@ fi
 #+----------------------------+
 #+---Source necessary files---+
 #+----------------------------+
-source $HOME/.config/
+#source $HOME/.config/
 source /home/jlivin25/bin/omdb_key
 #
 #+----------------------------------+
