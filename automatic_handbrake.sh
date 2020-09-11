@@ -91,7 +91,7 @@ function prep_title_file() {
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
-while getopts r:e:t:q:s:c: flag
+while getopts r:e:t:q:s:c:h flag
 do
     case "${flag}" in
         r) rip_only=${OPTARG};;
@@ -101,6 +101,7 @@ do
         s) source_clean_override=${OPTARG};;
         c) temp_clean_override=${OPTARG};;
         h) helpFunction;;
+        ?) helpFunction;;
     esac
 done
 #
@@ -114,9 +115,10 @@ if [[ $rip_only == "" ]]; then
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "rip override selected, skipping rip"
-  else
-    echo "Error: -r is not a 'y' or 'yes'."
-    exit 2
+  rip_only=1
+else
+  echo "Error: -r is not a 'y' or 'yes'."
+  helpFunction
 fi
 # -e
 if [[ $encode_only == "" ]]; then
@@ -124,9 +126,10 @@ if [[ $encode_only == "" ]]; then
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "encode override selected, skipping encode"
+  encode_only=1
   else
     echo "Error: -e is not a 'y' or 'yes'"
-    exit 2
+    helpFunction
 fi
 # -t
 if [[ $title_override == "" ]]; then
@@ -136,7 +139,7 @@ elif echo "$title_override" | grep -qE '^[0-9]+$'; then
   echo -e "title override selected, chosen title is $title_override"
   else
     echo "Error: -t is not a number."
-    exit 2
+    helpFunction
 fi
 # -q
 if [[ $quality_override == "" ]]; then
@@ -146,7 +149,7 @@ elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
   echo -e "quality override selected, chosen title is $quality_override"
 else
   echo "Error: -q is not a number."
-  exit 2
+  helpFunction
 fi
 # -s
 if [[ $source_clean_override == "" ]]; then
@@ -206,7 +209,7 @@ bluray_name=${bluray_name// /_}
 echo "bluray name is $bluray_name" >> $log
 #
 #
-if [ "$encode_only" == "" ]; then
+if [ "$encode_only" != "1" ]; then
   makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 fi
 #
@@ -413,7 +416,7 @@ echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o
 #lets use our fancy name IF found online
 output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name".mkv
 #
-if [[ $rip_only == "" ]]; then
+if [[ $rip_only != "1" ]]; then
   HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
 fi
 #
