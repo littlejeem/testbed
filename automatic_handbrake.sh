@@ -88,6 +88,15 @@ function prep_title_file() {
 }
 #
 #
+#+-------------------------+
+#+---"Echo Colour Usage"---+
+#+-------------------------+
+red='\033[0;31m'
+yellow='\033[1;33m'
+green='\033[0;32m'
+nc='\033[0m' # No Color
+#
+#
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
@@ -211,7 +220,7 @@ echo "bluray name is $bluray_name" >> $log
 #
 if [ "$encode_only" != "1" ]; then
   #makemkvcon backup "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-  echo "makemakv running"
+  echo -e "${red}makemakv running${nc}"
 fi
 #
 #
@@ -419,7 +428,7 @@ output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name".mkv
 #
 if [[ $rip_only != "1" ]]; then
   #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
-  echo "handbrake running"
+  echo -e "${red}handbrake running${nc}"
 fi
 #
 #
