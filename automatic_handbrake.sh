@@ -14,12 +14,12 @@ function helpFunction () {
    echo ""
    echo "Usage: $0 -r y -e y -t ## -q ## -s y -c y"
    echo "Usage: $0"
-   echo -e "\t Running the script with not flags causes default behaviour"
-   echo -e "\t-r Rip Override: Will cause the script to skip the disc rip and encode only"
-   echo -e "\t-e Encode Override: Will cause the script to rip the disc but not encode to container"
+   echo -e "\t Running the script with no flags causes default behaviour"
+   echo -e "\t-r Rip Only: Will cause the script to only rip the disc, not encode"
+   echo -e "\t-e Encode Only: Will cause the script to encode to container only, no disc rip"
    echo -e "\t-t Manually provide the title to rip eg. -t 42"
    echo -e "\t-q Manually provide the quality to encode in handbrake, eg. -q 21. default value is 19, anything lower than 17 is considered placebo"
-   echo -e "\t-s Source Override: By default the script removes the source files on completion. Setting parameter eg. -s y, will keep the files"
+   echo -e "\t-s Source delete override: By default the script removes the source files on completion. Setting parameter eg. -s y, will keep the files"
    echo -e "\t-c Temp Override: By default the script removes any temp fileson completion. Setting parameter eg. -c y, will keep the files, useful if debugging"
    exit 1 # Exit script after printing help
 }
