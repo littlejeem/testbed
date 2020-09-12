@@ -3,8 +3,24 @@
 #
 log=/home/jlivin25/bin/scriptlogs/automatic_handbrake.log
 logging_date=$(echo "`date +%d/%m/%Y` - `date +%H:%M:%S`")
-echo "############################################################## - $logging_date: Script Started - ##############################################################"
-echo "############################################################## - $logging_date: Script Started - ##############################################################" > $log
+#+-------------------------+
+#+---"Echo Colour Usage"---+
+#+-------------------------+
+#Black        0;30     Dark Gray     1;30
+#Red          0;31     Light Red     1;31
+#Green        0;32     Light Green   1;32
+#Brown/Orange 0;33     Yellow        1;33
+#Blue         0;34     Light Blue    1;34
+#Purple       0;35     Light Purple  1;35
+#Cyan         0;36     Light Cyan    1;36
+#Light Gray   0;37     White         1;37
+red='\033[0;31m'
+yellow='\033[1;33m'
+green='\033[0;32m'
+brown_orange='\033[0;33m'
+purple='\033[0;35m'
+light_blue='\033[1;34m'
+nc='\033[0m' # No Color
 #
 #
 #+-------------------+
@@ -86,17 +102,12 @@ function prep_title_file() {
   #and now we need to add ']' to the end of the file
   echo "]" >> main_feature_scan_trimmed.json
 }
-#
-#
-#+-------------------------+
-#+---"Echo Colour Usage"---+
-#+-------------------------+
-red='\033[0;31m'
-yellow='\033[1;33m'
-green='\033[0;32m'
-nc='\033[0m' # No Color
-#
-#
+#+------------------+
+#+---Start Script---+
+#+------------------+
+echo -e "${light_blue}############################################################## - $logging_date: Script Started - ##############################################################${nc}"
+echo "############################################################## - $logging_date: Script Started - ##############################################################" > $log
+
 #+----------------------------------------------+
 #+---"Read In Command Line Overrides (flags)"---+
 #+----------------------------------------------+
@@ -216,14 +227,14 @@ echo "quality selected is $quality" >> $log
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 # pretty up the log
-echo "###############################" >> $log
-echo "### $date - $bluray_name ###" >> $log
-echo "###############################" >> $log
+echo -e "${green}###############################${nc}" >> $log
+echo -e "${green}### $date - $bluray_name ###${nc}" >> $log
+echo -e "${green}###############################${nc}" >> $log
 echo -e "${green}bluray name is $bluray_name ${nc}"
 #
 #
 if [ "$encode_only" != "1" ]; then
-  echo -e "${green}makemakv running${nc}"
+  echo -e "${Purple}makemakv running${nc}"
   makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 if [ "$rip_only" != "1" ]; then
 #+-------------------------------+
@@ -429,7 +440,7 @@ echo "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o
 output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name".mkv
 #
 if [[ $rip_only != "1" ]]; then
-  echo -e "${red}handbrake running${nc}"
+  echo -e "${BrownOrange}handbrake running${nc}"
   HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
 fi
 #
@@ -439,5 +450,5 @@ if [[ $temp_clean_override == "" ]]; then
   rm *
 fi
 fi
-echo "############################################################## - $logging_date: Script Complete - ##############################################################"
+echo -e "${light_blue}############################################################## - $logging_date: Script Complete - ##############################################################${nc}"
 echo "############################################################## - $logging_date: Script Complete - ##############################################################" >> $log
