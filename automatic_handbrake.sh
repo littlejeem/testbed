@@ -236,7 +236,7 @@ echo -e "${green}bluray name is $bluray_name ${nc}"
 if [ "$encode_only" != "1" ]; then
   echo -e "${Purple}makemakv running${nc}"
   makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-if [ "$rip_only" != "1" ]; then
+elif [ "$rip_only" != "1" ]; then
 #+-------------------------------+
 #+---"HandBrake Structure Key"---+
 #+-------------------------------+
@@ -452,3 +452,4 @@ fi
 fi
 echo -e "${light_blue}############################################################## - $logging_date: Script Complete - ##############################################################${nc}"
 echo "############################################################## - $logging_date: Script Complete - ##############################################################" >> $log
+exit 0
