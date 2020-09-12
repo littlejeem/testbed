@@ -215,15 +215,17 @@ echo "quality selected is $quality" >> $log
 ###############################
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
-echo "bluray name is $bluray_name" >> $log
+# pretty up the log
+echo "###############################" >> $log
+echo "### $date - $bluray_name ###" >> $log
+echo "###############################" >> $log
+echo -e "${green}bluray name is $bluray_name ${nc}"
 #
 #
 if [ "$encode_only" != "1" ]; then
   echo -e "${green}makemakv running${nc}"
   makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-fi
-#
-#
+if [ "$rip_only" != "1" ]; then
 #+-------------------------------+
 #+---"HandBrake Structure Key"---+
 #+-------------------------------+
@@ -435,6 +437,7 @@ fi
 if [[ $temp_clean_override == "" ]]; then
   cd $working_dir/temp
   rm *
+fi
 fi
 echo "############################################################## - $logging_date: Script Complete - ##############################################################"
 echo "############################################################## - $logging_date: Script Complete - ##############################################################" >> $log
