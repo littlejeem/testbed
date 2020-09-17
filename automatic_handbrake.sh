@@ -132,8 +132,10 @@ done
 # -r
 if [[ $rip_only == "" ]]; then
   echo "no rip override, script will rip disc"
+  echo "no rip override, script will rip disc" >> $log
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
+  echo -e "${brown_orange}rip override selected, skipping rip${nc}"
   echo "rip override selected, skipping rip"
   rip_only=1
 else
@@ -143,9 +145,11 @@ fi
 # -e
 if [[ $encode_only == "" ]]; then
   echo "no encode override, script will encode to container"
+  echo "no encode override, script will encode to container" >> $log
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "encode override selected, skipping encode"
+  echo "${brown_orange}encode override selected, skipping encode${nc}" >> $log
   encode_only=1
   else
     echo "Error: -e is not a 'y' or 'yes'"
@@ -156,7 +160,8 @@ if [[ $title_override == "" ]]; then
   echo "no title override applied"
 #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$title_override" | grep -qE '^[0-9]+$'; then
-  echo -e "title override selected, chosen title is $title_override"
+  echo -e "${brown_orange}title override selected, chosen title is $title_override ${nc}"
+  echo "title override selected, chosen title is $title_override ${nc}" >> $log
   else
     echo "Error: -t is not a number."
     helpFunction
@@ -166,7 +171,8 @@ if [[ $quality_override == "" ]]; then
   echo "no quality override applied"
 #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
-  echo -e "quality override selected, chosen quality is $quality_override"
+  echo -e "${brown_orange}quality override selected, chosen quality is $quality_override ${nc}"
+  echo "quality override selected, chosen quality is $quality_override" >> $log
 else
   echo "Error: -q is not a number."
   helpFunction
@@ -175,13 +181,15 @@ fi
 if [[ $source_clean_override == "" ]]; then
   echo "no source clean override selected"
 elif [[ $source_clean_override == "y" ]]; then
-  echo -e "source clean override applied, not deleting source files"
+  echo -e "${brown_orange}source clean override applied, not deleting source files${nc}"
+  echo "source clean override applied, not deleting source files" >> $log
 fi
 # -c
 if [[ $temp_clean_override == "" ]]; then
   echo "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
-  echo -e "temp clean override applied, keeping temp files for debugging"
+  echo -e "${brown_orange}temp clean override applied, keeping temp files for debugging${nc}"
+  echo "temp clean override applied, keeping temp files for debugging" >> $log
 fi
 #
 #
@@ -197,7 +205,8 @@ source /home/jlivin25/bin/omdb_key
 #will only work once variables moved to config script
 space_left=$(df $working_dir | awk '/[0-9]%/{print $(NF-2)}')
 if [ "$space_left" -le "65000000" ]; then
-  echo "not enough space to run script"
+  echo "not enough space to run rip & encode, terminating"
+  echo "not enough space to run rip & encode, terminating" >> $log
   exit 1
 fi
 #
@@ -210,7 +219,7 @@ if [[ $quality_override == "" ]]; then
 else
   quality=$(echo $quality_override)
 fi
-echo $quality
+echo "quality selected is $quality"
 echo "quality selected is $quality" >> $log
 ###############################
 ### Move to a settings file ###
@@ -227,14 +236,15 @@ echo "quality selected is $quality" >> $log
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 # pretty up the log
-echo -e "${green}###############################${nc}" >> $log
-echo -e "${green}### $date - $bluray_name ###${nc}" >> $log
-echo -e "${green}###############################${nc}" >> $log
-echo -e "${green}bluray name is $bluray_name ${nc}"
+echo -e "###############################" >> $log
+echo -e "### $date - $bluray_name ###" >> $log
+echo -e "###############################" >> $log
+echo "bluray name is $bluray_name"
 #
 #
 if [ "$encode_only" != "1" ]; then
   echo -e "${Purple}makemakv running${nc}"
+  echo "makemakv running"
   makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
 elif [ "$rip_only" != "1" ]; then
 #+-------------------------------+
@@ -278,12 +288,12 @@ if [[ $title_override == "" ]]; then
   #+--------------------------------------+
   #we search the file created in Handbrake Title Scan for the main titles and store in a variable
   auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
-  echo "$auto_find_main_feature" >> $log
-  echo $auto_find_main_feature
+  echo "auto_find_main_feature is: $auto_find_main_feature" >> $log
+  echo "auto_find_main_feature is: $auto_find_main_feature"
   #we cut unwanted "Found main feature title " text from the variable
   auto_find_main_feature=${auto_find_main_feature:25}
   echo "auto_find_main_feature cut to $auto_find_main_feature" >> $log
-  echo $auto_find_main_feature
+  echo "auto_find_main_feature cut to $auto_find_main_feature"
   #
   #
   #+-------------------------------------------------------------------------------------+
@@ -297,26 +307,31 @@ if [[ $title_override == "" ]]; then
   #+---------------------+
   feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
   omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
-  echo $omdb_title_result
+  echo "omdb title result is: $omdb_title_result"
+  echo "omdb title result is: $omdb_title_result" >> $log
   #
   #
   #+---------------------------------------------+
   #+---Generate checking data from online info---+
   #+---------------------------------------------+
   omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
-  echo $omdb_runtime_result
+  echo "omdb_runtime_result is: $omdb_runtime_result"
+  echo "omdb_runtime_result is: $omdb_runtime_result" >> $log
   omdb_runtime_result=${omdb_runtime_result%????}
   echo "omdb runtime is $omdb_runtime_result mins"
-  echo $omdb_runtime_result
+  echo "omdb runtime is $omdb_runtime_result mins" >> $log
   secs=$((omdb_runtime_result*60))
-  echo $secs
+  echo "equal to $secs secs"
+  echo "equal to $secs secs" >> $log
   check=$(convert_secs)
   title1=$(grep -B 2 $check titles_scan.json | awk 'NR==1')
   title2=$(grep -B 2 $check titles_scan.json | awk 'NR==5')
   title1=${title1: -2}
   title2=${title2: -2}
-  echo $title1
-  echo $title2
+  echo "title 1 is: $title1"
+  echo "title 1 is: $title1" >> $log
+  echo "title 2 is: $title2"
+  echo "title 2 is: $title1" >> $log
   #
   #
   #+------------------------------------+
