@@ -9,58 +9,67 @@ touch $SCRIPT_LOG
 #}
 
 
-function SCRIPTENTRY ()
+SCRIPTENTRY ()
 {
- timeAndDate=`date`
+ timeAndDate=$(date)
  script_name="demo2.sh"
  script_name="${script_name%.*}"
- echo "[$timeAndDate] [DEBUG]  > $script_name $FUNCNAME" >> $SCRIPT_LOG
+ echo "[$timeAndDate] [DEBUG] > $script_name $FUNCNAME" >> $SCRIPT_LOG
 }
 
 #function SCRIPTENTRY () {  timeAndDate=`date`;  script_name="demo2.sh";  script_name="${script_name%.*}";  echo "[$timeAndDate] [DEBUG]  > $script_name $FUNCNAME" >> $SCRIPT_LOG; }
 
-function SCRIPTEXIT ()
+SCRIPTEXIT ()
 {
  script_name="demo2.sh"
  script_name="${script_name%.*}"
- echo "[$timeAndDate] [DEBUG]  < $script_name $FUNCNAME" >> $SCRIPT_LOG
+ echo "[$timeAndDate] [DEBUG] < $script_name $FUNCNAME" >> $SCRIPT_LOG
 }
 
-function ENTRY ()
+ENTRY ()
 {
  local cfn="${FUNCNAME[1]}"
- timeAndDate=`date`
- echo "[$timeAndDate] [DEBUG]  > $cfn $FUNCNAME" >> $SCRIPT_LOG
+ timeAndDate=$(date)
+ echo "[$timeAndDate] [DEBUG] > $cfn $FUNCNAME" >> $SCRIPT_LOG
 }
 
-function EXIT ()
+EXIT ()
 {
  local cfn="${FUNCNAME[1]}"
- timeAndDate=`date`
- echo "[$timeAndDate] [DEBUG]  < $cfn $FUNCNAME" >> $SCRIPT_LOG
+ timeAndDate=$(date)
+ echo "[$timeAndDate] [DEBUG] < $cfn $FUNCNAME" >> $SCRIPT_LOG
 }
 
-function INFO ()
+INFO ()
 {
  local function_name="${FUNCNAME[1]}"
     local msg="$1"
-    timeAndDate=`date`
+    timeAndDate=$(date)
     echo "[$timeAndDate] [INFO]  $msg" >> $SCRIPT_LOG
 }
 
-function DEBUG ()
+INFO ()
+{
+ local function_name="${FUNCNAME[1]}"
+    echo $FUNCNAME
+    local msg="$1"
+    timeAndDate=$(date)
+    echo "[$timeAndDate] [INFO]  $msg"
+}
+
+DEBUG ()
 {
  local function_name="${FUNCNAME[1]}"
     local msg="$1"
-    timeAndDate=`date`
+    timeAndDate=$(date)
  echo "[$timeAndDate] [DEBUG]  $msg" >> $SCRIPT_LOG
 }
 
-function ERROR ()
+ERROR ()
 {
  local function_name="${FUNCNAME[1]}"
     local msg="$1"
-    timeAndDate=`date`
+    timeAndDate=$(date)
     echo "[$timeAndDate] [ERROR]  $msg" >> $SCRIPT_LOG
 }
 
