@@ -49,7 +49,7 @@ INFO "Stopping jackett service"
 systemctl stop jackett.service
 #
 if [ -d "Jackett" ]; then
-  INFO "previous install detected, backing up""
+  INFO "previous install detected, backing up"
   mv Jackett Jackett_$stamp
   if [ $? -ne 0 ]; then
     DEBUG "backup creation failed"
