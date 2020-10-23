@@ -17,20 +17,16 @@ stamp=$(Timestamp)
 #
 #
 cd /opt
-INFO "Getting Jackett version"
-target https://github.com/Jackett/Jackett/releases/download/v0.16.1724/Jackett.Binaries.LinuxAMDx64.tar.gz
+#target https://github.com/Jackett/Jackett/releases/download/v0.16.1724/Jackett.Binaries.LinuxAMDx64.tar.gz
 INFO "Getting Jackett version"
 jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
 INFO "jackett version captured is: $jackettver"
+INFO "downloading $jackettver"
 wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.LinuxAMDx64.tar.gz
 if [ $? -ne 0 ]; then
   DEBUG "wget failed, exiting"
   exit 1
 fi
-#
-#
-INFO "Creating backup"
-mv Jackett Jackett_$stamp
 #
 #
 if [ $? -ne 0 ]; then
@@ -54,16 +50,31 @@ if [ -d "Jackett" ]; then
   if [ $? -ne 0 ]; then
     DEBUG "backup creation failed"
     exit 1
+  else
+    INFO "backup created"
   fi
+else
+  INFO "No previous install detected"
 fi
+#
+#
 tar -xvf Jackett.tar
-INFO
+if [ $? -ne 0 ]; then
+  DEBUG "extracting .tar failed"
+  exit 1
+else
+  INFO "extracted .tar"
+fi
+#
+#
+INFO "Starting jackett service"
 systemctl start jackett.service
-INFO
-rm ~/ServerConfig.json
-INFO
-rm Jackett.tar
-INFO
+if [ $? -ne 0 ]; then
+  DEBUG ""
+  exit 1
+else
+  INFO "Service Started"
+fi
 #
 #
 SCRIPTEXIT
