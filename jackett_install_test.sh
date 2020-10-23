@@ -58,12 +58,13 @@ else
 fi
 #
 #
+INFO "Extracting .tar ..."
 tar -xvf Jackett.tar
 if [ $? -ne 0 ]; then
-  DEBUG "extracting .tar failed"
+  DEBUG "...extracting .tar failed"
   exit 1
 else
-  INFO "extracted .tar"
+  INFO "...extracted .tar"
 fi
 #
 #
