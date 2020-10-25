@@ -24,7 +24,7 @@ source ./helper_script.sh
 username=jlivin25 #name of the system user doing the backup
 log_folder="/home/$username/bin/logs"
 SCRIPT_LOG="/home/$username/bin/logs/jackett_install.log"
-mkdir -p $log_folder
+sudo -u $username mkdir -p $log_folder
 #
 #
 #+---------------------+
@@ -44,7 +44,7 @@ INFO "Getting Jackett version"
 jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
 DEBUG "jackett version captured is: $jackettver"
 DEBUG "downloading $jackettver"
-wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.LinuxAMDx64.tar.gz
+sudo -u $username wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.LinuxAMDx64.tar.gz
 if [ $? -ne 0 ]; then
   ERROR "wget failed, exiting"
   exit 1
@@ -53,7 +53,7 @@ fi
 #
 if [ -f "/home/pi/.config/Jackett/ServerConfig.json" ]; then
   INFO "backing up config file"
-  cp ~/.config/Jackett/ServerConfig.json ~/ServerConfig.json
+  sudo -u $username cp ~/.config/Jackett/ServerConfig.json ~/ServerConfig.json
   DEBUG "ServerConfig bckup created."
 fi
 #
@@ -67,7 +67,7 @@ if [ -f "/etc/systemd/system/jackett.service" ]; then
     exit 1
   fi
 else
-cat > /etc/systemd/system/jackett.service << EOF
+sudo -u $username cat > /etc/systemd/system/jackett.service << EOF
   [Unit]
   Description=Jackett Daemon
   After=network.target
@@ -90,7 +90,7 @@ fi
 #
 if [ -d "Jackett" ]; then
   DEBUG "previous install detected, backing up"
-  mv Jackett Jackett_$stamp
+  sudo -u $username mv Jackett Jackett_$stamp
   if [ $? -ne 0 ]; then
     ERROR "backup creation failed"
     exit 1
@@ -110,6 +110,9 @@ if [ $? -ne 0 ]; then
 else
   DEBUG "...extracted .tar"
 fi
+#
+#
+chown -R $username:$username
 #
 #
 INFO "Starting jackett service"
