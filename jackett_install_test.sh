@@ -53,11 +53,34 @@ if [ -f "/home/pi/.config/Jackett/ServerConfig.json" ]; then
 fi
 #
 #
-INFO "Stopping jackett service"
-systemctl stop jackett.service
-if [ $? -ne 0 ]; then
-  ERROR "stopping service failed"
-  exit 1
+if [ -f "/etc/systemd/system/jackett.service" ]; then
+  INFO "jackett service detected"
+  INFO "Stopping jackett service"
+  systemctl stop jackett.service
+  if [ $? -ne 0 ]; then
+    ERROR "stopping service failed"
+    exit 1
+  fi
+else
+cat > /etc/systemd/system/jackett.service << EOF
+  [Unit]
+  Description=Jackett Daemon
+  After=network.target
+
+  [Service]
+  SyslogIdentifier=jackett
+  Restart=always
+  RestartSec=5
+  Type=simple
+  User=$username
+  Group=$username
+  WorkingDirectory=/opt/Jackett
+  ExecStart=/opt/Jackett/jackett --NoRestart
+  TimeoutStopSec=20
+
+  [Install]
+  WantedBy=multi-user.target
+EOF
 fi
 #
 if [ -d "Jackett" ]; then
