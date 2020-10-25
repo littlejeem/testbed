@@ -13,68 +13,84 @@ source ./helper_script.sh
 #+---------------------+
 SCRIPTENTRY
 SCRIPT_LOG="/home/pi/bin/logs/jackett_install.log"
+DEBUG "$SCRIPT_LOG"
 stamp=$(Timestamp)
+PATH=/sbin:/bin:/usr/bin:/home/jlivin25
+DEBUG "$PATH"
+username=jlivin25 #name of the system user doing the backup
+DEBUG "$username"
+#
+#
+#+--------------------+
+#+---CHECK FOR SUDO---+
+#+--------------------+
+if [[ $EUID -ne 0 ]]; then
+    ERROR "Script not running as sudo:"
+    echo "Please run this script with sudo:"
+    echo "sudo $0 $*"
+    ERROR "sudo $0 $*"
+    exit 1
+fi
 #
 #
 cd /opt
 #target https://github.com/Jackett/Jackett/releases/download/v0.16.1724/Jackett.Binaries.LinuxAMDx64.tar.gz
 INFO "Getting Jackett version"
 jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
-INFO "jackett version captured is: $jackettver"
-INFO "downloading $jackettver"
+DEBUG "jackett version captured is: $jackettver"
+DEBUG "downloading $jackettver"
 wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.LinuxAMDx64.tar.gz
 if [ $? -ne 0 ]; then
-  DEBUG "wget failed, exiting"
-  exit 1
-fi
-#
-#
-if [ $? -ne 0 ]; then
-  DEBUG "backup creation failed"
+  ERROR "wget failed, exiting"
   exit 1
 fi
 #
 #
 if [ -f "/home/pi/.config/Jackett/ServerConfig.json" ]; then
+  INFO "backing up config file"
   cp ~/.config/Jackett/ServerConfig.json ~/ServerConfig.json
-  INFO "ServerConfig bckup created."
+  DEBUG "ServerConfig bckup created."
 fi
 #
 #
 INFO "Stopping jackett service"
 systemctl stop jackett.service
+if [ $? -ne 0 ]; then
+  ERROR "stopping service failed"
+  exit 1
+fi
 #
 if [ -d "Jackett" ]; then
-  INFO "previous install detected, backing up"
+  DEBUG "previous install detected, backing up"
   mv Jackett Jackett_$stamp
   if [ $? -ne 0 ]; then
-    DEBUG "backup creation failed"
+    ERROR "backup creation failed"
     exit 1
   else
-    INFO "backup created"
+    DEBUG "backup created"
   fi
 else
-  INFO "No previous install detected"
+  DEBUG "No previous install detected"
 fi
 #
 #
 INFO "Extracting .tar ..."
 tar -xvf Jackett.tar
 if [ $? -ne 0 ]; then
-  DEBUG "...extracting .tar failed"
+  ERROR "...extracting .tar failed"
   exit 1
 else
-  INFO "...extracted .tar"
+  DEBUG "...extracted .tar"
 fi
 #
 #
 INFO "Starting jackett service"
 systemctl start jackett.service
 if [ $? -ne 0 ]; then
-  DEBUG ""
+  ERROR "failed to start jackett service"
   exit 1
 else
-  INFO "Service Started"
+  DEBUG "Service Started"
 fi
 #
 #
