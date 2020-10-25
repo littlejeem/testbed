@@ -22,8 +22,9 @@ source ./helper_script.sh
 #+---Setup script---+
 #+------------------+
 username=jlivin25 #name of the system user doing the backup
+log_folder="/home/$username/bin/logs"
 SCRIPT_LOG="/home/$username/bin/logs/jackett_install.log"
-touch $SCRIPT_LOG
+mkdir -p $log_folder
 #
 #
 #+---------------------+
