@@ -2,25 +2,6 @@
 #
 # taken from here https://www.htpcguides.com/install-jackett-ubuntu-15-x-for-custom-torrents-in-sonarr/
 #
-#+-------------------+
-#+---Source helper---+
-#+-------------------+
-source ./helper_script.sh
-#
-#
-#+---------------------+
-#+---"Set Variables"---+
-#+---------------------+
-SCRIPTENTRY
-username=jlivin25 #name of the system user doing the backup
-DEBUG "$username"
-stamp=$(Timestamp)
-PATH=/sbin:/bin:/usr/bin:/home/$username
-DEBUG "$PATH"
-SCRIPT_LOG="/home/$username/bin/logs/jackett_install.log"
-DEBUG "$SCRIPT_LOG"
-#
-#
 #+--------------------+
 #+---CHECK FOR SUDO---+
 #+--------------------+
@@ -31,6 +12,31 @@ if [[ $EUID -ne 0 ]]; then
     ERROR "sudo $0 $*"
     exit 1
 fi
+#
+#
+#+-------------------+
+#+---Source helper---+
+#+-------------------+
+source ./helper_script.sh
+#
+#
+#+------------------+
+#+---Setup script---+
+#+------------------+
+username=jlivin25 #name of the system user doing the backup
+SCRIPT_LOG="/home/$username/bin/logs/jackett_install.log"
+touch $SCRIPT_LOG
+#
+#
+#+---------------------+
+#+---"Set Variables"---+
+#+---------------------+
+SCRIPTENTRY
+DEBUG "$SCRIPT_LOG"
+DEBUG "$username"
+stamp=$(Timestamp)
+PATH=/sbin:/bin:/usr/bin:/home/$username
+DEBUG "$PATH"
 #
 #
 cd /opt
