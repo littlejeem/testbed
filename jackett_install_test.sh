@@ -12,13 +12,13 @@ source ./helper_script.sh
 #+---"Set Variables"---+
 #+---------------------+
 SCRIPTENTRY
-SCRIPT_LOG="/home/pi/bin/logs/jackett_install.log"
-DEBUG "$SCRIPT_LOG"
-stamp=$(Timestamp)
-PATH=/sbin:/bin:/usr/bin:/home/jlivin25
-DEBUG "$PATH"
 username=jlivin25 #name of the system user doing the backup
 DEBUG "$username"
+stamp=$(Timestamp)
+PATH=/sbin:/bin:/usr/bin:/home/$username
+DEBUG "$PATH"
+SCRIPT_LOG="/home/$username/bin/logs/jackett_install.log"
+DEBUG "$SCRIPT_LOG"
 #
 #
 #+--------------------+
