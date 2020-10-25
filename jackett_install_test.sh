@@ -6,10 +6,8 @@
 #+---CHECK FOR SUDO---+
 #+--------------------+
 if [[ $EUID -ne 0 ]]; then
-    ERROR "Script not running as sudo:"
     echo "Please run this script with sudo:"
     echo "sudo $0 $*"
-    ERROR "sudo $0 $*"
     exit 1
 fi
 #
