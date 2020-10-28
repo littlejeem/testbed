@@ -21,7 +21,7 @@ source ./helper_script3.sh
 #+------------------+
 #+---Setup script---+
 #+------------------+
-username=pi #name of the system user doing the backup
+username=jlivin25 #name of the system user doing the backup
 log_folder="/home/$username/bin/logs"
 SCRIPT_LOG="/home/$username/bin/logs/jackett_install.log"
 sudo -u $username mkdir -p $log_folder
