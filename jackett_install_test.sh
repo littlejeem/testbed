@@ -15,7 +15,7 @@ fi
 #+-------------------+
 #+---Source helper---+
 #+-------------------+
-source ./helper_script.sh
+source ./helper_script3.sh
 #
 #
 #+------------------+
@@ -30,40 +30,40 @@ sudo -u $username mkdir -p $log_folder
 #+---------------------+
 #+---"Set Variables"---+
 #+---------------------+
-SCRIPTENTRY
-DEBUG "$SCRIPT_LOG"
-DEBUG "$username"
+#SCRIPTENTRY
+#DEBUG "$SCRIPT_LOG"
+#DEBUG "$username"
 stamp=$(Timestamp)
 PATH=/sbin:/bin:/usr/bin:/home/$username
-DEBUG "$PATH"
+#DEBUG "$PATH"
 #
 #
 cd /opt
 #target https://github.com/Jackett/Jackett/releases/download/v0.16.1724/Jackett.Binaries.LinuxAMDx64.tar.gz
-INFO "Getting Jackett version"
+#INFO "Getting Jackett version"
 jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
-DEBUG "jackett version captured is: $jackettver"
-DEBUG "downloading $jackettver"
+#DEBUG "jackett version captured is: $jackettver"
+#DEBUG "downloading $jackettver"
 sudo -u $username wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.LinuxAMDx64.tar.gz
 if [ $? -ne 0 ]; then
-  ERROR "wget failed, exiting"
+  #ERROR "wget failed, exiting"
   exit 1
 fi
 #
 #
 if [ -f "/home/pi/.config/Jackett/ServerConfig.json" ]; then
-  INFO "backing up config file"
+  #INFO "backing up config file"
   sudo -u $username cp ~/.config/Jackett/ServerConfig.json ~/ServerConfig.json
-  DEBUG "ServerConfig bckup created."
+  #DEBUG "ServerConfig bckup created."
 fi
 #
 #
 if [ -f "/etc/systemd/system/jackett.service" ]; then
-  INFO "jackett service detected"
-  INFO "Stopping jackett service"
+  #INFO "jackett service detected"
+  #INFO "Stopping jackett service"
   systemctl stop jackett.service
   if [ $? -ne 0 ]; then
-    ERROR "stopping service failed"
+    #ERROR "stopping service failed"
     exit 1
   fi
 else
@@ -89,40 +89,40 @@ EOF
 fi
 #
 if [ -d "Jackett" ]; then
-  DEBUG "previous install detected, backing up"
+  #DEBUG "previous install detected, backing up"
   sudo -u $username mv Jackett Jackett_$stamp
   if [ $? -ne 0 ]; then
-    ERROR "backup creation failed"
+    #ERROR "backup creation failed"
     exit 1
   else
-    DEBUG "backup created"
+    #DEBUG "backup created"
   fi
 else
-  DEBUG "No previous install detected"
+  #DEBUG "No previous install detected"
 fi
 #
 #
-INFO "Extracting .tar ..."
+#INFO "Extracting .tar ..."
 tar -xvf Jackett.tar
 if [ $? -ne 0 ]; then
-  ERROR "...extracting .tar failed"
+  #ERROR "...extracting .tar failed"
   exit 1
 else
-  DEBUG "...extracted .tar"
+  #DEBUG "...extracted .tar"
 fi
 #
 #
 chown -R $username:$username
 #
 #
-INFO "Starting jackett service"
+#INFO "Starting jackett service"
 systemctl start jackett.service
 if [ $? -ne 0 ]; then
-  ERROR "failed to start jackett service"
+  #ERROR "failed to start jackett service"
   exit 1
 else
-  DEBUG "Service Started"
+  #DEBUG "Service Started"
 fi
 #
 #
-SCRIPTEXIT
+#SCRIPTEXIT
