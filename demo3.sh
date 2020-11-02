@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source stdlib.sh
+source helper_script4.sh
 
     SECONDS=0
     log_info "Program started"
