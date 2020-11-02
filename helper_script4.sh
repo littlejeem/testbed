@@ -7,7 +7,7 @@
 ###     - logging
 ###     - error handling
 ###
-
+### Credit here: https://github.com/codeforester/base/blob/master/lib/stdlib.sh
 ################################################# INITIALIZATION #######################################################
 
 #
