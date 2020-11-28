@@ -18,6 +18,7 @@ fi
 #+------------------------+
 apt update
 apt install python-dev python-pip -y
+sudo -u $assigned_user pip install --user beets
 #
 #
 #+----------------------------------------+
