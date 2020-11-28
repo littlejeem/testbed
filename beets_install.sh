@@ -33,20 +33,20 @@ apt install -y libchromaprint-tools
 #+---"Set up default locations"---+
 #+--------------------------------+
 # conversion destinations
-mkdir -p $HOME/Music/Library/alacimports
-mkdir -p $HOME/Music/Library/flacimports
-mkdir -p $HOME/Music/Library/PlayUploads
+sudo -u $assigned_user mkdir -p $HOME/Music/Library/alacimports
+sudo -u $assigned_user mkdir -p $HOME/Music/Library/flacimports
+sudo -u $assigned_user mkdir -p $HOME/Music/Library/PlayUploads
 # library file sources
-mkdir -p $HOME/.config/beets/alac
-mkdir -p $HOME/.config/beets/flac
-mkdir -p $HOME/.config/beets/uploads
+sudo -u $assigned_user mkdir -p $HOME/.config/beets/alac
+sudo -u $assigned_user mkdir -p $HOME/.config/beets/flac
+sudo -u $assigned_user mkdir -p $HOME/.config/beets/uploads
 #
 #
 #+-------------------------+
 #+---"Copy config files"---+
 #+-------------------------+
-cp $dir_name/alac_config.yaml $HOME/.config/beets/alac/
-cp $dir_name/flac_config.yaml $HOME/.config/beets/flac/
-cp $dir_name/uploads_config.yaml $HOME/.config/beets/uploads/
+sudo -u $assigned_user cp $dir_name/alac_config.yaml $HOME/.config/beets/alac/
+sudo -u $assigned_user cp $dir_name/flac_config.yaml $HOME/.config/beets/flac/
+sudo -u $assigned_user cp $dir_name/uploads_config.yaml $HOME/.config/beets/uploads/
 #
 #
