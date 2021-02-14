@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+mkdir /home/jlivin25/array_test/conglomerated
+read -a names #makes an array called 'names' from the entries entered by user
+array_count=${#names[@]} #counts the number of elements in the array and assigns to the variable cd_names
+for (( i=0; i<$array_count; i++)); do #basically says while the count (starting from 0) is less than the value in cd_names do the next bit
+  echo "${names[$i]}" ;
+  if [[ -d /home/jlivin25/array_test/"${names[$i]}" ]]; then
+    echo "cd"$i" location found, continuing"
+    cp -r /home/jlivin25/array_test/"${names[$i]}" /home/jlivin25/array_test/conglomerated/
+    rm -r /home/jlivin25/array_test/"${names[$i]}"
+  else
+    echo "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
+    exit
+  fi
+done
