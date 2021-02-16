@@ -60,22 +60,23 @@ log() {
 ############################
 ### "USE IT LIKE THIS??" ###
 ############################
+verbosity=4
 #
 #for terminal output
-tty -s && notify() { log $silent_lvl "NOTE: $*"; } # Always prints
-tty -s && critical() { log $crt_lvl "${colpur}CRITICAL:${colrst} $*"; }
-tty -s && error() { log $err_lvl "${colred}ERROR:${colrst} $*"; }
-tty -s && warn() { log $wrn_lvl "${colylw}WARNING:${colrst} $*"; }
-tty -s && inf() { log $inf_lvl "${colwht}INFO:${colrst} $*"; } # "info" is already a command
-tty -s && debug() { log $dbg_lvl "${colgrn}DEBUG:${colrst} $*"; }
+tty -s && notify() { log $silent_lvl "NOTE: $@"; } # Always prints
+tty -s && critical() { log $crt_lvl "${colpur}CRITICAL:${colrst} $@"; }
+tty -s && error() { log $err_lvl "${colred}ERROR:${colrst} $@"; }
+tty -s && warn() { log $wrn_lvl "${colylw}WARNING:${colrst} $@"; }
+tty -s && inf() { log $inf_lvl "${colwht}INFO:${colrst} $@"; } # "info" is already a command
+tty -s && debug() { log $dbg_lvl "${colgrn}DEBUG:${colrst} $@"; }
 
 #for logging
-tty -s || notify() { log $silent_lvl "NOTE: $*"; } # Always prints
-tty -s || critical() { log $crt_lvl "${colpur}CRITICAL:${colrst} $*"; }
-tty -s || error() { log $err_lvl "${colred}ERROR:${colrst} $*"; }
-tty -s || warn() { log $wrn_lvl "${colylw}WARNING:${colrst} $*"; }
-tty -s || inf() { log $inf_lvl "${colwht}INFO:${colrst} $*"; } # "info" is already a command
-tty -s || debug() { log $dbg_lvl "${colgrn}DEBUG:${colrst} $*"; }
+tty -s || notify() { log $silent_lvl "NOTE: $@"; } # Always prints
+tty -s || critical() { log $crt_lvl "${colpur}CRITICAL:${colrst} $@"; }
+tty -s || error() { log $err_lvl "${colred}ERROR:${colrst} $@"; }
+tty -s || warn() { log $wrn_lvl "${colylw}WARNING:${colrst} $@"; }
+tty -s || inf() { log $inf_lvl "${colwht}INFO:${colrst} $@"; } # "info" is already a command
+tty -s || debug() { log $dbg_lvl "${colgrn}DEBUG:${colrst} $@"; }
 #
 #
 log() {
@@ -93,50 +94,5 @@ warn "this is a warning"
 error "this is an error"
 info "this is an information"
 debug "debugging"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-get_folder_auto () {
-  mkdir /home/jlivin25/array_test/conglomerated
-  # use nullglob in case there are no matching files
-  shopt -s nullglob
-  names=(/home/jlivin25/array_test/*)
-  array_count=${#names[@]} #counts the number of elements in the array and assigns to the variable cd_names
-  for (( i=0; i<$array_count; i++)); do #basically says while the count (starting from 0) is less than the value in cd_names do the next bit
-    echo "${names[$i]}" ;
-    if [[ -d /home/jlivin25/array_test/"${names[$i]}" ]]; then
-      echo "cd"$i" location found, continuing"
-      cp -r /home/jlivin25/array_test/"${names[$i]}" /home/jlivin25/array_test/conglomerated/
-      rm -r /home/jlivin25/array_test/"${names[$i]}"
-    else
-      echo "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
-      exit
-    fi
-  done
-}
 #
 #
-#start script
-#1st get user choice
-if [[ $user_choice = "a" ]]; then
-  get_folder_auto
-elif [[ $user_choice = "m" ]]; then
-  get_folder_manual
-fi
-#
-exit 0
