@@ -34,26 +34,26 @@ tty -s && eerror () { verb_lvl=$err_lvl elog "${colred}ERROR${colrst} --- $@" ;}
 tty -s && ecrit ()  { verb_lvl=$crt_lvl elog "${colpur}FATAL${colrst} --- $@" ;}
 tty -s && edumpvar () { for var in $@ ; do edebug "$var=${!var}" ; done }
 # syslog versions
-tty -s || esilent () { logger -t verb_lvl=$silent_lvl elog "$@" ;}
-tty -s || enotify () { logger -t verb_lvl=$ntf_lvl elog "$@" ;}
-tty -s || eok ()    { logger -t verb_lvl=$ntf_lvl elog "SUCCESS - $@" ;}
-tty -s || ewarn ()  { logger -t verb_lvl=$wrn_lvl elog "${colylw}WARNING${colrst} - $@" ;}
-tty -s || einfo ()  { logger -t verb_lvl=$inf_lvl elog "${colwht}INFO${colrst} ---- $@" ;}
-tty -s || edebug () { logger -t verb_lvl=$dbg_lvl elog "${colgrn}DEBUG${colrst} --- $@" ;}
-tty -s || eerror () { logger -t verb_lvl=$err_lvl elog "${colred}ERROR${colrst} --- $@" ;}
-tty -s || ecrit ()  { logger -t verb_lvl=$crt_lvl elog "${colpur}FATAL${colrst} --- $@" ;}
-tty -s || edumpvar () { for var in $@ ; do edebug "$var=${!var}" ; done }
+tty -s || esilent () { logger -t verb_lvl=$silent_lvl slog "$@" ;}
+tty -s || enotify () { logger -t verb_lvl=$ntf_lvl slog "$@" ;}
+tty -s || eok ()    { logger -t verb_lvl=$ntf_lvl slog SUCCESS - "$@" ;}
+tty -s || ewarn ()  { logger -t verb_lvl=$wrn_lvl slog WARNING - "$@" ;}
+tty -s || einfo ()  { logger -t verb_lvl=$inf_lvl slog INFO ---- "$@" ;}
+tty -s || edebug () { logger -t verb_lvl=$dbg_lvl slog DEBUG --- "$@" ;}
+tty -s || eerror () { logger -t verb_lvl=$err_lvl slog ERROR --- "$@" ;}
+tty -s || ecrit ()  { logger -t verb_lvl=$crt_lvl slog FATAL --- "$@" ;}
+tty -s || edumpvar () { for var in "$@" ; do edebug "$var=${!var}" ; done }
 # Error log function for terminal
 elog() {
         if [ $verbosity -ge $verb_lvl ]; then
-                datestring=`date +"%Y-%m-%d %H:%M:%S"`
-                echo -e "$datestring - $@"
+          datestring=`date +"%Y-%m-%d %H:%M:%S"`
+          echo -e "$datestring - $@"
         fi
 }
 # Error log function for syslog
 slog() {
         if [ $verbosity -ge $verb_lvl ]; then
-                logger -t "$@"
+          "$@"
         fi
 }
 
