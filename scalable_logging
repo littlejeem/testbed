@@ -34,14 +34,14 @@ tty -s && eerror () { verb_lvl=$err_lvl elog "${colred}ERROR${colrst} --- $@" ;}
 tty -s && ecrit ()  { verb_lvl=$crt_lvl elog "${colpur}FATAL${colrst} --- $@" ;}
 tty -s && edumpvar () { for var in $@ ; do edebug "$var=${!var}" ; done }
 # syslog versions
-tty -s || esilent () { verb_lvl=$silent_lvl slog "$@" ;}
-tty -s || enotify () { verb_lvl=$ntf_lvl slog "$@" ;}
-tty -s || eok ()    { verb_lvl=$ntf_lvl slog "SUCCESS - $@" ;}
-tty -s || ewarn ()  { verb_lvl=$wrn_lvl slog "${colylw}WARNING${colrst} - $@" ;}
-tty -s || einfo ()  { verb_lvl=$inf_lvl slog "${colwht}INFO${colrst} ---- $@" ;}
-tty -s || edebug () { verb_lvl=$dbg_lvl slog "${colgrn}DEBUG${colrst} --- $@" ;}
-tty -s || eerror () { verb_lvl=$err_lvl slog "${colred}ERROR${colrst} --- $@" ;}
-tty -s || ecrit ()  { verb_lvl=$crt_lvl slog "${colpur}FATAL${colrst} --- $@" ;}
+tty -s || esilent () { logger -t verb_lvl=$silent_lvl elog "$@" ;}
+tty -s || enotify () { logger -t verb_lvl=$ntf_lvl elog "$@" ;}
+tty -s || eok ()    { logger -t verb_lvl=$ntf_lvl elog "SUCCESS - $@" ;}
+tty -s || ewarn ()  { logger -t verb_lvl=$wrn_lvl elog "${colylw}WARNING${colrst} - $@" ;}
+tty -s || einfo ()  { logger -t verb_lvl=$inf_lvl elog "${colwht}INFO${colrst} ---- $@" ;}
+tty -s || edebug () { logger -t verb_lvl=$dbg_lvl elog "${colgrn}DEBUG${colrst} --- $@" ;}
+tty -s || eerror () { logger -t verb_lvl=$err_lvl elog "${colred}ERROR${colrst} --- $@" ;}
+tty -s || ecrit ()  { logger -t verb_lvl=$crt_lvl elog "${colpur}FATAL${colrst} --- $@" ;}
 tty -s || edumpvar () { for var in $@ ; do edebug "$var=${!var}" ; done }
 # Error log function for terminal
 elog() {
