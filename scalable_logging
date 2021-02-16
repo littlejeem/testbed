@@ -53,7 +53,7 @@ elog() {
 # Error log function for syslog
 slog() {
         if [ $verbosity -ge $verb_lvl ]; then
-          logger -t "$@"
+          logger "$@"
         fi
 }
 
