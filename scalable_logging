@@ -36,17 +36,17 @@ tty -s && edumpvar () { for var in $@ ; do edebug "$var=${!var}" ; done }
 # syslog versions
 tty -s || esilent () { verb_lvl=$silent_lvl slog "$@" ;}
 tty -s || enotify () { verb_lvl=$ntf_lvl slog "$@" ;}
-tty -s || eok ()    { verb_lvl=$ntf_lvl slog "SUCCESS - $@"; }
-tty -s || ewarn ()  { verb_lvl=$wrn_lvl slog "WARNING - $@"; }
-tty -s || einfo ()  { verb_lvl=$inf_lvl slog "INFO ---- $@"; }
-tty -s || edebug () { verb_lvl=$dbg_lvl slog "DEBUG --- $@"; }
-tty -s || eerror () { verb_lvl=$err_lvl slog "ERROR --- $@"; }
-tty -s || ecrit ()  { verb_lvl=$crt_lvl slog "FATAL --- $@"; }
+tty -s || eok ()    { verb_lvl=$ntf_lvl slog "SUCCESS $(basename $0) - $@"; }
+tty -s || ewarn ()  { verb_lvl=$wrn_lvl slog "WARNING $(basename $0) - $@"; }
+tty -s || einfo ()  { verb_lvl=$inf_lvl slog "INFO $(basename $0) ---- $@"; }
+tty -s || edebug () { verb_lvl=$dbg_lvl slog "DEBUG $(basename $0) --- $@"; }
+tty -s || eerror () { verb_lvl=$err_lvl slog "ERROR $(basename $0) --- $@"; }
+tty -s || ecrit ()  { verb_lvl=$crt_lvl slog "FATAL $(basename $0) --- $@"; }
 tty -s || edumpvar () { for var in "$@" ; do edebug "$var=${!var}" ; done }
 # Error log function for terminal
 elog() {
         if [ $verbosity -ge $verb_lvl ]; then
-          datestring=$(date +%b"  "%-d" "%T)
+          datestring=$(date +%b" "%-d" "%T)
           echo -e "$datestring - $@"
         fi
 }
@@ -56,10 +56,8 @@ slog() {
           logger "$@"
         fi
 }
-
-
-
-
+#
+#GETOPTS
 OPTIND=1
 while getopts ":sVG" opt ; do
         case $opt in
@@ -77,7 +75,9 @@ while getopts ":sVG" opt ; do
                 ;;
         esac
 done
-
+#
+#
+# TEST SCRIPT
 ewarn "this is a warning"
 eerror "this is an error"
 einfo "this is an information"
