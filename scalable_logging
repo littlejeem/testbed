@@ -47,7 +47,7 @@ tty -s || edumpvar () { for var in "$@" ; do edebug "$var=${!var}" ; done }
 elog() {
         if [ $verbosity -ge $verb_lvl ]; then
           datestring=$(date +%b" "%-d" "%T)
-          echo -e "$datestring - $@"
+          echo -e "$datestring $USER "["scalable_logging"]" - $@"
         fi
 }
 # Error log function for syslog
