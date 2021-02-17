@@ -46,7 +46,7 @@ tty -s || edumpvar () { for var in "$@" ; do edebug "$var=${!var}" ; done }
 # Error log function for terminal
 elog() {
         if [ $verbosity -ge $verb_lvl ]; then
-          datestring=`date +"%Y-%m-%d %H:%M:%S"`
+          datestring=$(date +%b"  "%-d" "%T)
           echo -e "$datestring - $@"
         fi
 }
