@@ -69,11 +69,12 @@ check_folders () {
         else
           enotify "Extracting tracks from $candidate in ${names[$i]}"
           enotify "would now call cuesplit"
-          #/home/pi/bin/standalone_scripts/cuesplit.sh
-          enotify "extraction complete"
+          /home/pi/bin/standalone_scripts/cuesplit.sh
+          script_exit
           if [[ $reply -ne 0 ]]; then
             edebug "something reported as wrong during exit from cuesplit"
           else
+            enotify "extraction complete"
             enotify "recording $candidate as successful extract to $logdir/cuesplit.log"
             echo $candidate >> "$logdir"/cuesplit.log
           fi
