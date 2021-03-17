@@ -27,7 +27,7 @@
 #+---------------------------+
 version="0.1"
 #set default logging level
-verbosity=2
+verbosity=6
 logdir="/home/pi/bin/script_logs"
 #
 #
@@ -123,7 +123,7 @@ helpFunction () {
 edebug "$version"
 edebug $script_pid
 shopt -s nullglob
-echo "Grabbing contents of lidarr dir $lidarr_folder into array"
+enotify "Grabbing contents of lidarr dir $lidarr_folder into array"
 names=("$lidarr_folder"/*)
 check_folders
 enotify "script complete"
