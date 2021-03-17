@@ -74,6 +74,7 @@ check_folders () {
           if [[ $reply -ne 0 ]]; then
             edebug "something reported as wrong during exit from cuesplit"
           else
+            enotify "recording $candidate as successful extract to $logdir/cuesplit.log"
             echo $candidate >> "$logdir"/cuesplit.log
           fi
         fi
