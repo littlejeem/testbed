@@ -26,6 +26,9 @@
 #+---Set Version & Logging---+
 #+---------------------------+
 version="0.1"
+#set default logging level
+verbosity=2
+logdir="/home/pi/bin/script_logs"
 #
 #
 #+---------------------+
@@ -34,17 +37,15 @@ version="0.1"
 scriptlong="cue_extract.sh" # imports the name of this script
 lockname=${scriptlong::-3} # reduces the name to remove .sh
 script_pid=$(echo $$)
-logdir="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
-#set default logging level
-verbosity=2
-lidarr="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
+#lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
+lidarr_folder="/mnt/usbstorage/download/testbed"
 #
 #
 #+--------------------------+
 #+---Source helper script---+
 #+--------------------------+
 PATH=/sbin:/bin:/usr/bin:/home/jlivin25:/home/jlivin25/.local/bin:/home/jlivin25/bin
-source $HOME/bin/standalone_scripts/helper_script.sh
+source "$HOME"/bin/standalone_scripts/helper_script.sh
 #
 #
 #+----------------------+
@@ -52,35 +53,35 @@ source $HOME/bin/standalone_scripts/helper_script.sh
 #+----------------------+
 check_folders () {
   array_count=${#names[@]} #counts the number of elements in the array and assigns to the variable names
-  echo "$array_count folders found"
-  echo "Setting destination folder"
+  enotify "$array_count folders found"
+  enotify "Setting destination folder"
   for (( i=0; i<$array_count; i++)); do #basically says while the count (starting from 0) is less than the value in names do the next bit
-    echo "${names[$i]}" ;
+    enotify "${names[$i]}" ;
     if [[ -d "${names[$i]}" ]]; then
 #      cd $i || echo "directory $i unavailiable"
-      cd "${names[$i]}"
+      cd "${names[$i]}" || exit 65
       test_flac_nums=$(find -name "*.flac" | wc -l)
       if [ "$(find . -maxdepth 1 -type f -iname \*.cue)" ] && [ "$test_flac_nums" == "1" ]; then
-        echo "folder structure as expected, 1 .flac and 1 .cue, checking for previous split"
+        enotify "folder structure as expected, 1 .flac and 1 .cue, checking for previous split"
         candidate=$(find -name "*.flac")
         if grep -Fxq "$candidate" "$logdir"/cuesplit.log; then #0 if it is in file, 1 if it isn't
-          echo "${names[$i]} album already extracted"
+          enotify "${names[$i]} album already extracted"
         else
-          echo "Extracting tracks from $candidate in ${names[$i]}"
-          echo "would now call cuesplit"
+          enotify "Extracting tracks from $candidate in ${names[$i]}"
+          enotify "would now call cuesplit"
           #/home/pi/bin/standalone_scripts/cuesplit.sh
-          echo "extraction complete"
+          enotify "extraction complete"
           if [[ $reply -ne 0 ]]; then
-            echo "something reported as wrong during exit from cuesplit"
+            edebug "something reported as wrong during exit from cuesplit"
           else
             echo $candidate >> "$logdir"/cuesplit.log
           fi
         fi
       else
-        echo "folder ${names[$i]}, didnt' meet criteria "
+        edebug "folder ${names[$i]}, didnt' meet criteria "
       fi
     else
-      echo "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
+      edebug "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
 #      exit 65
     fi
   done
@@ -118,10 +119,9 @@ helpFunction () {
 #+-----------------+
 #+---Main Script---+
 #+-----------------+
-logdir="/home/pi/bin/script_logs"
 #lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
-lidarr_folder="/mnt/usbstorage/download/testbed"
-source $HOME/bin/standalone_scripts/helper_script.sh
+edebug "$version"
+edebug $script_pid
 shopt -s nullglob
 echo "Grabbing contents of lidarr dir $lidarr_folder into array"
 names=("$lidarr_folder"/*)
