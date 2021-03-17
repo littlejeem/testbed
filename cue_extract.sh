@@ -120,11 +120,12 @@ helpFunction () {
 #+---Main Script---+
 #+-----------------+
 #lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
-edebug "$version"
-edebug $script_pid
+edebug "Version is $version"
+edebug "PID: $script_pid"
 shopt -s nullglob
 enotify "Grabbing contents of lidarr dir $lidarr_folder into array"
 names=("$lidarr_folder"/*)
 check_folders
 enotify "script complete"
+rm -r /tmp/cue_extract
 exit 0
