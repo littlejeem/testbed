@@ -25,7 +25,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.1"
+version="0.2"
 #set default logging level
 verbosity=6
 logdir="/home/pi/bin/script_logs"
