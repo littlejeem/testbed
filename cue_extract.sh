@@ -25,9 +25,9 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.2"
+version="0.3"
 #set default logging level
-verbosity=6
+verbosity=2
 logdir="/home/pi/bin/script_logs"
 #
 #
@@ -53,30 +53,33 @@ source "$HOME"/bin/standalone_scripts/helper_script.sh
 #+----------------------+
 check_folders () {
   array_count=${#names[@]} #counts the number of elements in the array and assigns to the variable names
-  enotify "$array_count folders found"
-  enotify "Setting destination folder"
+  edebug "$array_count folders found"
+  edebug "Setting destination folder"
   for (( i=0; i<$array_count; i++)); do #basically says while the count (starting from 0) is less than the value in names do the next bit
-    enotify "${names[$i]}" ;
+    edebug "${names[$i]}" ;
     if [[ -d "${names[$i]}" ]]; then
-#      cd $i || echo "directory $i unavailiable"
       cd "${names[$i]}" || exit 65
       test_flac_nums=$(find -name "*.flac" | wc -l)
       if [ "$(find . -maxdepth 1 -type f -iname \*.cue)" ] && [ "$test_flac_nums" == "1" ]; then
-        enotify "folder structure as expected, 1 .flac and 1 .cue, checking for previous split"
+        edebug "folder structure as expected, 1 .flac and 1 .cue, checking for previous split"
         candidate=$(find -name "*.flac")
         if grep -Fxq "$candidate" "$logdir"/cuesplit.log; then #0 if it is in file, 1 if it isn't
-          enotify "${names[$i]} album already extracted"
+          edebug "${names[$i]} album already extracted"
         else
-          enotify "Extracting tracks from $candidate in ${names[$i]}"
-          enotify "would now call cuesplit"
-          /home/pi/bin/standalone_scripts/cuesplit.sh
-          script_exit
-          if [[ $reply -ne 0 ]]; then
-            edebug "something reported as wrong during exit from cuesplit"
+          edebug "Extracting tracks from $candidate in ${names[$i]}"
+          if [[ $dry_run -eq 1 ]]; then
+            edebug "dry-run enabled no script called"
           else
-            enotify "extraction complete"
-            enotify "recording $candidate as successful extract to $logdir/cuesplit.log"
-            echo $candidate >> "$logdir"/cuesplit.log
+            edebug "calling cuesplit"
+            /home/pi/bin/standalone_scripts/cuesplit.sh
+            script_exit
+            if [[ $reply -ne 0 ]]; then
+              edebug "something reported as wrong during exit from cuesplit"
+            else
+              edebug "extraction complete"
+              edebug "recording $candidate as successful extract to $logdir/cuesplit.log"
+              echo $candidate >> "$logdir"/cuesplit.log
+            fi
           fi
         fi
       else
@@ -102,12 +105,11 @@ check_running
 helpFunction () {
    echo ""
    echo "Usage: $0"
-   echo "Usage: $0 -vaG selects various artist source, autograb folder, debug level loging"
-   echo -e "\t Running the script with no flags causes failure, either -m or -v must be set"
-   echo -e "\t-m Use this flag to specify a single artist multi-disc"
-   echo -e "\t-v Use this flag to specify a various artist multi-disc"
-   echo -e "\t-a Use this flag to tell the script to auto-combine all folders in rip_flac, eg. -a, can be combined with -m or -v to become -ma"
-   echo -e "\t-n Use this flag to have the script prompt you for folders to include from rip_flac for combining, eg. -n, can be combined with -m or -v to become -nm"
+   echo "Usage: $0 -dV selects dry-run with verbose level logging"
+   echo -e "\t-d Use this flag to specify dry run, no files will be converted, usefu in conjunction with -V or -G "
+   echo -e "\t-s Override set verbosity to specify silent log level"
+   echo -e "\t-V Override set verbosity to specify verbose log level"
+   echo -e "\t-G Override set verbosity to specify Debug log level"
    if [ -d "/tmp/$lockname" ]; then
      edebug "removing lock directory"
      rm -r "/tmp/$lockname"
@@ -117,15 +119,37 @@ helpFunction () {
    exit 1 # Exit script after printing help
 }
 #
+#+------------------------+
+#+---"Get User Options"---+
+#+------------------------+
+OPTIND=1
+while getopts ":dsVGh:" opt
+do
+    case "${opt}" in
+      d) dry_run="1"
+      edebug "-d specified: dry run initiated";;
+      s) verbosity=$silent_lvl
+      edebug "-s specified: Silent mode";;
+      V) verbosity=$inf_lvl
+      edebug "-V specified: Verbose mode";;
+      G) verbosity=$dbg_lvl
+      edebug "-G specified: Debug mode";;
+      h) helpFunction;;
+      ?) helpFunction;;
+    esac
+done
+shift $((OPTIND -1))
+#
 #
 #+-----------------+
 #+---Main Script---+
 #+-----------------+
+enotify "Script Started"
 #lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
 edebug "Version is $version"
 edebug "PID: $script_pid"
 shopt -s nullglob
-enotify "Grabbing contents of lidarr dir $lidarr_folder into array"
+edebug "Grabbing contents of lidarr dir $lidarr_folder into array"
 names=("$lidarr_folder"/*)
 check_folders
 enotify "script complete"
