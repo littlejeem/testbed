@@ -71,3 +71,5 @@ progress_bar()
   echo $(tput cnorm)
   trap - SIGINT
 }
+sleep 2m 2>/dev/null &
+progress_bar
