@@ -25,9 +25,9 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.3"
+version="0.5"
 #set default logging level
-verbosity=2
+verbosity=4
 logdir="/home/pi/bin/script_logs"
 #
 #
@@ -62,23 +62,47 @@ check_folders () {
       test_flac_nums=$(find -name "*.flac" | wc -l)
       if [ "$(find . -maxdepth 1 -type f -iname \*.cue)" ] && [ "$test_flac_nums" == "1" ]; then
         edebug "folder structure as expected, 1 .flac and 1 .cue, checking for previous split"
-        candidate=$(find -name "*.flac")
-        if grep -Fxq "$candidate" "$logdir"/cuesplit.log; then #0 if it is in file, 1 if it isn't
-          edebug "${names[$i]} album already extracted"
+        flac_candidate=$(find -name "*.flac")
+        cue_candidate=$(find -name "*.cue")
+        edebug "flac_candidate recorded as $flac_candidate"
+        edebug "cue_candidate recorded as $cue_candidate"
+        if grep -Fxq "$flac_candidate" "$logdir"/cuesplit.log; then #0 if it is in file, 1 if it isn't
+          enotify "${names[$i]} album already extracted"
         else
-          edebug "Extracting tracks from $candidate in ${names[$i]}"
+          edebug "Extracting tracks from $flac_candidate in ${names[$i]}"
           if [[ $dry_run -eq 1 ]]; then
-            edebug "dry-run enabled no script called"
+            edebug "dry-run enabled no cue script called"
           else
             edebug "calling cuesplit"
-            /home/pi/bin/standalone_scripts/cuesplit.sh
-            script_exit
+            if [ -t 0 ]; then #test for tty connection, 0 = connected, else not
+              edebug "terminal connection detected, running for connected user"
+              /home/pi/bin/standalone_scripts/cuesplit.sh > /dev/null 2>&1 &
+              cue_pid=$!
+              pid_name=$cue_pid
+              edebug "cuesplit PID is: $cue_pid, recorded as PID_name: $pid_name"
+              progress_bar
+            else
+              edebug "No terminal connected, running as system script"
+              /home/pi/bin/standalone_scripts/cuesplit.sh
+            fi
             if [[ $reply -ne 0 ]]; then
-              edebug "something reported as wrong during exit from cuesplit"
+              ewarn "something reported as wrong during exit from cuesplit"
             else
               edebug "extraction complete"
-              edebug "recording $candidate as successful extract to $logdir/cuesplit.log"
-              echo $candidate >> "$logdir"/cuesplit.log
+              edebug "recording $flac_candidate as successful extract to $logdir/cuesplit.log"
+              echo $flac_candidate >> "$logdir"/cuesplit.log
+              edebug "removing .flac source"
+              rm "$flac_candidate"
+              if [[ $? -ne 0 ]]; then
+                eerror "removing file"
+                exit 65
+              fi
+              edebug "removing .cue source"
+              rm "$cue_candidate"
+              if [[ $? -ne 0 ]]; then
+                eerror "removing file"
+                exit 65
+              fi
             fi
           fi
         fi
@@ -86,8 +110,8 @@ check_folders () {
         edebug "folder ${names[$i]}, didnt' meet criteria "
       fi
     else
-      edebug "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
-#      exit 65
+      eerror "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
+      exit 65
     fi
   done
 }
@@ -106,7 +130,7 @@ helpFunction () {
    echo ""
    echo "Usage: $0"
    echo "Usage: $0 -dV selects dry-run with verbose level logging"
-   echo -e "\t-d Use this flag to specify dry run, no files will be converted, usefu in conjunction with -V or -G "
+   echo -e "\t-d Use this flag to specify dry run, no files will be converted, useful in conjunction with -V or -G "
    echo -e "\t-s Override set verbosity to specify silent log level"
    echo -e "\t-V Override set verbosity to specify verbose log level"
    echo -e "\t-G Override set verbosity to specify Debug log level"
@@ -114,7 +138,8 @@ helpFunction () {
      edebug "removing lock directory"
      rm -r "/tmp/$lockname"
    else
-     edebug "problem removing lock directory"
+     eerror "problem removing lock directory"
+     exit 65
    fi
    exit 1 # Exit script after printing help
 }
@@ -127,13 +152,13 @@ while getopts ":dsVGh:" opt
 do
     case "${opt}" in
       d) dry_run="1"
-      edebug "-d specified: dry run initiated";;
+      enotify "-d specified: dry run initiated";;
       s) verbosity=$silent_lvl
-      edebug "-s specified: Silent mode";;
+      enotify "-s specified: Silent mode";;
       V) verbosity=$inf_lvl
-      edebug "-V specified: Verbose mode";;
+      enotify "-V specified: Verbose mode";;
       G) verbosity=$dbg_lvl
-      edebug "-G specified: Debug mode";;
+      enotify "-G specified: Debug mode";;
       h) helpFunction;;
       ?) helpFunction;;
     esac
@@ -144,14 +169,17 @@ shift $((OPTIND -1))
 #+-----------------+
 #+---Main Script---+
 #+-----------------+
-enotify "Script Started"
-#lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
+esilent "Script Started"
 edebug "Version is $version"
 edebug "PID: $script_pid"
 shopt -s nullglob
 edebug "Grabbing contents of lidarr dir $lidarr_folder into array"
 names=("$lidarr_folder"/*)
 check_folders
-enotify "script complete"
+esilent "script complete"
 rm -r /tmp/cue_extract
+if [[ $? -ne 0 ]]; then
+  eerror "removing file"
+  exit 65
+fi
 exit 0
