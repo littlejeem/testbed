@@ -25,7 +25,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.5"
+version="0.6"
 #set default logging level
 verbosity=4
 logdir="/home/pi/bin/script_logs"
@@ -37,8 +37,7 @@ logdir="/home/pi/bin/script_logs"
 scriptlong="cue_extract.sh" # imports the name of this script
 lockname=${scriptlong::-3} # reduces the name to remove .sh
 script_pid=$(echo $$)
-#lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
-lidarr_folder="/mnt/usbstorage/download/testbed"
+lidarr_folder="/mnt/usbstorage/download/complete/transmission/LidarrMusic"
 #
 #
 #+--------------------------+
@@ -91,17 +90,21 @@ check_folders () {
               edebug "extraction complete"
               edebug "recording $flac_candidate as successful extract to $logdir/cuesplit.log"
               echo $flac_candidate >> "$logdir"/cuesplit.log
-              edebug "removing .flac source"
-              rm "$flac_candidate"
-              if [[ $? -ne 0 ]]; then
-                eerror "removing file"
-                exit 65
-              fi
-              edebug "removing .cue source"
-              rm "$cue_candidate"
-              if [[ $? -ne 0 ]]; then
-                eerror "removing file"
-                exit 65
+              if [ $keep_files = "1" ]; then
+                edebug "keep source files specified, not deleting"
+              else
+                edebug "removing .flac source"
+                rm "$flac_candidate"
+                if [[ $? -ne 0 ]]; then
+                  eerror "error removing .flac file"
+                  exit 65
+                fi
+                edebug "removing .cue source"
+                rm "$cue_candidate"
+                if [[ $? -ne 0 ]]; then
+                  eerror "error removing .cue file"
+                  exit 65
+                fi
               fi
             fi
           fi
@@ -131,6 +134,7 @@ helpFunction () {
    echo "Usage: $0"
    echo "Usage: $0 -dV selects dry-run with verbose level logging"
    echo -e "\t-d Use this flag to specify dry run, no files will be converted, useful in conjunction with -V or -G "
+   echo -e "\t-k Override the deletion of source .cue & .flac files"
    echo -e "\t-s Override set verbosity to specify silent log level"
    echo -e "\t-V Override set verbosity to specify verbose log level"
    echo -e "\t-G Override set verbosity to specify Debug log level"
@@ -148,11 +152,13 @@ helpFunction () {
 #+---"Get User Options"---+
 #+------------------------+
 OPTIND=1
-while getopts ":dsVGh:" opt
+while getopts ":dksVGh:" opt
 do
     case "${opt}" in
       d) dry_run="1"
       enotify "-d specified: dry run initiated";;
+      k) keep_files="1"
+      enotify "-k specified: keeping source .cue .flac files post extract";;
       s) verbosity=$silent_lvl
       enotify "-s specified: Silent mode";;
       V) verbosity=$inf_lvl
@@ -166,6 +172,8 @@ done
 shift $((OPTIND -1))
 #
 #
+JAIL_FATAL="${lidarr_folder}"
+fatal_missing_var
 #+-----------------+
 #+---Main Script---+
 #+-----------------+
