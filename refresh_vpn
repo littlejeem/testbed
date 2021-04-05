@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.3"
+version="0.4"
 #
 #
 #+---------------------+
@@ -123,6 +123,7 @@ fi
 cd /etc/openvpn
 
 #update availiable ovpns by downloading the OpenVPN configuration files with the command:
+edebug "download source files"
 wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
 if [ $? != 0 ]; then
   wget_error=$?
@@ -130,12 +131,20 @@ if [ $? != 0 ]; then
   eerror "wget returned an error code: $wget_error, exiting"
   exit 66
 else
-  edebug "auth-user-pass ammended successfully"
+  edebug "completed download of file successfully"
 fi
 
-
 #Extract ovpn.zip with the command:
+edebug "extracting download file"
 unzip ovpn.zip
+if [ $? != 0 ]; then
+  unzip_error=$?
+  edebug "$unzip_error"
+  eerror "sed returned an error code: $unzip_error, exiting"
+  exit 66
+else
+  edebug "unzip operation successful"
+fi
 
 #Remove the files you will no longer use:
 rm ovpn.zip
