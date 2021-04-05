@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.8"
+version="0.9"
 #
 #
 #+---------------------+
@@ -57,11 +57,13 @@ script_pid=$(echo $$)
 #+-------------------+
 helpFunction () {
    echo ""
-   echo "Usage: $0 -u ####"
-   echo "Usage: $0"
-   echo -e "\t Running the script with no flags causes default behaviour"
-   echo -e "\t-t Use this flag to specify tcp protocol"
-   echo -e "\t-u Use this flag to specify udp protocol"
+   echo "Usage: $0 -u"
+   echo -e "\t Either -u or -t must be set, flags need no arguements and can be combined, eg. $0 -uG"
+   echo -e "\t -t Use this flag to specify tcp protocol"
+   echo -e "\t -u Use this flag to specify udp protocol"
+   echo -e "\t -s Override set verbosity to specify silent log level"
+   echo -e "\t -V Override set verbosity to specify verbose log level"
+   echo -e "\t -G Override set verbosity to specify Debug log level"
    exit 0 # Exit script after printing help
 }
 #
@@ -73,6 +75,12 @@ Check_Service () {
 #+-----------------------+
 #+---Set up user flags---+
 #+-----------------------+
+#make sure a flag is provided
+if ( ! getopts "tusVGh" opt); then
+  helpFunction
+fi
+#
+#get inputs
 OPTIND=1
 while getopts ":tusVGh:" opt
 do
@@ -92,6 +100,11 @@ do
     esac
 done
 shift $((OPTIND -1))
+#
+#check either -t or -u are set
+if [ -z "$protocol" ]; then
+   helpFunction
+fi
 #
 #
 #+------------------+
