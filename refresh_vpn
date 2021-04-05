@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.6"
+version="0.7"
 #
 #
 #+---------------------+
@@ -153,22 +153,46 @@ fi
 
 #Remove the files you will no longer use:
 ovpn_file="/etc/openvpn/ovpn.zip"
-if [ -f "$ovpn_file" ]; then
-  edebug "$ovpn_file detected, removing"
-  rm "$ovpn_file"
+check_file="$ovpn_file"
+if [ -f "$check_file" ]; then
+  edebug "$check_file detected, removing"
+  rm "$check_file"
   if [ $? != 0 ]; then
     error "rm command returned non zero, exiting script"
     exit 66
   else
-    edebug "successfully deleted "$ovpn_file""
+    edebug "successfully deleted $check_file"
   fi
 else
-  ecrit "critical error, /etc/openvpn/ovpn.zip expected but not found"
+  ecrit "critical error, $check_file expected but not found"
 fi
 
 #back up existing files
-cp login login.backup"$backup_name"
-cp client.conf client.conf.backup"$backup_name"
+openvpn_login="/etc/openvpn/login"
+check_file=$openvpn_login
+if [ -f "$check_file" ]; then
+  edebug "$check_file detected, backing up"
+  cp "$check_file" "$check_file""$backup_name"
+  if [ $? != 0 ]; then
+    error "cp command returned non zero, exiting script"
+    exit 66
+  else
+    edebug "successfully backed up: $check_file"
+  fi
+fi
+#
+openvpn_client="/etc/openvpn/client.conf"
+check_file=$openvpn_client
+if [ -f "$check_file" ]; then
+  edebug "$check_file detected, backing up"
+  cp "$check_file" "$check_file""$backup_name"
+  if [ $? != 0 ]; then
+    error "cp command returned non zero, exiting script"
+    exit 66
+  else
+    edebug "successfully backed up: $check_file"
+  fi
+fi
 
 #copy new ovpn to be the client.conf
 cp /ovpn_udp/"$new_ovpn"."$protocol".ovpn client.conf
