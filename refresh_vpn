@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+#
+#+------------------+
+#+---"Exit Codes"---+
+#+------------------+
+# pick from 64 - 113 (https://tldp.org/LDP/abs/html/exitcodes.html#FTN.AEN23647)
+# exit 0 = Success
+# exit 64 = Variable Error
+# exit 65 = Sourcing file error
+# exit 66 = Processing Error
+# exit 67 = Required Program Missing
+#
+#
+### verbosity levels
+#silent_lvl=0
+#crt_lvl=1
+#err_lvl=2
+#wrn_lvl=3
+#ntf_lvl=4
+#inf_lvl=5
+#dbg_lvl=6
+#
+#+---------------------------+
+#+---Set Version & Logging---+
+#+---------------------------+
+version="0.3"
+#
+#
+#+---------------------+
+#+---"Set Variables"---+
+#+---------------------+
+verbosity=4
+#
+#+---------------------------------------------+
+#+---check running as root before continuing---+
+#+---------------------------------------------+
+if [[ $EUID -ne 0 ]]; then
+    echo "Please run this script with sudo:"
+    echo "sudo $0 $*"
+    exit 1
+fi
+#
+#
+#+---------------------+
+#+---"Set Variables"---+
+#+---------------------+
+PATH=/sbin:/bin:/usr/bin:/home/jlivin25:/home/pi/.local/bin:/home/pi/bin
+source "$HOME"/bin/standalone_scripts/helper_script.sh
+backup_name=$(echo -$(date +%d.%m.%y_%H:%M))
+scriptlong="refresh_vpn.sh" # imports the name of this script
+lockname=${scriptlong::-3} # reduces the name to remove .sh
+script_pid=$(echo $$)
+#
+#
+#+-------------------+
+#+---Set functions---+
+#+-------------------+
+helpFunction () {
+   echo ""
+   echo "Usage: $0 -u ####"
+   echo "Usage: $0"
+   echo -e "\t Running the script with no flags causes default behaviour"
+   echo -e "\t-t Use this flag to specify tcp protocol"
+   echo -e "\t-u Use this flag to specify udp protocol"
+   exit 0 # Exit script after printing help
+}
+#
+Check_Service () {
+  check=$(systemctl show -p SubState --value $service_name.service)
+}
+#
+#
+#+-----------------------+
+#+---Set up user flags---+
+#+-----------------------+
+enotify "$scriptlong started"
+OPTIND=1
+while getopts ":tusVGh:" opt
+do
+    case "${opt}" in
+      t) protocol="tcp"
+      enotify "-t specified: using tcp";;
+      u) protocol="udp"
+      enotify "-u specified: using udp";;
+      s) verbosity=$silent_lvl
+      enotify "-s specified: Silent mode";;
+      V) verbosity=$inf_lvl
+      enotify "-V specified: Verbose mode";;
+      G) verbosity=$dbg_lvl
+      enotify "-G specified: Debug mode";;
+      h) helpFunction;;
+      ?) helpFunction;;
+    esac
+done
+shift $((OPTIND -1))
+#
+#
+#+------------------+
+#+---Start Script---+
+#+------------------+
+#
+#first grab the new best location file name from user from https://nordvpn.com/servers/tools/
+echo "Please navigate to https://nordvpn.com/servers/tools/ and grab the up to date file name, copy and paste it here"
+read new_ovpn
+enotify "new ovpn is $new_ovpn"
+#
+#stop existing services
+edebug "shutting down running services"
+service_name=transmission-daemon
+Check_Service
+if [ $check = "running" ]; then
+  edebug "transmission service detected, shutting down"
+  systemctl stop openvpn
+fi
+service_name=openvpn
+Check_Service
+if [ $check = "running" ]; then
+  edebug "openvpn service detected, shutting down"
+  systemctl stop openvpn
+fi
+#
+#Navigate to the OpenVPN configuration directory with the command:
+cd /etc/openvpn
+
+#update availiable ovpns by downloading the OpenVPN configuration files with the command:
+wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
+if [ $? != 0 ]; then
+  wget_error=$?
+  edebug "$wget_error"
+  eerror "wget returned an error code: $wget_error, exiting"
+  exit 66
+else
+  edebug "auth-user-pass ammended successfully"
+fi
+
+
+#Extract ovpn.zip with the command:
+unzip ovpn.zip
+
+#Remove the files you will no longer use:
+rm ovpn.zip
+
+#back up existing files
+cp login login.backup"$backup_name"
+cp client.conf client.conf.backup"$backup_name"
+
+#copy new ovpn to be the client.conf
+cp /ovpn_udp/"$new_ovpn"."$protocol".ovpn client.conf
+
+#edit new file to replace passwork with correct location
+#sed -i 's/old-text/new-text/g' input.txt #where the / after the first 's' is the delimiter, this can be anything
+sed -i "s#auth-user-pass#auth-user-pass /etc/openvpn/login#g" client.conf
+if [ $? != 0 ]; then
+  sed_error=$?
+  edebug "$sed_error"
+  eerror "sed returned an error code: $sed_error, exiting"
+  exit 66
+else
+  edebug "auth-user-pass ammended successfully"
+fi
+enotify "$scriptlong completed"
+exit 0
