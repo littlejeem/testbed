@@ -6,7 +6,7 @@
 # pick from 64 - 113 (https://tldp.org/LDP/abs/html/exitcodes.html#FTN.AEN23647)
 # exit 0 = Success
 # exit 64 = Variable Error
-# exit 65 = Sourcing file error
+# exit 65 = Sourcing file/folder error
 # exit 66 = Processing Error
 # exit 67 = Required Program Missing
 #
@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.4"
+version="0.5"
 #
 #
 #+---------------------+
@@ -118,9 +118,13 @@ if [ $check = "running" ]; then
   edebug "openvpn service detected, shutting down"
   systemctl stop openvpn
 fi
-#
+
 #Navigate to the OpenVPN configuration directory with the command:
-cd /etc/openvpn
+if [ -d /etc/openvpn ]; then
+  cd /etc/openvpn || eerror "navigation failed" && exit 65
+else
+  edebug "moved to desired folder successfully"
+fi
 
 #update availiable ovpns by downloading the OpenVPN configuration files with the command:
 edebug "download source files"
