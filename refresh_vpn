@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.9"
+version="0.10"
 #
 #
 #+---------------------+
@@ -117,6 +117,24 @@ edebug "PID is: $script_pid"
 echo "Please navigate to https://nordvpn.com/servers/tools/ and grab the up to date file name, copy and paste it here"
 read new_ovpn
 enotify "new ovpn is $new_ovpn"
+
+#check for necessary installed programs
+program_check=unzip
+if ! command -v "$program_check" &> /dev/null
+then
+  eerror "$program_check could not be found, script won't function wihout it, attempting install"
+  apt update && apt install "$program_check" -y
+  if ! command -v "$program_check" &> /dev/null
+  then
+    eerror "$program_check install failed, scripts won't function wihout it, exiting"
+    exit 67
+  else
+    edebug "$program_check now installed, continuing"
+  fi
+else
+    enotify "$program_check command located, continuing"
+fi
+#
 
 #stop existing services
 edebug "shutting down running services"
