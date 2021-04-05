@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.5"
+version="0.6"
 #
 #
 #+---------------------+
@@ -73,7 +73,6 @@ Check_Service () {
 #+-----------------------+
 #+---Set up user flags---+
 #+-----------------------+
-enotify "$scriptlong started"
 OPTIND=1
 while getopts ":tusVGh:" opt
 do
@@ -98,12 +97,14 @@ shift $((OPTIND -1))
 #+------------------+
 #+---Start Script---+
 #+------------------+
-#
+enotify "$scriptlong started"
+edebug "PID is: $script_pid"
+
 #first grab the new best location file name from user from https://nordvpn.com/servers/tools/
 echo "Please navigate to https://nordvpn.com/servers/tools/ and grab the up to date file name, copy and paste it here"
 read new_ovpn
 enotify "new ovpn is $new_ovpn"
-#
+
 #stop existing services
 edebug "shutting down running services"
 service_name=transmission-daemon
@@ -151,7 +152,19 @@ else
 fi
 
 #Remove the files you will no longer use:
-rm ovpn.zip
+ovpn_file="/etc/openvpn/ovpn.zip"
+if [ -f "$ovpn_file" ]; then
+  edebug "$ovpn_file detected, removing"
+  rm "$ovpn_file"
+  if [ $? != 0 ]; then
+    error "rm command returned non zero, exiting script"
+    exit 66
+  else
+    edebug "successfully deleted "$ovpn_file""
+  fi
+else
+  ecrit "critical error, /etc/openvpn/ovpn.zip expected but not found"
+fi
 
 #back up existing files
 cp login login.backup"$backup_name"
