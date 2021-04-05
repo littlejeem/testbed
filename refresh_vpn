@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.7"
+version="0.8"
 #
 #
 #+---------------------+
@@ -195,7 +195,18 @@ if [ -f "$check_file" ]; then
 fi
 
 #copy new ovpn to be the client.conf
-cp /ovpn_udp/"$new_ovpn"."$protocol".ovpn client.conf
+openvpn_newclient="/etc/openvpn/ovpn_udp/"$new_ovpn"."$protocol".ovpn"
+check_file="$openvpn_newclient"
+if [ -f "$check_file" ]; then
+  edebug "$check_file detected, copying to client.conf"
+  cp "$check_file" $openvpn_client
+  if [ $? != 0 ]; then
+    error "cp command returned non zero, exiting script"
+    exit 66
+  else
+    edebug "successfully put in place new client.conf"
+  fi
+fi
 
 #edit new file to replace passwork with correct location
 #sed -i 's/old-text/new-text/g' input.txt #where the / after the first 's' is the delimiter, this can be anything
