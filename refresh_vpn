@@ -120,21 +120,7 @@ enotify "new ovpn is $new_ovpn"
 
 #check for necessary installed programs
 program_check=unzip
-if ! command -v "$program_check" &> /dev/null
-then
-  eerror "$program_check could not be found, script won't function wihout it, attempting install"
-  apt update && apt install "$program_check" -y
-  if ! command -v "$program_check" &> /dev/null
-  then
-    eerror "$program_check install failed, scripts won't function wihout it, exiting"
-    exit 67
-  else
-    edebug "$program_check now installed, continuing"
-  fi
-else
-    enotify "$program_check command located, continuing"
-fi
-#
+prog_check
 
 #stop existing services
 edebug "shutting down running services"
@@ -153,8 +139,9 @@ fi
 
 #Navigate to the OpenVPN configuration directory with the command:
 if [ -d /etc/openvpn ]; then
-  cd /etc/openvpn || eerror "navigation failed" && exit 65
+  edebug "moved to desired folder successfully"
 else
+  cd /etc/openvpn || eerror "navigation failed" && exit 65
   edebug "moved to desired folder successfully"
 fi
 
