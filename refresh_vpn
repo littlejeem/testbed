@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.11"
+version="0.12"
 #
 #
 #+---------------------+
@@ -119,7 +119,7 @@ read new_ovpn
 enotify "new ovpn is $new_ovpn"
 
 #check for necessary installed programs
-program_check=unzip
+program_check="unzip"
 prog_check
 
 #program_check=openvpn
@@ -127,11 +127,11 @@ prog_check
 
 #stop existing services
 edebug "shutting down running services"
-service_name=transmission-daemon
+service_name="transmission-daemon"
 Check_Service_ActiveState
-if [ $check = "active" ]; then
+if [ $check == "active" ]; then
   edebug "$service_name service detected, stopping"
-  systemctl stop $service_name
+  systemctl stop "$service_name"
   Check_Service_ActiveState
   if [ $check != "active" ]; then
     edebug "$service_name service successfully stopped"
@@ -143,12 +143,11 @@ else
   edebug "$service_name not detected as running"
 fi
 #
-service_name=openvpn
-Check_Service
+service_name="openvpn"
 Check_Service_ActiveState
-if [ $check = "active" ]; then
+if [ $check == "active" ]; then
   edebug "$service_name service detected, stopping"
-  systemctl stop $service_name
+  systemctl stop "$service_name"
   Check_Service_ActiveState
   if [ $check != "active" ]; then
     edebug "$service_name service successfully stopped"
@@ -171,7 +170,8 @@ fi
 
 #update availiable ovpns by downloading the OpenVPN configuration files with the command:
 edebug "download source files"
-wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
+wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip > /dev/null
+#> /dev/null 2>&1 &
 if [ $? != 0 ]; then
   wget_error=$?
   edebug "$wget_error"
@@ -183,7 +183,7 @@ fi
 
 #Extract ovpn.zip with the command:
 edebug "extracting download file"
-unzip ovpn.zip
+unzip -qq ovpn.zip
 if [ $? != 0 ]; then
   unzip_error=$?
   edebug "$unzip_error"
@@ -261,5 +261,24 @@ if [ $? != 0 ]; then
 else
   edebug "auth-user-pass ammended successfully"
 fi
+
+#tidy up temp folders
+if [ -d /etc/openvpn/ovpn_tcp ]; then
+  rm -r /etc/openvpn/ovpn_tcp
+  edebug "ovpn_tcp folder removed"
+else
+  edebug "no ovpn_tcp folder found, exiting"
+  exit 65
+fi
+#
+if [ -d /etc/openvpn/ovpn_udp ]; then
+  rm -r /etc/openvpn/ovpn_udp
+  edebug "ovpn_udp folder removed"
+else
+  edebug "no ovpn_udp folder found, exiting"
+  exit 65
+fi
+#
+#
 enotify "$scriptlong completed"
 exit 0
