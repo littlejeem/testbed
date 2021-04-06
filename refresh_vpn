@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.10"
+version="0.11"
 #
 #
 #+---------------------+
@@ -122,27 +122,51 @@ enotify "new ovpn is $new_ovpn"
 program_check=unzip
 prog_check
 
+#program_check=openvpn
+#prog_check
+
 #stop existing services
 edebug "shutting down running services"
 service_name=transmission-daemon
-Check_Service
-if [ $check = "running" ]; then
-  edebug "transmission service detected, shutting down"
-  systemctl stop openvpn
+Check_Service_ActiveState
+if [ $check = "active" ]; then
+  edebug "$service_name service detected, stopping"
+  systemctl stop $service_name
+  Check_Service_ActiveState
+  if [ $check != "active" ]; then
+    edebug "$service_name service successfully stopped"
+  else
+    eerror "$service_name failed to be stopped"
+    exit 66
+  fi
+else
+  edebug "$service_name not detected as running"
 fi
+#
 service_name=openvpn
 Check_Service
-if [ $check = "running" ]; then
-  edebug "openvpn service detected, shutting down"
-  systemctl stop openvpn
+Check_Service_ActiveState
+if [ $check = "active" ]; then
+  edebug "$service_name service detected, stopping"
+  systemctl stop $service_name
+  Check_Service_ActiveState
+  if [ $check != "active" ]; then
+    edebug "$service_name service successfully stopped"
+  else
+    eerror "$service_name failed to be stopped"
+    exit 66
+  fi
+else
+  edebug "$service_name not detected as running"
 fi
 
 #Navigate to the OpenVPN configuration directory with the command:
 if [ -d /etc/openvpn ]; then
+  cd /etc/openvpn
   edebug "moved to desired folder successfully"
 else
-  cd /etc/openvpn || eerror "navigation failed" && exit 65
-  edebug "moved to desired folder successfully"
+  no openvpn folder found, exiting
+  exit 65
 fi
 
 #update availiable ovpns by downloading the OpenVPN configuration files with the command:
