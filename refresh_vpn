@@ -23,7 +23,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.12"
+version="0.15"
 #
 #
 #+---------------------+
@@ -129,11 +129,11 @@ prog_check
 edebug "shutting down running services"
 service_name="transmission-daemon"
 Check_Service_ActiveState
-if [ $check == "active" ]; then
+if [ "$check" == "active" ]; then
   edebug "$service_name service detected, stopping"
   systemctl stop "$service_name"
   Check_Service_ActiveState
-  if [ $check != "active" ]; then
+  if [ "$check" != "active" ]; then
     edebug "$service_name service successfully stopped"
   else
     eerror "$service_name failed to be stopped"
@@ -145,11 +145,11 @@ fi
 #
 service_name="openvpn"
 Check_Service_ActiveState
-if [ $check == "active" ]; then
+if [ "$check" == "active" ]; then
   edebug "$service_name service detected, stopping"
   systemctl stop "$service_name"
   Check_Service_ActiveState
-  if [ $check != "active" ]; then
+  if [ "$check" != "active" ]; then
     edebug "$service_name service successfully stopped"
   else
     eerror "$service_name failed to be stopped"
@@ -170,8 +170,8 @@ fi
 
 #update availiable ovpns by downloading the OpenVPN configuration files with the command:
 edebug "download source files"
-wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip > /dev/null
-#> /dev/null 2>&1 &
+wget -q https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
+#> /dev/null 2>
 if [ $? != 0 ]; then
   wget_error=$?
   edebug "$wget_error"
@@ -211,7 +211,7 @@ fi
 
 #back up existing files
 openvpn_login="/etc/openvpn/login"
-check_file=$openvpn_login
+check_file="$openvpn_login"
 if [ -f "$check_file" ]; then
   edebug "$check_file detected, backing up"
   cp "$check_file" "$check_file""$backup_name"
@@ -224,7 +224,7 @@ if [ -f "$check_file" ]; then
 fi
 #
 openvpn_client="/etc/openvpn/client.conf"
-check_file=$openvpn_client
+check_file="$openvpn_client"
 if [ -f "$check_file" ]; then
   edebug "$check_file detected, backing up"
   cp "$check_file" "$check_file""$backup_name"
@@ -278,7 +278,39 @@ else
   edebug "no ovpn_udp folder found, exiting"
   exit 65
 fi
+
+#Restart previously stopped services
+service_name="openvpn"
+Check_Service_ActiveState
+if [ "$check" == "inactive" ]; then
+  edebug "$service_name stopped, starting"
+  systemctl start "$service_name"
+  Check_Service_ActiveState
+  if [ "$check" != "inactive" ]; then
+    edebug "$service_name service successfully started"
+  else
+    eerror "$service_name failed to start"
+    exit 66
+  fi
+else
+  ewarn "something went wrong in trying to start $service_name"
+fi
 #
+service_name="transmission-daemon"
+Check_Service_ActiveState
+if [ "$check" == "inactive" ]; then
+  edebug "$service_name stopped, starting"
+  systemctl start "$service_name"
+  Check_Service_ActiveState
+  if [ "$check" != "inactive" ]; then
+    edebug "$service_name service successfully started"
+  else
+    eerror "$service_name failed to start"
+    exit 66
+  fi
+else
+  ewarn "something went wrong in trying to start $service_name"
+fi
 #
 enotify "$scriptlong completed"
 exit 0
