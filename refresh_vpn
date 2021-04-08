@@ -11,7 +11,9 @@
 # exit 67 = Required Program Missing
 #
 #
-### verbosity levels
+#+------------------------+
+#+---"Verbosity Levels"---+
+#+------------------------+
 #silent_lvl=0
 #crt_lvl=1
 #err_lvl=2
@@ -23,7 +25,7 @@
 #+---------------------------+
 #+---Set Version & Logging---+
 #+---------------------------+
-version="0.15"
+version="1.0"
 #
 #
 #+---------------------+
@@ -114,9 +116,9 @@ enotify "$scriptlong started"
 edebug "PID is: $script_pid"
 
 #first grab the new best location file name from user from https://nordvpn.com/servers/tools/
-echo "Please navigate to https://nordvpn.com/servers/tools/ and grab the up to date file name, copy and paste it here"
+echo "Please navigate to https://nordvpn.com/servers/tools/ and grab the up to date ovpn name, copy and paste it here"
 read new_ovpn
-enotify "new ovpn is $new_ovpn"
+edebug "new ovpn is $new_ovpn"
 
 #check for necessary installed programs
 program_check="unzip"
@@ -159,7 +161,7 @@ else
   edebug "$service_name not detected as running"
 fi
 
-#Navigate to the OpenVPN configuration directory with the command:
+#Navigate to the OpenVPN configuration directory:
 if [ -d /etc/openvpn ]; then
   cd /etc/openvpn
   edebug "moved to desired folder successfully"
@@ -168,7 +170,7 @@ else
   exit 65
 fi
 
-#update availiable ovpns by downloading the OpenVPN configuration files with the command:
+#update availiable ovpns by downloading the OpenVPN configuration files:
 edebug "download source files"
 wget -q https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
 #> /dev/null 2>
