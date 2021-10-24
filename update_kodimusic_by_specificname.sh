@@ -86,6 +86,27 @@ helpFunction () {
    exit 65 # Exit script after printing help
 }
 #
+get_CD_dirs () {
+  array_count=${#names[@]} #counts the number of elements in the array and assigns to the variable cd_names
+  edebug "$array_count folders found"
+  edebug "Setting destination folder"
+  mkdir -p "$rip_flac"/Unknown\ Artist1
+  check_command
+  for (( i=0; i<$array_count; i++)); do #basically says while the count (starting from 0) is less than the value in cd_names do the next bit
+    enotify "${names[$i]}" ;
+    if [[ -d "${names[$i]}" ]]; then
+      enotify "cd"$i" location found at array position $i, continuing"
+      cp -r "${names[$i]}"/Unknown\ Album "$rip_flac"/Unknown\ Artist1/CD"$i"\ Unknown\ Album
+      check_command
+      rm -r "${names[$i]}"
+      check_command
+    else
+      eerror "input error; array element $i ${names[$i]}, doesn't exist, check and try again"
+      exit 65
+    fi
+  done
+}
+#
 #
 #+------------------------+
 #+---"Get User Options"---+
@@ -116,21 +137,6 @@ shift $((OPTIND -1))
 #+----------------------+
 # At this point the script is set up and all necessary conditions met so lets log this
 esilent "$lockname started"
-#
-#
-#+-------------------------------+
-#+---Configure GETOPTS options---+
-#+-------------------------------+
-#e.g for a drive option
-if [[ $drive_install = "" ]]; then
-  drive_number="sr0"
-  edebug "no alternative drive specified, using default: $drive_number as drive install"
-else
-  drive_number=$(echo $drive_install)
-  edebug "alternative drive specified, using: $drive_number as drive install"
-fi
-#
-edebug "GETOPTS options set"
 #
 #
 #+--------------------------+
