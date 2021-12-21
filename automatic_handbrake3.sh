@@ -185,24 +185,10 @@ do
 done
 shift $((OPTIND -1))
 #
-#while getopts r:e:t:q:s:c:h flag
-#do
-#    case "${flag}" in
-#        r) rip_only=${OPTARG};;
-#        e) encode_only=${OPTARG};;
-#        t) title_override=${OPTARG};;
-#        q) quality_override=${OPTARG};;
-#        s) source_clean_override=${OPTARG};;
-#        c) temp_clean_override=${OPTARG};;
-#        h) helpFunction;;
-#        ?) helpFunction;;
-#    esac
-#done
-#
 #+----------------------+
 #+---"Script Started"---+
 #+----------------------+
-# At this point the script is set up and all necessary conditions met so lets log this
+# At this point the script is set up and all necessary conditions.
 esilent "$lockname started"
 #
 #
@@ -280,7 +266,7 @@ fi
 #+---"Source config file"---+
 #+--------------------------+
 source /usr/local/bin/config.sh
-source /home/jlivin25/bin/omdb_key
+source /usr/local/bin/omdb_key
 #
 #
 #+--------------------------------------+
@@ -331,7 +317,7 @@ edebug "quality selected is $quality"
 #Get and use hard coded name of media
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
-edebug "bluray name is $bluray_name"
+edebug "bluray name is: $bluray_name"
 #
 if [ "$encode_only" != "1" ]; then
   edebug -e "${Purple}makemakv running${nc}"
@@ -355,7 +341,7 @@ if [ "$rip_only" != "1" ]; then
   #make the working directory if not already existing
   mkdir -p $working_dir/temp/$bluray_name
   #this step is vital, otherwise the files below are created whereever the script is run from and will fail
-  cd $working_dir/temp/$bluray_name
+  cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory temp"; exit 65; }
   #
   #
   #+---------------------------+
@@ -536,8 +522,8 @@ if [ "$rip_only" != "1" ]; then
   #
   #
   if [[ $temp_clean_override == "" ]]; then
-    cd $working_dir/temp
-    rm *
+    cd $working_dir/temp || { edebug "Failure changing to working directory"; exit 65; }
+    rm -r temp
   fi
 fi
 #
