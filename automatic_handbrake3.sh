@@ -304,9 +304,11 @@ edebug "PATH is: $PATH"
 #+----------------------------+
 #Check Enough Space Remaining, will only work once variables moved to config script
 space_left=$(df $working_dir | awk '/[0-9]%/{print $(NF-2)}')
-if [ "$space_left" -le "65000000" ]; then
+if [ "$space_left" -le 65000000 ]; then
   eerror "not enough space to run rip & encode, terminating"
   exit 66
+else
+  edebug "Free space check passed, continuing"
 fi
 #
 #Configure Disc Ripping
