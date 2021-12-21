@@ -321,12 +321,14 @@ edebug "bluray name is: $bluray_name"
 #
 if [ "$encode_only" != "1" ]; then
   edebug -e "${Purple}makemakv running...${nc}"
-  makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
+  makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
+  #makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
   if [ $? -eq 0 ]; then
     edebug "...makemkvcon bluray rip completed successfully"
   else
     error "makemkv producded an error, code: $?"
     exit 66
+  fi
 fi
 if [ "$rip_only" != "1" ]; then
   #
@@ -527,7 +529,8 @@ if [ "$rip_only" != "1" ]; then
   #
   if [[ $rip_only != "1" ]]; then
     edebug -e "${BrownOrange}handbrake running...${nc}"
-    HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
+    #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
+    HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
   fi
   #
   #
@@ -541,7 +544,7 @@ fi
 #+-------------------+
 #+---"Script Exit"---+
 #+-------------------+
-if -d /tmp/"$lockname"; then
+if [ -d /tmp/"$lockname" ]; then
   rm -r /tmp/"$lockname"
   if [[ $? -ne 0 ]]; then
       eerror "error removing lockdirectory"
