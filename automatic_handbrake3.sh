@@ -60,10 +60,10 @@ source /usr/local/bin/helper_script.sh
 #remember at level 3 and lower, only esilent messages show, best to include an override in getopts
 verbosity=3
 #
-version="0.3" #
+version="0.4" #
 script_pid=$(echo $$)
 stamp=$(echo "`date +%H.%M`-`date +%d_%m_%Y`")
-notify_lock=/tmp/IPChecker_notify
+notify_lock=/tmp/$lockname
 #pushover_title="NAME HERE" #Uncomment if using pushover
 #
 convert_secs () {
@@ -209,28 +209,28 @@ fi
 # -e
 if [[ $encode_only == "" ]]; then
   edebug "no encode override, script will encode to container"
-#now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
+  #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   edebug "encode override selected, skipping encode"
   encode_only=1
-  else
-    echo "Error: -e is not a 'y' or 'yes'"
-    helpFunction
+else
+  echo "Error: -e is not a 'y' or 'yes'"
+  helpFunction
 fi
 # -t
 if [[ $title_override == "" ]]; then
   edebug "no title override applied"
-#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+  #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$title_override" | grep -qE '^[0-9]+$'; then
   edebug -e "${brown_orange}title override selected, chosen title is $title_override ${nc}"
-  else
-    echo "Error: -t is not a number."
-    helpFunction
+else
+  echo "Error: -t is not a number."
+  helpFunction
 fi
 # -q
 if [[ $quality_override == "" ]]; then
   edebug "no quality override applied"
-#now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+  #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
   edebug -e "${brown_orange}quality override selected, chosen quality is $quality_override ${nc}"
 else
