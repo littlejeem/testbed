@@ -320,8 +320,13 @@ bluray_name=${bluray_name// /_}
 edebug "bluray name is: $bluray_name"
 #
 if [ "$encode_only" != "1" ]; then
-  edebug -e "${Purple}makemakv running${nc}"
-  makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
+  edebug -e "${Purple}makemakv running...${nc}"
+  makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
+  if [ $? -eq 0 ]; then
+    edebug "...makemkvcon bluray rip completed successfully"
+  else
+    error "makemkv producded an error, code: $?"
+    exit 66
 fi
 if [ "$rip_only" != "1" ]; then
   #
@@ -349,6 +354,7 @@ if [ "$rip_only" != "1" ]; then
   #+---------------------------+
   #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
   if [[ $title_override == "" ]]; then
+    edebug "creating titles_scan.json"
     HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
     #
     #
@@ -372,7 +378,9 @@ if [ "$rip_only" != "1" ]; then
     #+---------------------+
     #+---Get online data---+
     #+---------------------+
+    edebug "Getting online data"
     feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
+    edebug "feature name is: $feature_name"
     omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
     edebug "omdb title result is: $omdb_title_result"
     #
@@ -380,6 +388,7 @@ if [ "$rip_only" != "1" ]; then
     #+---------------------------------------------+
     #+---Generate checking data from online info---+
     #+---------------------------------------------+
+    edebug "Getting runtime info..."
     omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
     edebug "omdb_runtime_result is: $omdb_runtime_result"
     omdb_runtime_result=${omdb_runtime_result%????}
@@ -402,6 +411,7 @@ if [ "$rip_only" != "1" ]; then
     #
     #
   elif [[ $title_override != "" ]]; then
+    edebug "creating main_feature_scan.json"
     HandBrakeCLI --json -i $source_loc -t $title_override --scan > main_feature_scan.json
   fi
   #
@@ -517,13 +527,13 @@ if [ "$rip_only" != "1" ]; then
   #
   if [[ $rip_only != "1" ]]; then
     edebug -e "${BrownOrange}handbrake running...${nc}"
-    HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+    HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
   fi
   #
   #
   if [[ $temp_clean_override == "" ]]; then
-    cd $working_dir/temp || { edebug "Failure changing to working directory"; exit 65; }
-    rm -r temp
+    cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory"; exit 65; }
+    rm -r $bluray_name
   fi
 fi
 #
@@ -531,12 +541,14 @@ fi
 #+-------------------+
 #+---"Script Exit"---+
 #+-------------------+
-rm -r /tmp/"$lockname"
-if [[ $? -ne 0 ]]; then
-    eerror "error removing lockdirectory"
-    exit 65
-else
-    enotify "successfully removed lockdirectory"
+if -d /tmp/"$lockname"; then
+  rm -r /tmp/"$lockname"
+  if [[ $? -ne 0 ]]; then
+      eerror "error removing lockdirectory"
+      exit 65
+  else
+      enotify "successfully removed lockdirectory"
+  fi
 fi
 esilent "$lockname completed"
 exit 0
