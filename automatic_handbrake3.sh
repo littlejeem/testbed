@@ -60,9 +60,7 @@ source /usr/local/bin/helper_script.sh
 #remember at level 3 and lower, only esilent messages show, best to include an override in getopts
 verbosity=3
 #
-version="0.4" #
-script_pid=$(echo $$)
-stamp=$(echo "`date +%H.%M`-`date +%d_%m_%Y`")
+version="0.5" #
 notify_lock=/tmp/$lockname
 #pushover_title="NAME HERE" #Uncomment if using pushover
 #
@@ -466,29 +464,34 @@ if [ "$rip_only" != "1" ]; then
   #+--------------------------------+
   #First we search the file for the line number of our preferred source because line number = track number of the audio
   #these tests produce boolean returns
-  #First lets test for TrueHD
+  #First lets test for uncompressed LPCM
+  BD_lpcm=$(grep -hn "BD LPCM" parsed_audio_tracks | cut -c1)
+  [[ ! -z "$BD_lpcm" ]] && edebug "BD LPCM detected, track: $BD_lpcm" || edebug "BD LPCM not detected"
   #Check for True_HD
   True_HD=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
-  [[ ! -z "$True_HD" ]] && edebug "True HD detected, track: $True_HD" || edebug "No True_HD detected"
+  [[ ! -z "$True_HD" ]] && edebug "True HD detected, track: $True_HD" || edebug "True_HD not detected"
   #Now lets test for DTS-HD
   Dts_hd=$(grep -hn "DTS-HD" parsed_audio_tracks)
   Dts_hd=$(echo $Dts_hd | cut -c1)
-  [[ ! -z "$Dts_hd" ]] && edebug "DTS-HD detected, track: $Dts_hd" || edebug "No DTS-HD detected"
+  [[ ! -z "$Dts_hd" ]] && edebug "DTS-HD detected, track: $Dts_hd" || edebug "DTS-HD not detected"
   #Now lets test for DTS
   Dts=$(grep -hn "(DTS)" parsed_audio_tracks)
   Dts=$(echo $Dts | cut -c1)
-  [[ ! -z "$Dts" ]] && edebug "DTS detected, track: $Dts" || edebug "No DTS detected"
+  [[ ! -z "$Dts" ]] && edebug "DTS detected, track: $Dts" || edebug "DTS not detected"
   #Finally lets test for AAC
   Ac3=$(grep -hn "AC3" parsed_audio_tracks)
   Ac3=$(echo $Ac3 | cut -c1)
-  [[ ! -z "$Ac3" ]] && edebug "AC3 detected, track: $Ac3" || edebug "No AC3 detected"
+  [[ ! -z "$Ac3" ]] && edebug "AC3 detected, track: $Ac3" || edebug "AC3 not detected"
   #
   #
   #+--------------------------------+
   #+---Determine Availiable Audio---+
   #+--------------------------------+
   #Now we make some decisons about audio choices
-  if [[ ! -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #true true = TrueHD
+  if [[ ! -z "$BD_lpcm" ]]; then #true= BD LPCM
+    selected_audio_track=$(echo $BD_lpcm)
+    edebug "Selecting BD LPCM audio, track $BD_lpcm"
+  elif [[ -z "$BD_lpcm" ]] && [[ ! -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #false true true = TrueHD
     selected_audio_track=$(echo $True_HD)
     edebug "Selecting True_HD audio, track $True_HD"
   elif [[ ! -z "$True_HD" ]] && [[ -z "$Dts_hd" ]]; then #true false = TrueHD
