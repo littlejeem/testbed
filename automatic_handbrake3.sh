@@ -344,7 +344,7 @@ if [ "$encode_only" != "1" ]; then
   if [ $? -eq 0 ]; then
     edebug "...makemkvcon bluray rip completed successfully"
   else
-    error "makemkv producded an error, code: $?"
+    eerror "makemkv producded an error, code: $?"
     exit 66
   fi
 fi
@@ -534,7 +534,7 @@ if [ "$rip_only" != "1" ]; then
     if [ $? -eq 0 ]; then
       edebug "...handbrake conversion of $bluray_name bluray rip completed successfully"
     else
-      error "...handbrake produced an error, code: $?"
+      eerror "...handbrake produced an error, code: $?"
       exit 66
     fi
   fi
