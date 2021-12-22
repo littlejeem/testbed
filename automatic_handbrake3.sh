@@ -66,7 +66,7 @@ stamp=$(echo "`date +%H.%M`-`date +%d_%m_%Y`")
 notify_lock=/tmp/$lockname
 #pushover_title="NAME HERE" #Uncomment if using pushover
 #
-convert_secs () {
+convert_secs_hr_min () {
   #from here https://stackoverflow.com/questions/12199631/convert-seconds-to-hours-minutes-seconds
   num=$(echo $secs)
   min=0
@@ -95,23 +95,30 @@ convert_secs () {
 }
 #
 test_title_match () {
-  if [[ "$auto_find_main_feature" = ["$title1""$title2"] ]]; then
-    #read this for the above https://stackoverflow.com/questions/22259259/bash-if-statement-to-check-if-string-is-equal-to-one-of-several-string-literals
-    edebug "online check resulted in title(s) $title1, $title2, one of these matches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
-  elif [[ "$title2" = "" ]]; then
+  if [[ $title1 == "$auto_find_main_feature" && "$title2" == "$auto_find_main_feature" ]]; then
+    edebug "online check resulted in titles $title1 & $title2, matching handbrakes automatically found main feature $auto_find_main_feature, using title2"
+    #we choose title 2 when there are 2 detected as this better than 50% right most of the time imo.
+    auto_find_main_feature=$(echo $title2)
+    prep_title_file
+  elif [[ $title1 != "$auto_find_main_feature" && "$title2" == "$auto_find_main_feature" ]]; then
+    #
+    edebug "online check resulted in title2, matching handbrakes automatically found main feature $auto_find_main_feature, using title2"
+    auto_find_main_feature=$(echo $title2)
+    prep_title_file
+  elif [[ $title1 == "$auto_find_main_feature" && "$title2" != "$auto_find_main_feature" ]]; then
     #then title 1 is set but if $title2 is valid $title2 is set
-    edebug -e "${red_highlight} online check resulted in title $title1 being identified. No match found to handbrakes automatically found main feature which is currently title $auto_find_main_feature."
+    edebug "${red_highlight} online check resulted in only title1 matching handbrakes automatically found main feature, using"
     auto_find_main_feature=$(echo $title1)
     prep_title_file
   else
-    edebug -e "${red_highlight} online check resulted in titles $title1, $title2 being identified. No match to handbrakes automatically found main feature which is title $auto_find_main_feature, selecting title $title2."
-    auto_find_main_feature=$(echo $title2)
-    #we choose title 2 when there are 2 detected as this better than 50% right most of the time imo.
+    edebug "No titles mathching online runtime, using handbrakes found title $auto_find_main_feature"
     prep_title_file
   fi
 }
 #
 prep_title_file() {
+  edebug "creating main_feature_scan.json ..."
+  #HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json | >/dev/null 2>&1
   HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
   #we use sed to take all text after (inclusive) "Version: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
   #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
@@ -124,6 +131,7 @@ prep_title_file() {
   sed -i '1s/^/[\n/' main_feature_scan_trimmed.json
   #and now we need to add ']' to the end of the file
   echo "]" >> main_feature_scan_trimmed.json
+  edebug "... main_feature_scan.json created"
 }
 #
 #+---------------------------------------+
@@ -200,7 +208,7 @@ if [[ $rip_only == "" ]]; then
   edebug "no rip override, script will rip disc"
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
-  edebug -e "${brown_orange}rip override selected, skipping rip${nc}"
+  edebug "${brown_orange}rip override selected, skipping rip${nc}"
   rip_only=1
 else
   echo "Error: -r is not a 'y' or 'yes'."
@@ -222,7 +230,7 @@ if [[ $title_override == "" ]]; then
   edebug "no title override applied"
   #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$title_override" | grep -qE '^[0-9]+$'; then
-  edebug -e "${brown_orange}title override selected, chosen title is $title_override ${nc}"
+  edebug "${brown_orange}title override selected, chosen title is $title_override ${nc}"
 else
   echo "Error: -t is not a number."
   helpFunction
@@ -232,7 +240,7 @@ if [[ $quality_override == "" ]]; then
   edebug "no quality override applied"
   #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
-  edebug -e "${brown_orange}quality override selected, chosen quality is $quality_override ${nc}"
+  edebug "${brown_orange}quality override selected, chosen quality is $quality_override ${nc}"
 else
   echo "Error: -q is not a number."
   helpFunction
@@ -241,13 +249,13 @@ fi
 if [[ $source_clean_override == "" ]]; then
   edebug "no source clean override selected"
 elif [[ $source_clean_override == "y" ]]; then
-  edebug -e "${brown_orange}source clean override applied, not deleting source files${nc}"
+  edebug "${brown_orange}source clean override applied, not deleting source files${nc}"
 fi
 # -c
 if [[ $temp_clean_override == "" ]]; then
   edebug "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
-  edebug -e "${brown_orange}temp clean override applied, keeping temp files for debugging${nc}"
+  edebug "${brown_orange}temp clean override applied, keeping temp files for debugging${nc}"
 fi
 #
 #e.g for a drive option
@@ -265,7 +273,7 @@ fi
 #+--------------------------+
 #+---"Source config file"---+
 #+--------------------------+
-source /usr/local/bin/config.sh
+#source /usr/local/bin/config.sh
 source /usr/local/bin/omdb_key
 #
 #
@@ -284,12 +292,31 @@ edebug "INVOCATION_ID is set as: $INVOCATION_ID"
 edebug "EUID is set as: $EUID"
 edebug "PATH is: $PATH"
 #
+###############################
+### Move to a settings file ###
+###############################
+  dev_drive="/dev/sr1"
+  edebug "source media drive us $dev_drive"
+  drive_num=${dev_drive: -1}
+  edebug "drive_num: $drive_num"
+  makemkv_drive="disc:$drive_num"
+  edebug "makemkv drive is: $makemkv_drive"
+  working_dir="/home/jlivin25/Videos"
+  edebug "working directory is: $working_dir"
+  category="blurays"
+  edebug "category is: $category"
+  rip_dest="Rips"
+  edebug "destination for rips is: $rip_dest"
+  encode_dest="Encodes"
+  edebug "destination for rips is: $encode_dest"
+#
 #
 #+----------------------------+
 #+---"Main Script Contents"---+
 #+----------------------------+
 #Check Enough Space Remaining, will only work once variables moved to config script
 space_left=$(df $working_dir | awk '/[0-9]%/{print $(NF-2)}')
+edebug "space left in working directory is: $space_left"
 if [ "$space_left" -le 65000000 ]; then
   eerror "not enough space to run rip & encode, terminating"
   exit 66
@@ -304,15 +331,6 @@ else
   quality=$(echo $quality_override)
 fi
 edebug "quality selected is $quality"
-###############################
-### Move to a settings file ###
-###############################
-  source_drive="disc:0"
-  dev_drive="/dev/sr0"
-  working_dir="/home/jlivin25"
-  category="blurays"
-  rip_dest="Rips"
-  encode_dest="Encodes"
 #
 #Get and use hard coded name of media
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
@@ -320,9 +338,9 @@ bluray_name=${bluray_name// /_}
 edebug "bluray name is: $bluray_name"
 #
 if [ "$encode_only" != "1" ]; then
-  edebug -e "${Purple}makemakv running...${nc}"
-  makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-  #makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
+  edebug "${Purple}makemakv running...${nc}"
+  makemkvcon backup --decrypt "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
+  #makemkvcon backup --decrypt "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
   if [ $? -eq 0 ]; then
     edebug "...makemkvcon bluray rip completed successfully"
   else
@@ -368,7 +386,7 @@ if [ "$rip_only" != "1" ]; then
     edebug "auto_find_main_feature is: $auto_find_main_feature"
     #we cut unwanted "Found main feature title " text from the variable
     auto_find_main_feature=${auto_find_main_feature:25}
-    edebug "auto_find_main_feature cut to $auto_find_main_feature"
+    edebug "auto_find_main_feature cut to: $auto_find_main_feature"
     #
     #
     #+-------------------------------------------------------------------------------------+
@@ -391,24 +409,32 @@ if [ "$rip_only" != "1" ]; then
     #+---Generate checking data from online info---+
     #+---------------------------------------------+
     edebug "Getting runtime info..."
+    #extract runtime from mass omdb result
     omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
-    edebug "omdb_runtime_result is: $omdb_runtime_result"
+    #strip out 'min'
     omdb_runtime_result=${omdb_runtime_result%????}
-    edebug "omdb runtime is $omdb_runtime_result mins"
+    edebug "omdb runtime is (mins): $omdb_runtime_result ..."
+    #convert to 'secs'
     secs=$((omdb_runtime_result*60))
-    edebug "equal to $secs secs"
-    check=$(convert_secs)
-    title1=$(grep -B 2 $check titles_scan.json | awk 'NR==1')
-    title2=$(grep -B 2 $check titles_scan.json | awk 'NR==5')
+    edebug "...equal to (secs): $secs"
+    #use function to convert seconds to desired runtime format
+    edebug "converting to runtime format..."
+    runtime_check=$(convert_secs_hr_min)
+    edebug "...runtime is: $runtime_check (hh:mm). Checking titles containing this runtime"
+    #check titles_scan.json for titles containing runtime
+    title1=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==1')
+    title2=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==5')
+    #strip down to just to titles value (not time!)
     title1=${title1: -2}
+    edebug "Title(s) matching runtime is: $title1"
     title2=${title2: -2}
-    edebug "title 1 is: $title1"
-    edebug "title 2 is: $title2"
+    edebug "Title(s) matching runtime is: $title2"
     #
     #
     #+---------------------------------------+
     #+---Method 1 checked against Method 2---+
     #+---------------------------------------+
+
     test_title_match
     #
     #
@@ -528,12 +554,18 @@ if [ "$rip_only" != "1" ]; then
   edebug "output_loc is: $output_loc"
   #
   if [[ $rip_only != "1" ]]; then
-    edebug -e "${BrownOrange}handbrake running...${nc}"
+    edebug "${BrownOrange}handbrake running...${nc}"
     #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
     HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+    #check for any non zero errors
+    if [ $? -eq 0 ]; then
+      edebug "...transmission conversion of $bluray_name bluray rip completed successfully"
+    else
+      error "transmission produced an error, code: $?"
+      exit 66
+    fi
   fi
-  #
-  #
+  # clean temp files...if thats not overriden
   if [[ $temp_clean_override == "" ]]; then
     cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory"; exit 65; }
     rm -r $bluray_name
