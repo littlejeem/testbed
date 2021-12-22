@@ -532,9 +532,9 @@ if [ "$rip_only" != "1" ]; then
     HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
     #check for any non zero errors
     if [ $? -eq 0 ]; then
-      edebug "...transmission conversion of $bluray_name bluray rip completed successfully"
+      edebug "...handbrake conversion of $bluray_name bluray rip completed successfully"
     else
-      error "transmission produced an error, code: $?"
+      error "...handbrake produced an error, code: $?"
       exit 66
     fi
   fi
