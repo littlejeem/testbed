@@ -467,70 +467,43 @@ if [ "$rip_only" != "1" ]; then
   #First we search the file for the line number of our preferred source because line number = track number of the audio
   #these tests produce boolean returns
   #First lets test for TrueHD
+  #Check for True_HD
   True_HD=$(grep -hn "TrueHD" parsed_audio_tracks | cut -c1)
-  edebug "True HD present?: $True_HD"
+  [[ ! -z "$True_HD" ]] && edebug "True HD detected, track: $True_HD" || edebug "No True_HD detected"
   #Now lets test for DTS-HD
   Dts_hd=$(grep -hn "DTS-HD" parsed_audio_tracks)
   Dts_hd=$(echo $Dts_hd | cut -c1)
-  edebug "DTS-HD present?: $Dts_hd"
+  [[ ! -z "$Dts_hd" ]] && edebug "DTS-HD detected, track: $Dts_hd" || edebug "No DTS-HD detected"
   #Now lets test for DTS
   Dts=$(grep -hn "(DTS)" parsed_audio_tracks)
   Dts=$(echo $Dts | cut -c1)
-  edebug "DTS present?: $Dts"
+  [[ ! -z "$Dts" ]] && edebug "DTS detected, track: $Dts" || edebug "No DTS detected"
   #Finally lets test for AAC
   Ac3=$(grep -hn "AC3" parsed_audio_tracks)
   Ac3=$(echo $Ac3 | cut -c1)
-  edebug "AC3 present?: $Ac3"
-  #
-  #Now assign the results booleans
-  if [[ "$True_HD" != "" ]]; then
-    True_HD_boolean=true
-  else
-    True_HD_boolean=false
-  fi
-  edebug "True HD= $True_HD_boolean"
-  #
-  if [[ "$Dts_hd" != "" ]]; then
-    Dts_hd_boolean=true
-  else
-    Dts_hd_boolean=false
-  fi
-  edebug "DTS-HD MA= $Dts_hd_boolean"
-  #
-  if [[ "$Dts" != "" ]]; then
-    Dts_boolean=true
-  else
-    Dts_boolean=false
-  fi
-  edebug "DTS= $Dts_boolean"
-  #
-  if [[ "$Ac3" != "" ]]; then
-    Ac3_boolean=true
-  else
-    Ac3_boolean=false
-  fi
-  edebug "AC3= $Ac3_boolean"
+  [[ ! -z "$Ac3" ]] && edebug "AC3 detected, track: $Ac3" || edebug "No AC3 detected"
   #
   #
   #+--------------------------------+
   #+---Determine Availiable Audio---+
   #+--------------------------------+
   #Now we make some decisons about audio choices
-  if [[ "$True_HD_boolean" == true ]] && [[ "$Dts_hd_boolean" == false ]]; then
+  if [[ ! -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #true true = TrueHD
     selected_audio_track=$(echo $True_HD)
     edebug "Selecting True_HD audio, track $True_HD"
-  elif [[ "$Dts_hd_boolean" == true ]] && [[ "$True_HD_boolean" == false ]]; then
+  elif [[ ! -z "$True_HD" ]] && [[ -z "$Dts_hd" ]]; then #true false = TrueHD
+    selected_audio_track=$(echo $True_HD)
+    edebug "Selecting True_HD audio, track $True_HD"
+  elif [[ -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #false true = DTS-HD
     selected_audio_track=$(echo $Dts_hd)
     edebug "Selecting DTS-HD audio, track $Dts_hd"
-  elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[ "$Dts_boolean" == true ]]; then
+  elif [[ -z "$Dts_hd" ]] && [[ -z "$True_HD" ]] && [[ ! -z "$Dts" ]]; then #false false true = DTS
     selected_audio_track=$(echo $Dts)
     edebug "Selecting DTS audio, track $Dts"
-  elif [[ "$Dts_hd_boolean" == false ]] && [[ "$True_HD_boolean" == false ]] && [[ "$Dts_boolean" == false ]]; then
+  elif [[ -z "$Dts_hd" ]] && [[ -z "$True_HD" ]] && [[ -z "$Dts" ]]; then #false false false = AC3 (default)
     selected_audio_track=1
     edebug "no matches for audio types, defaulting to track 1"
   fi
-  edebug $selected_audio_track
-  #
   #
   #+-------------------------------+
   #+---"Run Handbrake to Encode"---+
