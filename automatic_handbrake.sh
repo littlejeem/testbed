@@ -3,26 +3,7 @@
 #
 log=/home/jlivin25/bin/scriptlogs/automatic_handbrake.log
 logging_date=$(echo "`date +%d/%m/%Y` - `date +%H:%M:%S`")
-#+-------------------------+
-#+---"Echo Colour Usage"---+
-#+-------------------------+
-#Black        0;30     Dark Gray     1;30
-#Red          0;31     Light Red     1;31
-#Green        0;32     Light Green   1;32
-#Brown/Orange 0;33     Yellow        1;33
-#Blue         0;34     Light Blue    1;34
-#Purple       0;35     Light Purple  1;35
-#Cyan         0;36     Light Cyan    1;36
-#Light Gray   0;37     White         1;37
-red='\033[0;31m'
-yellow='\033[1;33m'
-green='\033[0;32m'
-brown_orange='\033[0;33m'
-purple='\033[0;35m'
-light_blue='\033[1;34m'
-nc='\033[0m' # No Color
-#
-#
+
 #+-------------------+
 #+---Set functions---+
 #+-------------------+
@@ -71,8 +52,8 @@ function convert_secs () {
 function test_title_match () {
   if [[ "$auto_find_main_feature" = ["$title1""$title2"] ]]; then
     #read this for the above https://stackoverflow.com/questions/22259259/bash-if-statement-to-check-if-string-is-equal-to-one-of-several-string-literals
-    echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
-    echo "online check resulted in title(s) $title1, $title2, one of these mataches handbrakes automatically found main feature $auto_find_main_feature, continuing as is" >> $log
+    echo "online check resulted in title(s) $title1, $title2, one of these matches handbrakes automatically found main feature $auto_find_main_feature, continuing as is"
+    echo "online check resulted in title(s) $title1, $title2, one of these matches handbrakes automatically found main feature $auto_find_main_feature, continuing as is" >> $log
   elif [[ "$title2" = "" ]]; then
     #then title 1 is set but if $title2 is valid $title2 is set
     echo -e "${red_highlight} online check resulted in title $title1 being identified. No match found to handbrakes automatically found main feature which is currently title $auto_find_main_feature."
@@ -151,9 +132,9 @@ elif [[ "$encode_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
   echo "encode override selected, skipping encode"
   echo "${brown_orange}encode override selected, skipping encode${nc}" >> $log
   encode_only=1
-  else
-    echo "Error: -e is not a 'y' or 'yes'"
-    helpFunction
+else
+  echo "Error: -e is not a 'y' or 'yes'"
+  helpFunction
 fi
 # -t
 if [[ $title_override == "" ]]; then
@@ -162,9 +143,9 @@ if [[ $title_override == "" ]]; then
 elif echo "$title_override" | grep -qE '^[0-9]+$'; then
   echo -e "${brown_orange}title override selected, chosen title is $title_override ${nc}"
   echo "title override selected, chosen title is $title_override ${nc}" >> $log
-  else
-    echo "Error: -t is not a number."
-    helpFunction
+else
+  echo "Error: -t is not a number."
+  helpFunction
 fi
 # -q
 if [[ $quality_override == "" ]]; then
@@ -230,23 +211,24 @@ echo "quality selected is $quality" >> $log
   category="blurays"
   rip_dest="Rips"
   encode_dest="Encodes"
-###############################
-###                         ###
-###############################
+#
+#+--------------------------------------------+
+#+---"Get and use hard coded name of media"---+
+#+--------------------------------------------+
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 # pretty up the log
-echo -e "###############################" >> $log
-echo -e "### $date - $bluray_name ###" >> $log
-echo -e "###############################" >> $log
+echo -e "##############################" >> $log
+echo -e "### date - $bluray_name ###" >> $log
+echo -e "##############################" >> $log
 echo "bluray name is $bluray_name"
-#
 #
 if [ "$encode_only" != "1" ]; then
   echo -e "${Purple}makemakv running${nc}"
   echo "makemakv running"
   makemkvcon backup --decrypt "$source_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-elif [ "$rip_only" != "1" ]; then
+fi
+if [ "$rip_only" != "1" ]; then
 #+-------------------------------+
 #+---"HandBrake Structure Key"---+
 #+-------------------------------+
@@ -286,7 +268,7 @@ if [[ $title_override == "" ]]; then
   #+--------------------------------------+
   #+---"Identify Main Title - METHOD 1"---+
   #+--------------------------------------+
-  #we search the file created in Handbrake Title Scan for the main titles and store in a variable
+  #we search the file created in Handbrake Title Scan for the main title and store in a variable
   auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
   echo "auto_find_main_feature is: $auto_find_main_feature" >> $log
   echo "auto_find_main_feature is: $auto_find_main_feature"
