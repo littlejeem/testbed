@@ -132,6 +132,14 @@ prep_title_file() {
   edebug "... main_feature_scan.json created"
 }
 #
+get_max_progress () {
+  tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 3
+}
+#
+get_total_progress () {
+  tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 2
+}
+#
 #+---------------------------------------+
 #+---"check if script already running"---+
 #+---------------------------------------+
@@ -335,10 +343,18 @@ bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
 edebug "bluray name is: $bluray_name"
 #
+#Get name of media according to syslogs
+bluray_sys_name=$(grep "UDF-fs" /var/log/syslog | cut -d ' ' -f 15)
+edebug "System recorded media as: $bluray_sys_name"
+#
 if [ "$encode_only" != "1" ]; then
   edebug "${Purple}makemakv running...${nc}"
-  makemkvcon backup --decrypt "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
-  #makemkvcon backup --decrypt "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
+  unit_of_measure="cycles"
+  makemkvcon backup --decrypt --progress="$working_dir/temp/$bluray_name/$bluray_name.log" -r "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
+  makemkv_pid=$!
+  pid_name=$makemkv_pid
+  sleep 15s # to give time for drive to wind up and files to be created
+  progress_bar2_init
   if [ $? -eq 0 ]; then
     edebug "...makemkvcon bluray rip completed successfully"
   else
