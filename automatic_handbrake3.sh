@@ -47,9 +47,9 @@ scriptlong=`basename "$0"`
 lockname=${scriptlong::-3} # reduces the name to remove .sh
 #
 #
-#+--------------------------+
-#+---Source helper script---+
-#+--------------------------+
+#+----------------------------+
+#+---"Source helper script"---+
+#+----------------------------+
 source /usr/local/bin/helper_script.sh
 #
 #
@@ -132,12 +132,20 @@ prep_title_file() {
   edebug "... main_feature_scan.json created"
 }
 #
-get_max_progress () {
+get_max_progress_makemkv () {
   tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 3
 }
 #
-get_total_progress () {
+get_total_progress_makemkv () {
   tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 2
+}
+#
+get_max_progress_handbrake () {
+  $1
+}
+#
+get_total_progress_handbrake () {
+  grep '"Progress":' "$working_dir"/temp/"$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1
 }
 #
 #+---------------------------------------+
@@ -146,9 +154,9 @@ get_total_progress () {
 check_running
 #
 #
-#+-------------------+
-#+---Set functions---+
-#+-------------------+
+#+---------------------+
+#+---"Set functions"---+
+#+---------------------+
 helpFunction () {
    echo ""
    echo "Usage: $0 $scriptlong"
@@ -206,9 +214,9 @@ shift $((OPTIND -1))
 esilent "$lockname started"
 #
 #
-#+-------------------------------+
-#+---Configure GETOPTS options---+
-#+-------------------------------+
+#+---------------------------------+
+#+---"Configure GETOPTS options"---+
+#+---------------------------------+
 # -r
 if [[ $rip_only == "" ]]; then
   edebug "no rip override, script will rip disc"
@@ -290,9 +298,9 @@ edebug "Version of $scriptlong is: $version"
 edebug "PID is $script_pid"
 #
 #
-#+-------------------+
-#+---Set up script---+
-#+-------------------+
+#+---------------------+
+#+---"Set up script"---+
+#+---------------------+
 #Get environmental info
 edebug "INVOCATION_ID is set as: $INVOCATION_ID"
 edebug "EUID is set as: $EUID"
@@ -348,6 +356,14 @@ bluray_sys_name=$(grep "UDF-fs" /var/log/syslog | cut -d ' ' -f 15)
 edebug "System recorded media as: $bluray_sys_name"
 #
 if [ "$encode_only" != "1" ]; then
+  #Set up functions to get information for progress bar
+  get_max_progress () {
+    tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 3
+  }
+  #
+  get_total_progress () {
+    tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 2
+  }
   edebug "${Purple}makemakv running...${nc}"
   unit_of_measure="cycles"
   makemkvcon backup --decrypt --progress="$working_dir/temp/$bluray_name/$bluray_name.log" -r "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
@@ -383,9 +399,9 @@ if [ "$rip_only" != "1" ]; then
   cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory temp"; exit 65; }
   #
   #
-  #+---------------------------+
-  #+---Handbrake Titles Scan---+
-  #+---------------------------+
+  #+-----------------------------+
+  #+---"Handbrake Titles Scan-"--+
+  #+-----------------------------+
   #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
   if [[ $title_override == "" ]]; then
     edebug "creating titles_scan.json"
@@ -402,16 +418,13 @@ if [ "$rip_only" != "1" ]; then
     auto_find_main_feature=${auto_find_main_feature:25}
     edebug "auto_find_main_feature cut to: $auto_find_main_feature"
     #
-    #
-    #+-------------------------------------------------------------------------------------+
-    #+---"Grab data from found title and trim unwanted text from main_feature_scan.json"---+
-    #+-------------------------------------------------------------------------------------+
+    #Grab data from found title and trim unwanted text from main_feature_scan.json
     prep_title_file
     #
     #
-    #+---------------------+
-    #+---Get online data---+
-    #+---------------------+
+    #+-----------------------+
+    #+---"Get online data"---+
+    #+-----------------------+
     edebug "Getting online data"
     feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
     edebug "feature name is: $feature_name"
@@ -419,9 +432,9 @@ if [ "$rip_only" != "1" ]; then
     edebug "omdb title result is: $omdb_title_result"
     #
     #
-    #+---------------------------------------------+
-    #+---Generate checking data from online info---+
-    #+---------------------------------------------+
+    #+-----------------------------------------------+
+    #+---"Generate checking data from online info"---+
+    #+-----------------------------------------------+
     edebug "Getting runtime info..."
     #extract runtime from mass omdb result
     omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
@@ -445,10 +458,10 @@ if [ "$rip_only" != "1" ]; then
     edebug "Title(s) matching runtime is: $title2"
     #
     #
-    #+---------------------------------------+
-    #+---Method 1 checked against Method 2---+
-    #+---------------------------------------+
-
+    #+-----------------------------------------+
+    #+---"Method 1 checked against Method 2"---+
+    #+-----------------------------------------+
+    #
     test_title_match
     #
     #
@@ -475,9 +488,9 @@ if [ "$rip_only" != "1" ]; then
   edebug "main_feature_parse returned content from jq is: $main_feature_parse"
   #
   #
-  #+--------------------------------+
-  #+---Determine Availiable Audio---+
-  #+--------------------------------+
+  #+----------------------------------+
+  #+---"Determine Availiable Audio"---+
+  #+----------------------------------+
   #First we search the file for the line number of our preferred source because line number = track number of the audio
   #these tests produce boolean returns
   #First lets test for uncompressed LPCM
@@ -500,9 +513,9 @@ if [ "$rip_only" != "1" ]; then
   [[ ! -z "$Ac3" ]] && edebug "AC3 detected, track: $Ac3" || edebug "AC3 not detected"
   #
   #
-  #+--------------------------------+
-  #+---Determine Availiable Audio---+
-  #+--------------------------------+
+  #+------------------------------+
+  #+---"Determine 'Best' Audio"---+
+  #+------------------------------+
   #Now we make some decisons about audio choices
   if [[ ! -z "$BD_lpcm" ]]; then #true= BD LPCM
     selected_audio_track=$(echo $BD_lpcm)
@@ -528,6 +541,7 @@ if [ "$rip_only" != "1" ]; then
   #+---"Run Handbrake to Encode"---+
   #+-------------------------------+
   #insert the audio selection into the audio_options variable
+#SOMETHING IN HERE TO CHOOSE FLAC AND NECESSARY EXTRAS IF BD_lpcm
   audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
   edebug "audio options passed to HandBrakeCLI are: $audio_options"
   #use our found main feature from the work at the top...
@@ -545,10 +559,28 @@ if [ "$rip_only" != "1" ]; then
   output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name".mkv
   edebug "output_loc is: $output_loc"
   #
+  # Set out how to get information for progress bar, see notes in helper_script.sh
+  get_max_progress () {
+    echo 100
+  }
+  #
+  get_total_progress () {
+    #We use this variable in this instance as we need to manipulate the out put so interger and no leading zero. eg. '1' no '01'
+    tot_progress_result=$(grep '"Progress":' "$working_dir"/temp/"$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
+    tot_progress_result=$((10#$tot_progress_result))
+    echo $tot_progress_result
+  }
+  #
   if [[ $rip_only != "1" ]]; then
     edebug "${BrownOrange}handbrake running...${nc}"
     #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
-    HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options
+    unit_of_measure="percent"
+    progress_bar2_init
+    HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
+    makemkv_pid=$!
+    pid_name=$makemkv_pid
+    sleep 10s # to give time file to be created and data being inputted
+    progress_bar2_init
     #check for any non zero errors
     if [ $? -eq 0 ]; then
       edebug "...handbrake conversion of $bluray_name bluray rip completed successfully"
