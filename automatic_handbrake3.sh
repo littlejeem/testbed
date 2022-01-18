@@ -116,8 +116,8 @@ test_title_match () {
 #
 prep_title_file() {
   edebug "creating main_feature_scan.json ..."
-  #HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json | >/dev/null 2>&1
-  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json
+  #HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json | >/dev/null 2>&1 #WORKS
+  HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan 1> main_feature_scan.json 2> /dev/null
   #we use sed to take all text after (inclusive) "Version: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
   #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
   #we use sed to take all text after (inclusive) "JSON Title Set: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
@@ -385,7 +385,7 @@ if [ "$rip_only" != "1" ]; then
   #+-------------------------------+
   #HandBrakeCLI [options] -i <source> source_options -o <destination> output_options video_options audio_options picture_options filter_options
   #User Set Options"
-  options="--no-dvdna"
+  options="--json --no-dvdna"
   source_loc="$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
   output_options="-f mkv"
   video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
@@ -428,8 +428,12 @@ if [ "$rip_only" != "1" ]; then
     edebug "Getting online data"
     feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
     edebug "feature name is: $feature_name"
-    omdb_title_result=$(curl -X GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
-    edebug "omdb title result is: $omdb_title_result"
+    omdb_title_result=$(curl -sX GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
+    edebug "omdb matching info is: $omdb_title_result"
+    omdb_title_name_result=$(echo $omdb_title_result | jq --raw-output '.Title')
+    edebug "omdb title name is: $omdb_title_name_result"
+    omdb_year_result=$(echo $omdb_title_result | jq --raw-output '.Year')
+    edebug "omdb year is: $omdb_year_result"
     #
     #
     #+-----------------------------------------------+
@@ -517,22 +521,23 @@ if [ "$rip_only" != "1" ]; then
   #+---"Determine 'Best' Audio"---+
   #+------------------------------+
   #Now we make some decisons about audio choices
-  if [[ ! -z "$BD_lpcm" ]]; then #true= BD LPCM
-    selected_audio_track=$(echo $BD_lpcm)
-    edebug "Selecting BD LPCM audio, track $BD_lpcm"
-  elif [[ -z "$BD_lpcm" ]] && [[ ! -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #false true true = TrueHD
+  # if its present always prefer: TrueHD, if not; DTS-HD, if not; BD LPCM; if not DTS. if none of the above then AC3,
+  if [[ ! -z "$True_HD" ]]; then #true = TrueHD
     selected_audio_track=$(echo $True_HD)
     edebug "Selecting True_HD audio, track $True_HD"
-  elif [[ ! -z "$True_HD" ]] && [[ -z "$Dts_hd" ]]; then #true false = TrueHD
+  elif [[ ! -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #true false = TrueHD
     selected_audio_track=$(echo $True_HD)
     edebug "Selecting True_HD audio, track $True_HD"
   elif [[ -z "$True_HD" ]] && [[ ! -z "$Dts_hd" ]]; then #false true = DTS-HD
     selected_audio_track=$(echo $Dts_hd)
     edebug "Selecting DTS-HD audio, track $Dts_hd"
-  elif [[ -z "$Dts_hd" ]] && [[ -z "$True_HD" ]] && [[ ! -z "$Dts" ]]; then #false false true = DTS
+  elif [[ ! -z "$BD_lpcm" ]] && [[ -z "$True_HD" ]] && [[ -z "$Dts_hd" ]]; then #true false false = BD LPCM
+    selected_audio_track=$(echo $BD_lpcm)
+    edebug "Selecting BD LPCM audio, track $BD_lpcm"
+  elif [[ -z "$True_HD" ]] && [[ -z "$Dts_hd" ]] && [[ -z "$BD_lpcm" ]] && [[ ! -z "$Dts" ]]; then #false false false true = DTS
     selected_audio_track=$(echo $Dts)
     edebug "Selecting DTS audio, track $Dts"
-  elif [[ -z "$Dts_hd" ]] && [[ -z "$True_HD" ]] && [[ -z "$Dts" ]]; then #false false false = AC3 (default)
+  elif [[ -z "$True_HD" ]] && [[ -z "$Dts_hd" ]] && [[ -z "$BD_lpcm" ]] && [[ -z "$Dts" ]]; then #false false false false = AC3 (default)
     selected_audio_track=1
     edebug "no matches for audio types, defaulting to track 1"
   fi
@@ -541,8 +546,11 @@ if [ "$rip_only" != "1" ]; then
   #+---"Run Handbrake to Encode"---+
   #+-------------------------------+
   #insert the audio selection into the audio_options variable
-#SOMETHING IN HERE TO CHOOSE FLAC AND NECESSARY EXTRAS IF BD_lpcm
-  audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
+  if [[ ! -z $BD_lpcm ]]; then
+    audio_options="-a $selected_audio_track -E flac24 --mixdown 5point1"
+  else
+    audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
+  fi
   edebug "audio options passed to HandBrakeCLI are: $audio_options"
   #use our found main feature from the work at the top...
   source_options="-t $auto_find_main_feature"
