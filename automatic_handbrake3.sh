@@ -309,7 +309,7 @@ edebug "PATH is: $PATH"
 ###############################
 ### Move to a settings file ###
 ###############################
-  dev_drive="/dev/sr1"
+  dev_drive="/dev/sr0"
   edebug "source media drive us $dev_drive"
   drive_num=${dev_drive: -1}
   edebug "drive_num: $drive_num"
@@ -360,6 +360,7 @@ if [[ ! -z $bluray_sys_name ]]; then
   edebug "bluray_sys_name found, using: $bluray_sys_name"
   bluray_name=$bluray_sys_name
 fi
+mkdir -p "$working_dir/temp/$bluray_name"
 #
 #
 if [ "$encode_only" != "1" ]; then
@@ -401,7 +402,6 @@ if [ "$rip_only" != "1" ]; then
   subtitle_options="-N eng -F scan"
   #
   #make the working directory if not already existing
-  mkdir -p $working_dir/temp/$bluray_name
   #this step is vital, otherwise the files below are created whereever the script is run from and will fail
   cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory temp"; exit 65; }
   #
