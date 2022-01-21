@@ -349,11 +349,18 @@ edebug "quality selected is $quality"
 #Get and use hard coded name of media
 bluray_name=$(blkid -o value -s LABEL "$dev_drive")
 bluray_name=${bluray_name// /_}
-edebug "bluray name is: $bluray_name"
+edebug "optical disc bluray name is: $bluray_name"
 #
-#Get name of media according to syslogs
-bluray_sys_name=$(grep "UDF-fs" /var/log/syslog | cut -d ' ' -f 15)
-edebug "System recorded media as: $bluray_sys_name"
+#
+#Perhpas build up a list of known FOOBAR'd disc labels such as 'LOGICAL_VOLUME, DISC1 etc?'
+#Get name of media according to syslogs, this will only work if this script is being used automatically via UDEV / SYSTEMD otherwise name likely to me buried in older logs
+bluray_sys_name=$(grep "UDF-fs: INFO Mounting volume" /var/log/syslog | tail -1 | cut -d ':' -f 5 | cut -d ' ' -f 5)
+bluray_sys_name=${bluray_sys_name:1:-2}
+if [[ ! -z $bluray_sys_name ]]; then
+  edebug "bluray_sys_name found, using: $bluray_sys_name"
+  bluray_name=$bluray_sys_name
+fi
+#
 #
 if [ "$encode_only" != "1" ]; then
   #Set up functions to get information for progress bar
@@ -429,11 +436,15 @@ if [ "$rip_only" != "1" ]; then
     feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
     edebug "feature name is: $feature_name"
     omdb_title_result=$(curl -sX GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
-    edebug "omdb matching info is: $omdb_title_result"
-    omdb_title_name_result=$(echo $omdb_title_result | jq --raw-output '.Title')
-    edebug "omdb title name is: $omdb_title_name_result"
-    omdb_year_result=$(echo $omdb_title_result | jq --raw-output '.Year')
-    edebug "omdb year is: $omdb_year_result"
+    if [[ $omdb_title_result != *"Movie not found"* ]]; then
+      edebug "omdb matching info is: $omdb_title_result"
+      omdb_title_name_result=$(echo $omdb_title_result | jq --raw-output '.Title')
+      edebug "omdb title name is: $omdb_title_name_result"
+      omdb_year_result=$(echo $omdb_title_result | jq --raw-output '.Year')
+      edebug "omdb year is: $omdb_year_result"
+    else
+      edebug "no online data could be matched to feature name: $feature_name"
+    fi
     #
     #
     #+-----------------------------------------------+
@@ -455,11 +466,13 @@ if [ "$rip_only" != "1" ]; then
     #check titles_scan.json for titles containing runtime
     title1=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==1')
     title2=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==5')
-    #strip down to just to titles value (not time!)
-    title1=${title1: -2}
-    edebug "Title(s) matching runtime is: $title1"
-    title2=${title2: -2}
-    edebug "Title(s) matching runtime is: $title2"
+    #strip down to just titles value (track), not time!)
+    if [[ ! -z "$title1" ]]; then
+      edebug "Title(s) matching runtime is: $title1"
+    fi
+    if [[ ! -z "$title2" ]]; then
+      edebug "Title(s) matching runtime is: $title2"
+    fi
     #
     #
     #+-----------------------------------------+
@@ -561,11 +574,11 @@ if [ "$rip_only" != "1" ]; then
   fi
   #display what the result is
   edebug "source options are: $source_options"
+  #lets use our fancy name IF found online
+  output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name"/"$feature_name".mkv
+  edebug "output_loc is: $output_loc"
   #display the final full options passed to handbrake
   edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
-  #lets use our fancy name IF found online
-  output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name".mkv
-  edebug "output_loc is: $output_loc"
   #
   # Set out how to get information for progress bar, see notes in helper_script.sh
   get_max_progress () {
