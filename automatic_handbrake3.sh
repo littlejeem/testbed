@@ -61,7 +61,7 @@ source /usr/local/bin/helper_script.sh
 verbosity=3
 #
 version="0.5" #
-notify_lock=/tmp/$lockname
+notify_lock="/tmp/$lockname"
 #pushover_title="NAME HERE" #Uncomment if using pushover
 #
 convert_secs_hr_min () {
@@ -222,7 +222,7 @@ if [[ $rip_only == "" ]]; then
   edebug "no rip override, script will rip disc"
 #now test to make sure a number, see @Inian answer here https://stackoverflow.com/questions/41858997/check-if-parameter-is-value-x-or-value-y
 elif [[ "$rip_only" =~ ^(y|yes|Yes|YES|Y)$ ]]; then
-  edebug "${brown_orange}rip override selected, skipping rip${nc}"
+  edebug "${colbor}rip override selected, skipping rip${colrst}"
   rip_only=1
 else
   echo "Error: -r is not a 'y' or 'yes'."
@@ -244,7 +244,7 @@ if [[ $title_override == "" ]]; then
   edebug "no title override applied"
   #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$title_override" | grep -qE '^[0-9]+$'; then
-  edebug "${brown_orange}title override selected, chosen title is $title_override ${nc}"
+  edebug "${colbor}title override selected, chosen title is $title_override ${colrst}"
 else
   echo "Error: -t is not a number."
   helpFunction
@@ -254,7 +254,7 @@ if [[ $quality_override == "" ]]; then
   edebug "no quality override applied"
   #now test to make sure a number, see @Joseph Shih answer here https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
 elif echo "$quality_override" | grep -qE '^[0-9]+$'; then
-  edebug "${brown_orange}quality override selected, chosen quality is $quality_override ${nc}"
+  edebug "${colbor}quality override selected, chosen quality is $quality_override ${colrst}"
 else
   echo "Error: -q is not a number."
   helpFunction
@@ -263,13 +263,13 @@ fi
 if [[ $source_clean_override == "" ]]; then
   edebug "no source clean override selected"
 elif [[ $source_clean_override == "y" ]]; then
-  edebug "${brown_orange}source clean override applied, not deleting source files${nc}"
+  edebug "${colbor}source clean override applied, not deleting source files${colrst}"
 fi
 # -c
 if [[ $temp_clean_override == "" ]]; then
   edebug "no temp files clean override selected"
 elif [[ $temp_clean_override == "y" ]]; then
-  edebug "${brown_orange}temp clean override applied, keeping temp files for debugging${nc}"
+  edebug "${colbor}temp clean override applied, keeping temp files for debugging${colrst}"
 fi
 #
 #e.g for a drive option
@@ -355,12 +355,28 @@ edebug "optical disc bluray name is: $bluray_name"
 #Perhpas build up a list of known FOOBAR'd disc labels such as 'LOGICAL_VOLUME, DISC1 etc?'
 #Get name of media according to syslogs, this will only work if this script is being used automatically via UDEV / SYSTEMD otherwise name likely to me buried in older logs
 bluray_sys_name=$(grep "UDF-fs: INFO Mounting volume" /var/log/syslog | tail -1 | cut -d ':' -f 5 | cut -d ' ' -f 5)
-bluray_sys_name=${bluray_sys_name:1:-2}
+#its empty try syslog.1
+if [[ -z $bluray_sys_name ]]; then
+  bluray_sys_name=$(grep "UDF-fs: INFO Mounting volume" /var/log/syslog.1 | tail -1 | cut -d ':' -f 5 | cut -d ' ' -f 5)
+fi
+#set what to do if result is found
 if [[ ! -z $bluray_sys_name ]]; then
+  bluray_sys_name=${bluray_sys_name:1:-2}
   edebug "bluray_sys_name found, using: $bluray_sys_name"
   bluray_name=$bluray_sys_name
 fi
+# create the temp dir, failure to set this will error out handrake parsing info
 mkdir -p "$working_dir/temp/$bluray_name"
+#set output location for makemkv, not in "encode_only as is used in handrake as $source_loc"
+if [[ ! -z "$working_dir" ]] && [[ ! -z "$rip_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$bluray_name" ]]; then
+  edebug "valid Rips (source) directory, creating"
+  makemkv_out_loc="$working_dir/$rip_dest/$category/$bluray_name"
+  mkdir -p "$makemkv_out_loc"
+else
+  eerror "error with necessary variables to create Rips(source files) location"
+  exit 65
+fi
+edebug "Rip / Source files will be at: $makemkv_out_loc"
 #
 #
 if [ "$encode_only" != "1" ]; then
@@ -372,9 +388,9 @@ if [ "$encode_only" != "1" ]; then
   get_total_progress () {
     tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 2
   }
-  edebug "${Purple}makemakv running...${nc}"
+  edebug "${colpup}makemakv running...${colrst}"
   unit_of_measure="cycles"
-  makemkvcon backup --decrypt --progress="$working_dir/temp/$bluray_name/$bluray_name.log" -r "$makemkv_drive" "$working_dir"/"$rip_dest"/"$category"/"$bluray_name" > /dev/null 2>&1 &
+  makemkvcon backup --decrypt --progress="$working_dir/temp/$bluray_name/$bluray_name.log" -r "$makemkv_drive" "$makemkv_out_loc" > /dev/null 2>&1 &
   makemkv_pid=$!
   pid_name=$makemkv_pid
   sleep 15s # to give time for drive to wind up and files to be created
@@ -394,7 +410,7 @@ if [ "$rip_only" != "1" ]; then
   #HandBrakeCLI [options] -i <source> source_options -o <destination> output_options video_options audio_options picture_options filter_options
   #User Set Options"
   options="--json --no-dvdna"
-  source_loc="$working_dir"/"$rip_dest"/"$category"/"$bluray_name"
+  source_loc="$makemkv_out_loc" #this should match the makemkv output location
   output_options="-f mkv"
   video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
   picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
@@ -403,7 +419,7 @@ if [ "$rip_only" != "1" ]; then
   #
   #make the working directory if not already existing
   #this step is vital, otherwise the files below are created whereever the script is run from and will fail
-  cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory temp"; exit 65; }
+  cd "$working_dir/temp/$bluray_name" || { edebug "Failure changing to working directory temp"; exit 65; }
   #
   #
   #+-----------------------------+
@@ -575,7 +591,14 @@ if [ "$rip_only" != "1" ]; then
   #display what the result is
   edebug "source options are: $source_options"
   #lets use our fancy name IF found online
-  output_loc="$working_dir"/"$encode_dest"/"$category"/"$feature_name"/"$feature_name".mkv
+  output_loc="$working_dir/$encode_dest/$category/$feature_name/$feature_name".mkv
+  if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$feature_name" ]]; then
+    edebug "valid output directory, creating"
+    mkdir -p "$working_dir/$encode_dest/$category/$feature_name/$feature_name"
+  else
+    eerror "error with necessary variables to create final output location for handbrake"
+    exit 65
+  fi
   edebug "output_loc is: $output_loc"
   #display the final full options passed to handbrake
   edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
@@ -586,14 +609,15 @@ if [ "$rip_only" != "1" ]; then
   }
   #
   get_total_progress () {
-    #We use this variable in this instance as we need to manipulate the out put so interger and no leading zero. eg. '1' no '01'
-    tot_progress_result=$(grep '"Progress":' "$working_dir"/temp/"$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
+    #We use this variable in this instance as we need to manipulate the output so interger and no leading zero. eg. '1' no '01'
+    #tot_progress_result=$(grep '"Progress":' "$working_dir/temp/$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
+    tot_progress_result=$(grep "Progress: {" -A 8 handbrake.log | grep '"Scanning"' -A 3 | grep '"Progress"' | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
     tot_progress_result=$((10#$tot_progress_result))
     echo $tot_progress_result
   }
   #
   if [[ $rip_only != "1" ]]; then
-    edebug "${BrownOrange}handbrake running...${nc}"
+    edebug "${colbor}handbrake running...${colrst}"
     #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
     unit_of_measure="percent"
     progress_bar2_init
@@ -612,8 +636,10 @@ if [ "$rip_only" != "1" ]; then
   fi
   # clean temp files...if thats not overriden
   if [[ $temp_clean_override == "" ]]; then
-    cd $working_dir/temp/$bluray_name || { edebug "Failure changing to working directory"; exit 65; }
-    rm -r $bluray_name
+    if [[ -d "$working_dir/temp/$bluray_name" ]]; then
+      cd "$working_dir/temp" || { edebug "Failure changing to temp working directory"; exit 65; }
+      rm -r "$bluray_name"
+    fi
   fi
 fi
 #
