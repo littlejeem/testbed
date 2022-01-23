@@ -93,7 +93,12 @@ convert_secs_hr_min () {
 }
 #
 test_title_match () {
-  if [[ $title1 == "$auto_find_main_feature" && "$title2" == "$auto_find_main_feature" ]]; then
+  if [[ $title1 != "$auto_find_main_feature" && "$title2" != "$auto_find_main_feature" ]]; then
+    edebug "online check resulted in titles $title1 & $title2, matching online runtime but NOT, handbrakes automatically found main feature: $auto_find_main_feature, using title2"
+    #we choose title 2 when there are 2 detected as this better than 50% right most of the time imo.
+    auto_find_main_feature=$(echo $title2)
+    prep_title_file
+  elif [[ $title1 == "$auto_find_main_feature" && "$title2" == "$auto_find_main_feature" ]]; then
     edebug "online check resulted in titles $title1 & $title2, matching handbrakes automatically found main feature $auto_find_main_feature, using title2"
     #we choose title 2 when there are 2 detected as this better than 50% right most of the time imo.
     auto_find_main_feature=$(echo $title2)
@@ -116,7 +121,6 @@ test_title_match () {
 #
 prep_title_file() {
   edebug "creating main_feature_scan.json ..."
-  #HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan > main_feature_scan.json | >/dev/null 2>&1 #WORKS
   HandBrakeCLI --json -i $source_loc -t $auto_find_main_feature --scan 1> main_feature_scan.json 2> /dev/null
   #we use sed to take all text after (inclusive) "Version: {" from main_feature_scan.json and put it into main_feature_scan_trimmed.json
   #sed -n '/Version: {/,$w main_feature_scan_trimmed.json' main_feature_scan.json
@@ -320,9 +324,9 @@ edebug "PATH is: $PATH"
   category="blurays"
   edebug "category is: $category"
   rip_dest="Rips"
-  edebug "destination for rips is: $rip_dest"
+  edebug "destination for Rips is: $rip_dest"
   encode_dest="Encodes"
-  edebug "destination for rips is: $encode_dest"
+  edebug "destination for Encodes is: $encode_dest"
 #
 #
 #+----------------------------+
@@ -436,6 +440,10 @@ if [ "$rip_only" != "1" ]; then
     #+--------------------------------------+
     #we search the file created in Handbrake Title Scan for the main titles and store in a variable
     auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
+    if [[ -z $auto_find_main_feature ]]; then
+      eerror "Something went wrong with auto_find_main_feature"
+      exit 66
+    fi
     edebug "auto_find_main_feature is: $auto_find_main_feature"
     #we cut unwanted "Found main feature title " text from the variable
     auto_find_main_feature=${auto_find_main_feature:25}
@@ -499,7 +507,7 @@ if [ "$rip_only" != "1" ]; then
     #
     #
   elif [[ $title_override != "" ]]; then
-    edebug "creating main_feature_scan.json"
+    edebug "creating main_feature_scan.json using title override: $title_override"
     HandBrakeCLI --json -i $source_loc -t $title_override --scan > main_feature_scan.json
   fi
   #
