@@ -74,6 +74,7 @@ check_running
 #+---------------------+
 #+---"Set functions"---+
 #+---------------------+
+#SVGHhresct:n:q:
 helpFunction () {
    echo ""
    echo "Usage: $0 $scriptlong"
@@ -83,14 +84,15 @@ helpFunction () {
    echo -e "\t-S Override set verbosity to specify silent log level"
    echo -e "\t-V Override set verbosity to specify Verbose log level"
    echo -e "\t-G Override set verbosity to specify Debug log level"
+   echo -e "\t-h -H Use this flag for help"
    echo -e "\t-r Rip Only: Will cause the script to only rip the disc, not encode. NOTE: -r & -e cannot both be set"
    echo -e "\t-e Encode Only: Will cause the script to encode to container only, no disc rip. NOTE: -r & -e cannot both be set"
+   echo -e "\t-s Source delete override: By default the script removes the source files on completion. Selecting this flag will keep the files"
+   echo -e "\t-c Temp Override: By default the script removes any temp files on completion. Selecting this flag will keep the files, useful if debugging"
    echo -e "\t-t Manually provide the title to rip eg. -t 42"
    echo -e "\t-n Manually provide the feature name to lookup eg. -n "BETTER TITLE", useful for those discs that aren't helpfully named"
    echo -e "\t-q Manually provide the quality to encode in handbrake, eg. -q 21. default value is 19, anything lower than 17 is considered placebo"
-   echo -e "\t-s Source delete override: By default the script removes the source files on completion. Selecting this flag will keep the files"
-   echo -e "\t-c Temp Override: By default the script removes any temp files on completion. Selecting this flag will keep the files, useful if debugging"
-   echo -e "\t-h -H Use this flag for help"
+   #
    if [ -d "/tmp/$lockname" ]; then
      edebug "removing lock directory"
      rm -r "/tmp/$lockname"
@@ -147,8 +149,7 @@ clean_main_feature_scan () {
 #+------------------------+
 #+---"Get User Options"---+
 #+------------------------+
-OPTIND=1
-while getopts ":SVGHh:re:t:q:sc" opt
+while getopts ":SVGHhresct:n:q:" opt
 do
     case "${opt}" in
         S) verbosity=$silent_lvl
@@ -161,26 +162,32 @@ do
         edebug "rip_only selected, only ripping not encoding";;
         e) encode_only=1
         edebug "encode_only selected, only encoding not ripping";;
-        t) title_override=${OPTARG}
-        edebug "title_override chosen, using supplied track of: $title_override";;
-        n) name_override=${OPTARG}
-        edebug "name override given, using supplied title name of: $title_override";;
-        q) quality_override=${OPTARG}
-        quality=$quality_override
-        edebug "quality_override detected using quality $quality";;
         s) source_clean_override=1
         edebug "source clean override selected, keeping SOURCE files";;
         c) temp_clean_override=1
         edebug "temp clean override selected, keeping TEMP files";;
+        t) title_override=${OPTARG}
+        edebug "title_override chosen, using title number: $title_override instead of automatically found main title";;
+        n) name_override=${OPTARG}
+        edebug "name override given, using supplied title name of: $name_override";;
+        q) quality_override=${OPTARG}
+        if (( $quality_override >= 17 && $quality_override <= 99 )); then
+          quality=$quality_override
+          edebug "quality_override chosen, using supplied Q value of: $quality_override"
+        else
+          eerror "quality_override must be between 17-99"
+          helpFunction
+        fi;;
         H) helpFunction;;
         h) helpFunction;;
         ?) helpFunction;;
     esac
 done
-shift $((OPTIND -1))
+# Check both encode only and rip only are not set
 if [[ ! -z "$encode_only" && ! -z "$rip_only" ]]; then
+  eerror "You can't set both rip only & encode only as that is the scripts standard behaviour with no flags set"
   helpFunction
-  exit 0
+  exit 64
 fi
 #
 #
@@ -279,7 +286,7 @@ edebug "Rip / Source files will be at: $makemkv_out_loc"
 #+-------------------------+
 #+---"Carry Out Ripping"---+
 #+-------------------------+
-if [[ ! -z "$encode_only" ]]; then
+if [[ -z "$encode_only" ]]; then
   #Set up functions to get information for progress bar
   get_max_progress () {
     tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 3
@@ -536,7 +543,7 @@ get_total_progress () {
   echo $tot_progress_result
 }
 #
-if [[ $rip_only != "1" ]]; then
+if [[ -z $rip_only ]]; then
   edebug "${colbor}handbrake running...${colrst}"
   #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
   unit_of_measure="percent"
@@ -559,7 +566,7 @@ fi
 #+---"Clean Up Temp Files & Source"---+
 #+------------------------------------+
 # clean temp files...if thats not overriden
-if [[ ! -z "$temp_clean_override" ]]; then
+if [[ -z "$temp_clean_override" ]]; then
   einfo "removing temp files..."
   if [[ -d "$working_dir/temp/$bluray_name" ]]; then
     cd "$working_dir/temp" || { edebug "Failure changing to temp working directory"; exit 65; }
@@ -569,7 +576,7 @@ if [[ ! -z "$temp_clean_override" ]]; then
 fi
 #
 #clean source files...if thats not overriden
-if [[ ! -z "$source_clean_override" ]]; then
+if [[ -z "$source_clean_override" ]]; then
   einfo "removing source files..."
   if [[ -d "$makemkv_out_loc" ]]; then
     rm -r "$source_loc" || { edebug "Failure removing source directory"; exit 65; }
