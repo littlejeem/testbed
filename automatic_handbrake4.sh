@@ -77,15 +77,16 @@ check_running
 helpFunction () {
    echo ""
    echo "Usage: $0 $scriptlong"
-   echo "Usage: $0 $scriptlong -G -r -e -t ## -n "TITLE HERE" -q ## -s -c"
+   echo "Usage: $0 $scriptlong -G -r -t ## -n "TITLE HERE" -q ## -s -c"
+   echo "Usage: $0 $scriptlong -G -e -t ## -n "TITLE HERE" -q ## -s -c"
    echo -e "\t Running the script with no flags causes default behaviour with logging level set via 'verbosity' variable"
    echo -e "\t-S Override set verbosity to specify silent log level"
    echo -e "\t-V Override set verbosity to specify Verbose log level"
    echo -e "\t-G Override set verbosity to specify Debug log level"
-   echo -e "\t-r Rip Only: Will cause the script to only rip the disc, not encode"
-   echo -e "\t-e Encode Only: Will cause the script to encode to container only, no disc rip"
+   echo -e "\t-r Rip Only: Will cause the script to only rip the disc, not encode. NOTE: -r & -e cannot both be set"
+   echo -e "\t-e Encode Only: Will cause the script to encode to container only, no disc rip. NOTE: -r & -e cannot both be set"
    echo -e "\t-t Manually provide the title to rip eg. -t 42"
-   echo -e "\t-n Manually provide the feature name to lookup eg. -n "BLACK HAWK DOWN", useful for those discs that aren't helpfully named"
+   echo -e "\t-n Manually provide the feature name to lookup eg. -n "BETTER TITLE", useful for those discs that aren't helpfully named"
    echo -e "\t-q Manually provide the quality to encode in handbrake, eg. -q 21. default value is 19, anything lower than 17 is considered placebo"
    echo -e "\t-s Source delete override: By default the script removes the source files on completion. Selecting this flag will keep the files"
    echo -e "\t-c Temp Override: By default the script removes any temp files on completion. Selecting this flag will keep the files, useful if debugging"
@@ -177,6 +178,10 @@ do
     esac
 done
 shift $((OPTIND -1))
+if [[ ! -z "$encode_only" && ! -z "$rip_only" ]]; then
+  helpFunction
+  exit 0
+fi
 #
 #
 #+----------------------+
@@ -245,14 +250,11 @@ edebug "optical disc bluray name is: $bluray_name"
 #
 #Perhpas build up a list of known FOOBAR'd disc labels such as 'LOGICAL_VOLUME, DISC1 etc?'
 #Get name of media according to syslogs, this will only work if this script is being used automatically via UDEV / SYSTEMD otherwise name likely to me buried in older logs
-bluray_sys_name=$(grep "UDF-fs: INFO Mounting volume" /var/log/syslog | tail -1 | cut -d ':' -f 5 | cut -d ' ' -f 5)
-#its empty try syslog.1
-if [[ -z $bluray_sys_name ]]; then
-  bluray_sys_name=$(grep "UDF-fs: INFO Mounting volume" /var/log/syslog.1 | tail -1 | cut -d ':' -f 5 | cut -d ' ' -f 5)
-fi
+#bluray_sys_name=$(grep "UDF-fs: INFO Mounting volume" /var/log/syslog | tail -1 | cut -d ':' -f 5 | cut -d ' ' -f 5)
+bluray_sys_name=$(udfinfo "$dev_drive" 2> /dev/null | grep 'vid' | tail -1 | cut -d '=' -f 2)
 #set what to do if result is found
+#perhaps make it more fancy so if bluray_name doesn't contain bluray_sys_name use bluray_sys_name?
 if [[ ! -z $bluray_sys_name ]]; then
-  bluray_sys_name=${bluray_sys_name:1:-2}
   edebug "bluray_sys_name found, using: $bluray_sys_name"
   bluray_name=$bluray_sys_name
 fi
@@ -286,6 +288,8 @@ if [[ ! -z "$encode_only" ]]; then
   get_total_progress () {
     tail -n 1 "$working_dir/temp/$bluray_name/$bluray_name.log" | cut -d ',' -f 2
   }
+  #
+  edebug "final values passed to makemkvcon are: backup --decrypt --progress=$working_dir/temp/$bluray_name/$bluray_name.log -r $makemkv_drive $makemkv_out_loc"
   edebug "${colpup}makemakv running...${colrst}"
   unit_of_measure="cycles"
   makemkvcon backup --decrypt --progress="$working_dir/temp/$bluray_name/$bluray_name.log" -r "$makemkv_drive" "$makemkv_out_loc" > /dev/null 2>&1 &
@@ -309,6 +313,7 @@ fi
 options="--json --no-dvdna"
 source_loc="$makemkv_out_loc" #this should match the makemkv output location
 output_options="-f mkv"
+container_type="mkv"
 video_options="-e x264 --encoder-preset medium --encoder-tune film --encoder-profile high --encoder-level 4.1 -q $quality -2"
 picture_options="--crop 0:0:0:0 --loose-anamorphic --keep-display-aspect --modulus 2"
 filter_options="--decomb"
@@ -477,39 +482,47 @@ elif [[ -z "$True_HD" ]] && [[ -z "$Dts_hd" ]] && [[ -z "$BD_lpcm" ]] && [[ -z "
   edebug "no matches for audio types, defaulting to track 1"
 fi
 #
-#
-#+--------------------------+
-#+---"Carry Out Encoding"---+
-#+--------------------------+
-#insert the audio selection into the audio_options variable
+#insert the audio selection into the audio_options variable, something different wiht BD_lpcm if selected as cannot be passed thru
 if [[ ! -z $BD_lpcm ]]; then
   audio_options="-a $selected_audio_track -E flac24 --mixdown 5point1"
 else
   audio_options="-a $selected_audio_track -E copy --audio-copy-mask dtshd,truehd,dts,flac"
 fi
 edebug "audio options passed to HandBrakeCLI are: $audio_options"
+#
+#
+#+----------------------------+
+#+---"Create Encoding Name"---+
+#+----------------------------+
 #use our found main feature from the work at the top...
-source_options="-t $auto_find_main_feature"
+source_options="-t $auto_found_main_feature"
 #...but override it if override is set
-if [[ $title_override != "" ]]; then
+if [[ ! -z "$title_override" ]]; then
   source_options=-"t $title_override"
   edebug "title override selected, using: $title_override"
 fi
 #display what the result is
 edebug "source options are: $source_options"
-#lets use our fancy name IF found online
-output_loc="$working_dir/$encode_dest/$category/$feature_name/$feature_name".mkv
-if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$feature_name" ]]; then
-  edebug "valid output directory, creating"
-  mkdir -p "$working_dir/$encode_dest/$category/$feature_name"
-else
-  eerror "error with necessary variables to create final output location for handbrake"
-  exit 65
+#
+#lets use our fancy name IF found online, else revert to basic
+if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$omdb_title_name_result" ]] && [[ ! -z "$omdb_year_result" ]] && [[ ! -z "$container_type" ]]; then
+  output_loc="$working_dir/$encode_dest/$category/$omdb_title_result ($omdb_year_result)/"
+  feature_name="$omdb_title_name_result ($omdb_year_result).$container_type"
+elif [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ -z "$omdb_title_result" ]] && [[ ! -z "$container_type" ]]; then
+  output_loc="$working_dir/$encode_dest/$category/$feature_name/"
+  feature_name="$feature_name.$container_type"
 fi
+#
+# create the
+mkdir -p "$output_loc"
 edebug "output_loc is: $output_loc"
 #display the final full options passed to handbrake
-edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
+edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
 #
+#
+#+--------------------------+
+#+---"Carry Out Encoding"---+
+#+--------------------------+
 # Set out how to get information for progress bar, see notes in helper_script.sh
 get_max_progress () {
   echo 100
@@ -518,7 +531,7 @@ get_max_progress () {
 get_total_progress () {
   #We use this variable in this instance as we need to manipulate the output so interger and no leading zero. eg. '1' no '01'
   #tot_progress_result=$(grep '"Progress":' "$working_dir/temp/$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
-  tot_progress_result=$(grep "Progress: {" -A 8 handbrake.log | grep '"Scanning"' -A 3 | grep '"Progress"' | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
+  tot_progress_result=$(grep "Progress: {" -A 8 handbrake.log | grep '"WORKING"' -A 7 | grep '"Progress"' | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
   tot_progress_result=$((10#$tot_progress_result))
   echo $tot_progress_result
 }
@@ -528,7 +541,7 @@ if [[ $rip_only != "1" ]]; then
   #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
   unit_of_measure="percent"
   progress_bar2_init
-  HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
+  HandBrakeCLI $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
   makemkv_pid=$!
   pid_name=$makemkv_pid
   sleep 10s # to give time file to be created and data being inputted
@@ -546,12 +559,24 @@ fi
 #+---"Clean Up Temp Files & Source"---+
 #+------------------------------------+
 # clean temp files...if thats not overriden
-if [[ $temp_clean_override == "" ]]; then
+if [[ ! -z "$temp_clean_override" ]]; then
+  einfo "removing temp files..."
   if [[ -d "$working_dir/temp/$bluray_name" ]]; then
     cd "$working_dir/temp" || { edebug "Failure changing to temp working directory"; exit 65; }
     rm -r "$bluray_name"
+    einfo "...temp files removed"
   fi
 fi
+#
+#clean source files...if thats not overriden
+if [[ ! -z "$source_clean_override" ]]; then
+  einfo "removing source files..."
+  if [[ -d "$makemkv_out_loc" ]]; then
+    rm -r "$source_loc" || { edebug "Failure removing source directory"; exit 65; }
+    einfo "...source files removed"
+  fi
+fi
+#
 #
 #+-------------------+
 #+---"Script Exit"---+
