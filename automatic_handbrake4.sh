@@ -512,17 +512,25 @@ fi
 edebug "source options are: $source_options"
 #
 #lets use our fancy name IF found online, else revert to basic
-if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$omdb_title_name_result" ]] && [[ ! -z "$omdb_year_result" ]] && [[ ! -z "$container_type" ]]; then
+if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$omdb_title_result" ]] && [[ ! -z "$omdb_year_result" ]] && [[ ! -z "$container_type" ]]; then
+  edebug "using online found movie title & year for naming"
   output_loc="$working_dir/$encode_dest/$category/$omdb_title_result ($omdb_year_result)/"
-  feature_name="$omdb_title_name_result ($omdb_year_result).$container_type"
-elif [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ -z "$omdb_title_result" ]] && [[ ! -z "$container_type" ]]; then
+  feature_name="${omdb_title_name_result} (${omdb_year_result}).${container_type}"
+elif [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ -z "$omdb_title_result" ]] && [[ ! -z "$feature_name" ]] && [[ ! -z "$container_type" ]]; then
+  edebug "using local data based naming"
   output_loc="$working_dir/$encode_dest/$category/$feature_name/"
-  feature_name="$feature_name.$container_type"
+  feature_name="${feature_name}.${container_type}"
+else
+  error "Error setting output_loc, investigation needed"
 fi
-#
+#echo "$working_dir" "$encode_dest" "$category" "$omdb_title_result" "$omdb_year_result" "$container_type"
+#echo "$working_dir" "$encode_dest" "$category" "$omdb_title_result" "$feature_name" "$container_type"
 # create the
-mkdir -p "$output_loc"
 edebug "output_loc is: $output_loc"
+edebug "...creating output_loc if not in existance"
+mkdir -p "$output_loc"
+edebug "feature name is: $feature_name"
+edebug "final file name construct will be: ${output_loc}${feature_name}"
 #display the final full options passed to handbrake
 edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
 #
@@ -549,8 +557,8 @@ if [[ -z $rip_only ]]; then
   unit_of_measure="percent"
   progress_bar2_init
   HandBrakeCLI $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
-  makemkv_pid=$!
-  pid_name=$makemkv_pid
+  handbrake_pid=$!
+  pid_name=$handbrake_pid
   sleep 10s # to give time file to be created and data being inputted
   progress_bar2_init
   #check for any non zero errors
