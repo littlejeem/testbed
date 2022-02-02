@@ -356,15 +356,59 @@ fi
 
 #CLEAN FILE FOR JQ
 clean_main_feature_scan
-#SEARCH FOR FEATURE NAME VIA JQ
+#SEARCH FOR FEATURE NAME VIA JQ, unless override in place
 if [[ -z $name_override ]]; then
   feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
 else
   feature_name="$name_override"
 fi
 edebug "feature name is: $feature_name"
-#SEARCH ONLINE FOR FEATURE NAME
-omdb_title_result=$(curl -sX GET --header "Accept: */*" "http://www.omdbapi.com/?t=${feature_name}&apikey=${omdb_apikey}")
+#
+#CLEAN THE FOUND LOCAL TITLE TO SEARCH WITH
+#extrat '_' in name
+field_count="${feature_name//[^_]}"
+edebug "delimeter pick is: $field_count"
+#count them
+field_count="${#field_count}"
+edebug "count of delimiters is: $field_count, so $((field_count+1)) elements"
+#increase delimeter count by 1 so it represents number of fields/elements
+field_count=$((field_count+1))
+edebug "field_count +1 is: $field_count"
+#
+#start the array
+title_array=() # declare an empty array; same as: declare -a groups
+#for i in {1..5..1}; do
+for ((i=1;i<=field_count;i++)); do
+  title_array[i]=$(echo $feature_name | cut -d '_' -f $i)
+done
+#
+# Print the resulting array's elements.
+#printf '%s\n' "${title_array[@]}"
+edebug "array element 1: ${title_array[1]}"
+# check if element 1 is a number and if so greater than year format for movie titles, eg 1949 would be valid but 83442423 (in disc lable) woudl not be
+if [[ ${title_array[1]} =~ ^[0-9]+$ ]] && [[ ${title_array[1]} -ge 9999 ]]; then
+  edebug "element1 of array equaled a number of 10000 or more, unlikely to part of a valid film title removing from array"
+  #remove from array if it is bigger than should be
+  unset title_array[1]
+  edebug "element array now shows:"
+  # printf '%s\n' "${groups[@]}"
+  feature_name=( "${title_array[*]}" )
+  edebug "online feature name check now set for: $feature_name"
+else
+  edebug "Array element 1 not a number so using"
+fi
+#
+# do some work to make the array result acceptable for a http api request, replace ' ' with '+'
+feature_name_prep="${feature_name// /+}"
+#create http segment in a variable so that individual variables don't need expanding in curl request, it doesn't work!
+http_construct="http://www.omdbapi.com/?t=$feature_name_prep&apikey=$omdb_apikey"
+#
+# RUN ONLINE QUERY
+edebug "http_construct is: $http_construct"
+edebug "Querying omdb..."
+#omdb_title_result=$(curl -sX GET --header "Accept: */*" "http://www.omdbapi.com/?t=${feature_name}&apikey=${omdb_apikey}")
+omdb_title_result=$(curl -sX GET --header "Accept: */*" "$http_construct")
+#
 #IF ONLINE SEARCH SUCCEEDS DO EXTRA.
 #{"Response":"False","Error":"Incorrect IMDb ID."}
 if [[ "$omdb_title_result" = *'"Title":"'* ]]; then
@@ -398,17 +442,23 @@ if [[ "$omdb_title_result" = *'"Title":"'* ]]; then
   fi
 elif [[ "$omdb_title_result" = *'"Error":"No API key provided."'* ]]; then
   edebug "online search failed not doing extra stuff"
+  omdb_title_result=
 elif [[ "$omdb_title_result" = *'"Error":"Incorrect IMDb ID."'* ]]; then
   edebug "omdb search ran but no matching result could be found"
+  omdb_title_result=
 elif [[ "$omdb_title_result" = *'"Error":"Movie not found!"'* ]]; then
   edebug "omdb search ran but no matching result could be found"
+  omdb_title_result=
+elif [[ "$omdb_title_result" = *'</html>nter>cloudflare</center>></center>d>'* ]]; then
+  edebug "omdb search ran but no matching result could be found"
+  omdb_title_result=
 else
   edebug "Some other error occured, dumping omdb_title_result"
   edebug "omdb_title_result is: $omdb_title_result"
+  omdb_title_result=
 fi
-
-
-  #TEST RESULTS TO SEE WHICH TO CHOOSE AND IF DIFFERENT TO OUT AUTO FIND TITLE WE NEED TO RECREATE main_feature_scan.json BEFORE AUDIO CHECK
+#
+#TEST RESULTS TO SEE WHICH TO CHOOSE AND IF DIFFERENT TO OUT AUTO FIND TITLE WE NEED TO RECREATE main_feature_scan.json BEFORE AUDIO CHECK
 if [[ -z "$title1" && -z "$title2" ]]; then
   edebug "no online data to use, so using local data"
 elif [[ "$title1" != "$auto_found_main_feature" && "$title2" != "$auto_found_main_feature" ]]; then
@@ -521,7 +571,8 @@ elif [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$categor
   output_loc="$working_dir/$encode_dest/$category/$feature_name/"
   feature_name="${feature_name}.${container_type}"
 else
-  error "Error setting output_loc, investigation needed"
+  eerror "Error setting output_loc, investigation needed"
+  exit 64
 fi
 #echo "$working_dir" "$encode_dest" "$category" "$omdb_title_result" "$omdb_year_result" "$container_type"
 #echo "$working_dir" "$encode_dest" "$category" "$omdb_title_result" "$feature_name" "$container_type"
@@ -532,33 +583,35 @@ mkdir -p "$output_loc"
 edebug "feature name is: $feature_name"
 edebug "final file name construct will be: ${output_loc}${feature_name}"
 #display the final full options passed to handbrake
-edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options"
+edebug "Final HandBrakeCLI Options are: $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > $working_dir/temp/$bluray_name/handbrake.log"
 #
 #
 #+--------------------------+
 #+---"Carry Out Encoding"---+
 #+--------------------------+
 # Set out how to get information for progress bar, see notes in helper_script.sh
-get_max_progress () {
-  echo 100
-}
-#
-get_total_progress () {
-  #We use this variable in this instance as we need to manipulate the output so interger and no leading zero. eg. '1' no '01'
-  #tot_progress_result=$(grep '"Progress":' "$working_dir/temp/$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
-  tot_progress_result=$(grep "Progress: {" -A 8 handbrake.log | grep '"WORKING"' -A 7 | grep '"Progress"' | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
-  tot_progress_result=$((10#$tot_progress_result))
-  echo $tot_progress_result
-}
+
 #
 if [[ -z $rip_only ]]; then
+  get_max_progress () {
+    echo 100
+  }
+  #
+  get_total_progress () {
+    #We use this variable in this instance as we need to manipulate the output so interger and no leading zero. eg. '1' no '01'
+    #tot_progress_result=$(grep '"Progress":' "$working_dir/temp/$bluray_name"/handbrake.log | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
+    tot_progress_result=$(grep -a "Progress: {" -A 8 handbrake.log | grep '"WORKING"' -A 7 | grep '"Progress"' | tail -1 | cut -d '.' -f 2 | cut -d ',' -f 1 | cut -c-2)
+    tot_progress_result=$((10#$tot_progress_result))
+    echo $tot_progress_result
+  }
   edebug "${colbor}handbrake running...${colrst}"
   #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
   unit_of_measure="percent"
-  progress_bar2_init
   HandBrakeCLI $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
   handbrake_pid=$!
+  edebug "handbrake_pid: $handbrake_pid"
   pid_name=$handbrake_pid
+  edebug "pid name: $pid_name"
   sleep 10s # to give time file to be created and data being inputted
   progress_bar2_init
   #check for any non zero errors
