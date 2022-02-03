@@ -58,6 +58,18 @@ scriptlong=`basename "$0"`
 lockname=${scriptlong::-3} # reduces the name to remove .sh
 #
 #
+#+---------------------+
+#+---"Set Variables"---+
+#+---------------------+
+#set default logging level, failure to set this will cause a 'unary operator expected' error
+#remember at level 3 and lower, only esilent messages show, best to include an override in getopts
+verbosity=3
+#
+version="0.10" #
+notify_lock="/tmp/$lockname"
+#pushover_title="NAME HERE" #Uncomment if using pushover
+#
+#
 #+-------------------------------------+
 #+---"Source helper script & others"---+
 #+-------------------------------------+
@@ -79,18 +91,6 @@ if [[ -f /usr/local/bin/omdb_key ]]; then
 else
   echo "/usr/local/bin/omdb_key, please correct"
 fi
-#
-#
-#+---------------------+
-#+---"Set Variables"---+
-#+---------------------+
-#set default logging level, failure to set this will cause a 'unary operator expected' error
-#remember at level 3 and lower, only esilent messages show, best to include an override in getopts
-verbosity=3
-#
-version="0.9" #
-notify_lock="/tmp/$lockname"
-#pushover_title="NAME HERE" #Uncomment if using pushover
 #
 #
 #+---------------------------------------+
