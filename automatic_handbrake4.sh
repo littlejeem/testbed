@@ -67,6 +67,12 @@ if [[ -f /usr/local/bin/helper_script.sh ]]; then
 else
   echo "/usr/local/bin/helper_script.sh, please correct"
 fi
+if [[ -f /usr/local/bin/config.sh ]]; then
+  source /usr/local/bin/config.sh
+  edebug "helper_script located, using"
+else
+  echo "/usr/local/bin/config_script.sh, please correct"
+fi
 if [[ -f /usr/local/bin/omdb_key ]]; then
   source /usr/local/bin/omdb_key
   edebug "omdb_key file found, using"
@@ -224,7 +230,7 @@ program_check="curl"
 prog_check
 program_check="jq"
 prog_check
-program_check="udftools"
+program_check="udfinfo"
 prog_check
 #
 #
