@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 #
-#########################################################################
-###    "PUT INFO ABOUT THE SCRIPT, ITS PURPOSE, HOW IT WORKS"         ###
-###      "WHERE IT SHOULD BE KEPT, DEPENDANCIES, etc...here"          ###
-#########################################################################
+#############################################################################################
+### "This is a script designed to automate the ripping of blurays and converting them,    ###
+### into my chosen container format.                                                      ###
+### The script relies on the supreme work of the developers of:                           ###
+### - makemkv: to rip the disc                                                            ###
+### - HandBrakeCLI: to encode the ripped disc                                             ###
+### - jq: to parse and manipualte .json data                                              ###
+### - udftools: Used to extract data from the vlabel from the optical media               ###
+### - curl: used to send and receive data from omdbapi                                    ###
+### - omdbapi: user omdb key used to lookup information about media title online          ###
+### as well as some other stuff:                                                          ###
+### - helper_script: from my repository https://github.com/littlejeem/standalone_scripts, ###
+### used for debugging and various helper functions.                                      ###
+### Place or symlink the files helper_script.sh, config.sh, omdb_key into /usr/local/bin  ###
+#############################################################################################
 #
 #
 #+--------------------------------------+
@@ -50,8 +61,18 @@ lockname=${scriptlong::-3} # reduces the name to remove .sh
 #+-------------------------------------+
 #+---"Source helper script & others"---+
 #+-------------------------------------+
-source /usr/local/bin/helper_script.sh
-source /usr/local/bin/omdb_key
+if [[ -f /usr/local/bin/helper_script.sh ]]; then
+  source /usr/local/bin/helper_script.sh
+  edebug "helper_script located, using"
+else
+  echo "/usr/local/bin/helper_script.sh, please correct"
+fi
+if [[ -f /usr/local/bin/omdb_key ]]; then
+  source /usr/local/bin/omdb_key
+  edebug "omdb_key file found, using"
+else
+  echo "/usr/local/bin/omdb_key, please correct"
+fi
 #
 #
 #+---------------------+
@@ -61,9 +82,10 @@ source /usr/local/bin/omdb_key
 #remember at level 3 and lower, only esilent messages show, best to include an override in getopts
 verbosity=3
 #
-version="0.7" #
+version="0.9" #
 notify_lock="/tmp/$lockname"
 #pushover_title="NAME HERE" #Uncomment if using pushover
+#
 #
 #+---------------------------------------+
 #+---"check if script already running"---+
@@ -191,11 +213,27 @@ if [[ ! -z "$encode_only" && ! -z "$rip_only" ]]; then
 fi
 #
 #
+#+----------------------------------------------+
+#+---"Check necessary programs are installed"---+
+#+----------------------------------------------+
+program_check="HandBrakeCLI"
+prog_check
+program_check="makemkvcon"
+prog_check
+program_check="curl"
+prog_check
+program_check="jq"
+prog_check
+program_check="udftools"
+prog_check
+#
+#
 #+----------------------+
 #+---"Script Started"---+
 #+----------------------+
 # At this point the script is set up and all necessary conditions.
 esilent "$lockname started"
+#
 #
 #+--------------------------------------+
 #+---"Display some info about script"---+
@@ -212,23 +250,20 @@ edebug "INVOCATION_ID is set as: $INVOCATION_ID"
 edebug "EUID is set as: $EUID"
 edebug "PATH is: $PATH"
 #
-###############################
-### Move to a settings file ###
-###############################
-  dev_drive="/dev/sr0"
-  edebug "source media drive us $dev_drive"
-  drive_num=${dev_drive: -1}
-  edebug "drive_num: $drive_num"
-  makemkv_drive="disc:$drive_num"
-  edebug "makemkv drive is: $makemkv_drive"
-  working_dir="/home/jlivin25/Videos"
-  edebug "working directory is: $working_dir"
-  category="blurays"
-  edebug "category is: $category"
-  rip_dest="Rips"
-  edebug "destination for Rips is: $rip_dest"
-  encode_dest="Encodes"
-  edebug "destination for Encodes is: $encode_dest"
+#
+#+-----------------------------------+
+#+---"Check settings from .config"---+
+#+-----------------------------------+
+edebug "source media drive us $dev_drive"
+drive_num=${dev_drive: -1}
+edebug "drive_num: $drive_num"
+makemkv_drive="disc:$drive_num"
+edebug "makemkv drive is: $makemkv_drive"
+edebug "working directory is: $working_dir"
+edebug "category is: $category"
+edebug "destination for Rips is: $rip_dest"
+edebug "destination for Encodes is: $encode_dest"
+#
 #
 #+----------------------------+
 #+---"Main Script Contents"---+
@@ -267,7 +302,8 @@ if [[ ! -z $bluray_sys_name ]]; then
 fi
 # create the temp dir, failure to set this will error out handrake parsing info
 mkdir -p "$working_dir/temp/$bluray_name"
-
+#
+#
 #+-------------------------+
 #+---"Setup Ripping"---+
 #+-------------------------+
@@ -562,9 +598,9 @@ fi
 edebug "source options are: $source_options"
 #
 #lets use our fancy name IF found online, else revert to basic
-if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$omdb_title_result" ]] && [[ ! -z "$omdb_year_result" ]] && [[ ! -z "$container_type" ]]; then
+if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$omdb_title_name_result" ]] && [[ ! -z "$omdb_year_result" ]] && [[ ! -z "$container_type" ]]; then
   edebug "using online found movie title & year for naming"
-  output_loc="$working_dir/$encode_dest/$category/$omdb_title_result ($omdb_year_result)/"
+  output_loc="$working_dir/$encode_dest/$category/$omdb_title_name_result ($omdb_year_result)/"
   feature_name="${omdb_title_name_result} (${omdb_year_result}).${container_type}"
 elif [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ -z "$omdb_title_result" ]] && [[ ! -z "$feature_name" ]] && [[ ! -z "$container_type" ]]; then
   edebug "using local data based naming"
@@ -607,7 +643,7 @@ if [[ -z $rip_only ]]; then
   edebug "${colbor}handbrake running...${colrst}"
   #HandBrakeCLI $options -i $source_loc $source_options -o $output_loc $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > /dev/null 2>&1 &
   unit_of_measure="percent"
-  HandBrakeCLI $options -i $source_loc $source_options -o ${output_loc}${feature_name} $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
+  HandBrakeCLI $options -i $source_loc $source_options -o "${output_loc}${feature_name}" $output_options $video_options $audio_options $picture_options $filter_options $subtitle_options > "$working_dir"/temp/"$bluray_name"/handbrake.log 2>&1 &
   handbrake_pid=$!
   edebug "handbrake_pid: $handbrake_pid"
   pid_name=$handbrake_pid
