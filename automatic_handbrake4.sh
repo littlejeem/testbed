@@ -119,6 +119,7 @@ helpFunction () {
    echo -e "\t-c Temp Override: By default the script removes any temp files on completion. Selecting this flag will keep the files, useful if debugging"
    echo -e "\t-t Manually provide the title to rip eg. -t 42"
    echo -e "\t-n Manually provide the feature name to lookup eg. -n "BETTER TITLE", useful for those discs that aren't helpfully named"
+   echo -e "\t-p Disable the progress bars in the script visible in terminal, useful when debugging rest of script"
    echo -e "\t-q Manually provide the quality to encode in handbrake, eg. -q 21. default value is 19, anything lower than 17 is considered placebo"
    #
    if [ -d "/tmp/$lockname" ]; then
@@ -173,6 +174,75 @@ clean_main_feature_scan () {
   edebug "... main_feature_scan_trimmed.json created"
 }
 #
+source_clean () {
+  if [[ -z "$source_clean_override" ]]; then
+    einfo "removing source files..."
+    if [[ -d "$makemkv_out_loc" ]]; then
+      rm -r "$makemkv_out_loc" || { edebug "Failure removing source directory"; exit 65; }
+      einfo "...source files removed"
+    fi
+  fi
+}
+#
+temp_clean () {
+  if [[ -z "$temp_clean_override" ]]; then
+    einfo "removing temp files..."
+    if [[ -d "$working_dir/temp/$bluray_name" ]]; then
+      cd "$working_dir/temp" || { edebug "Failure changing to temp working directory"; exit 65; }
+      rm -r "$working_dir/temp/$bluray_name"
+      einfo "...temp files removed"
+    fi
+  fi
+}
+#
+script_exit () {
+  if [ -d /tmp/"$lockname" ]; then
+    rm -r /tmp/"$lockname"
+    if [[ $? -ne 0 ]]; then
+        eerror "error removing lockdirectory"
+        exit 65
+    else
+        enotify "successfully removed lockdirectory"
+    fi
+  fi
+  esilent "$lockname completed"
+  exit 0
+}
+#
+clean_ctrlc () {
+  let ctrlc_count++
+  echo
+  if [[ $ctrlc_count == 1 ]]; then
+    echo "Quit command detected, are you sure?"
+  elif [[ $ctrlc_count == 2 ]]; then
+    echo "...once more and the script will exit..."
+  else
+    echo "...exiting script."
+    #
+    if [[ ! -z "$makemkv_pid" ]]; then
+      edebug "Terminating rip"
+      kill $makemkv_pid
+      sleep 2
+    fi
+    #
+    if [[ ! -z "$handbrake_pid" ]]; then
+      edebug "Terminating encode"
+      kill $handbrake_pid
+      sleep 2
+    fi
+    #
+    if [[ -z $source_clean_override ]]; then
+      edebug "Removing source files"
+      source_clean
+    fi
+    if [[ -z $temp_clean_override ]]; then
+      edebug "removing temp files"
+      temp_clean
+    fi
+    script_exit
+  fi
+}
+#
 #
 #+------------------------+
 #+---"Get User Options"---+
@@ -198,6 +268,8 @@ do
         edebug "title_override chosen, using title number: $title_override instead of automatically found main title";;
         n) name_override=${OPTARG}
         edebug "name override given, using supplied title name of: $name_override";;
+        p) bar_override=${OPTARG}
+        edebug "bar_override selected disabling progress bars";;
         q) quality_override=${OPTARG}
         if (( $quality_override >= 17 && $quality_override <= 99 )); then
           quality=$quality_override
@@ -219,9 +291,16 @@ if [[ ! -z "$encode_only" && ! -z "$rip_only" ]]; then
 fi
 #
 #
+#+-------------------+
+#+---"Trap ctrl-c"---+
+#+-------------------+
+trap clean_ctrlc SIGINT
+#
+#
 #+----------------------------------------------+
 #+---"Check necessary programs are installed"---+
 #+----------------------------------------------+
+ctrlc_count=0
 program_check="HandBrakeCLI"
 prog_check
 program_check="makemkvcon"
@@ -669,36 +748,13 @@ fi
 #+---"Clean Up Temp Files & Source"---+
 #+------------------------------------+
 # clean temp files...if thats not overriden
-if [[ -z "$temp_clean_override" ]]; then
-  einfo "removing temp files..."
-  if [[ -d "$working_dir/temp/$bluray_name" ]]; then
-    cd "$working_dir/temp" || { edebug "Failure changing to temp working directory"; exit 65; }
-    rm -r "$bluray_name"
-    einfo "...temp files removed"
-  fi
-fi
+temp_clean
 #
 #clean source files...if thats not overriden
-if [[ -z "$source_clean_override" ]]; then
-  einfo "removing source files..."
-  if [[ -d "$makemkv_out_loc" ]]; then
-    rm -r "$source_loc" || { edebug "Failure removing source directory"; exit 65; }
-    einfo "...source files removed"
-  fi
-fi
+source_clean
 #
 #
 #+-------------------+
 #+---"Script Exit"---+
 #+-------------------+
-if [ -d /tmp/"$lockname" ]; then
-  rm -r /tmp/"$lockname"
-  if [[ $? -ne 0 ]]; then
-      eerror "error removing lockdirectory"
-      exit 65
-  else
-      enotify "successfully removed lockdirectory"
-  fi
-fi
-esilent "$lockname completed"
-exit 0
+script_exit
