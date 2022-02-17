@@ -175,7 +175,7 @@ clean_main_feature_scan () {
 }
 #
 source_clean () {
-  if [[ -z "$source_clean_override" ]]; then
+  if [[ -z "$source_clean_override" ]] && [[ -z "$rip_only" ]] && [[ -z "$encode_only" ]]; then
     einfo "removing source files..."
     if [[ -d "$makemkv_out_loc" ]]; then
       rm -r "$makemkv_out_loc" || { edebug "Failure removing source directory"; exit 65; }
