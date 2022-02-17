@@ -93,7 +93,10 @@ convert_secs_hr_min () {
 }
 #
 test_title_match () {
-  if [[ $title1 != "$auto_find_main_feature" && "$title2" != "$auto_find_main_feature" ]]; then
+  if [[ -z $title1 ]] && [[ -z $title2 ]]; then
+    edebug "online search failed, using handbrakes automatically found title: $auto_find_main_feature"
+    prep_title_file
+  elif [[ $title1 != "$auto_find_main_feature" && "$title2" != "$auto_find_main_feature" ]]; then
     edebug "online check resulted in titles $title1 & $title2, matching online runtime but NOT, handbrakes automatically found main feature: $auto_find_main_feature, using title2"
     #we choose title 2 when there are 2 detected as this better than 50% right most of the time imo.
     auto_find_main_feature=$(echo $title2)
@@ -114,7 +117,7 @@ test_title_match () {
     auto_find_main_feature=$(echo $title1)
     prep_title_file
   else
-    edebug "No titles mathching online runtime, using handbrakes found title $auto_find_main_feature"
+    edebug "No titles matching online runtime, using handbrakes found title $auto_find_main_feature"
     prep_title_file
   fi
 }
@@ -198,9 +201,12 @@ do
         edebug "-V specified: Verbose mode";;
         G) verbosity=$dbg_lvl
         edebug "-G specified: Debug mode";;
-        r) rip_only=${OPTARG};;
-        e) encode_only=${OPTARG};;
-        t) title_override=${OPTARG};;
+        r) rip_only=1
+        edebug "rip_only selected, only ripping not encoding";;
+        e) encode_only=${OPTARG}
+        edebug "encode_only selected, only encoding not ripping";;
+        t) title_override=${OPTARG}
+        edebug "title_override chosen, using supplied track of: $title_override";;
         q) quality_override=${OPTARG};;
         s) source_clean_override=${OPTARG};;
         c) temp_clean_override=${OPTARG};;
@@ -409,8 +415,9 @@ fi
 if [ "$rip_only" != "1" ]; then
   #
   #+-------------------------------+
-  #+---"HandBrake Structure Key"---+
+  #+---"HANDBRAKE SECTION"---+
   #+-------------------------------+
+  #"HandBrake Structure Key is:"
   #HandBrakeCLI [options] -i <source> source_options -o <destination> output_options video_options audio_options picture_options filter_options
   #User Set Options"
   options="--json --no-dvdna"
@@ -427,103 +434,105 @@ if [ "$rip_only" != "1" ]; then
   #
   #
   #+-----------------------------+
-  #+---"Handbrake Titles Scan-"--+
-  #+-----------------------------+
-  #Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
-  if [[ $title_override == "" ]]; then
-    edebug "creating titles_scan.json"
-    HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
-    #
-    #
-    #+--------------------------------------+
-    #+---"Identify Main Title - METHOD 1"---+
-    #+--------------------------------------+
-    #we search the file created in Handbrake Title Scan for the main titles and store in a variable
-    auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
-    if [[ -z $auto_find_main_feature ]]; then
-      eerror "Something went wrong with auto_find_main_feature"
-      exit 66
-    fi
-    edebug "auto_find_main_feature is: $auto_find_main_feature"
-    #we cut unwanted "Found main feature title " text from the variable
-    auto_find_main_feature=${auto_find_main_feature:25}
-    edebug "auto_find_main_feature cut to: $auto_find_main_feature"
-    #
-    #Grab data from found title and trim unwanted text from main_feature_scan.json
-    prep_title_file
-    #
-    #
-    #+-----------------------+
-    #+---"Get online data"---+
-    #+-----------------------+
-    edebug "Getting online data"
-    feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
-    edebug "feature name is: $feature_name"
-    omdb_title_result=$(curl -sX GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
-    if [[ $omdb_title_result != *"Movie not found"* ]]; then
-      edebug "omdb matching info is: $omdb_title_result"
-      omdb_title_name_result=$(echo $omdb_title_result | jq --raw-output '.Title')
-      edebug "omdb title name is: $omdb_title_name_result"
-      omdb_year_result=$(echo $omdb_title_result | jq --raw-output '.Year')
-      edebug "omdb year is: $omdb_year_result"
-    else
-      edebug "no online data could be matched to feature name: $feature_name"
-    fi
-    #
-    #
-    #+-----------------------------------------------+
-    #+---"Generate checking data from online info"---+
-    #+-----------------------------------------------+
-    edebug "Getting runtime info..."
-    #extract runtime from mass omdb result
-    omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
-    #strip out 'min'
-    omdb_runtime_result=${omdb_runtime_result%????}
-    edebug "omdb runtime is (mins): $omdb_runtime_result ..."
-    #convert to 'secs'
-    secs=$((omdb_runtime_result*60))
-    edebug "...equal to (secs): $secs"
-    #use function to convert seconds to desired runtime format
-    edebug "converting to runtime format..."
-    runtime_check=$(convert_secs_hr_min)
-    edebug "...runtime is: $runtime_check (hh:mm). Checking titles containing this runtime"
-    #check titles_scan.json for titles containing runtime
-    title1=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==1')
-    title2=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==5')
-    #strip down to just titles value (track), not time!)
-    if [[ ! -z "$title1" ]]; then
-      edebug "Title(s) matching runtime is: $title1"
-    fi
-    if [[ ! -z "$title2" ]]; then
-      edebug "Title(s) matching runtime is: $title2"
-    fi
-    #
-    #
-    #+-----------------------------------------+
-    #+---"Method 1 checked against Method 2"---+
-    #+-----------------------------------------+
-    #
-    test_title_match
-    #
-    #
-  elif [[ $title_override != "" ]]; then
-    edebug "creating main_feature_scan.json using title override: $title_override"
-    HandBrakeCLI --json -i $source_loc -t $title_override --scan > main_feature_scan.json
+#+---"Handbrake Titles Scan-"--+
+#+-----------------------------+
+#Tells handbrake to use .json formatting and scan all titles in the source location for the main feature then send the results to a file
+if [[ $title_override == "" ]]; then
+  edebug "creating titles_scan.json"
+  HandBrakeCLI --json -i $source_loc -t 0 --main-feature &> titles_scan.json
+  #
+  #
+  #+--------------------------------------+
+  #+---"Identify Main Title - METHOD 1"---+
+  #+--------------------------------------+
+  #we search the file created in Handbrake Title Scan for the main titles and store in a variable
+  auto_find_main_feature=$(grep -w "Found main feature title" titles_scan.json)
+  if [[ -z $auto_find_main_feature ]]; then
+    eerror "Something went wrong with auto_find_main_feature"
+    exit 66
   fi
+  edebug "auto_find_main_feature is: $auto_find_main_feature"
+  #we cut unwanted "Found main feature title " text from the variable
+  auto_find_main_feature=${auto_find_main_feature:25}
+  edebug "auto_find_main_feature cut to: $auto_find_main_feature"
   #
-  #
-  #+------------------------------------------------------+
-  #+---"Trim unwanted text from main_feature_scan.json"---+
-  #+------------------------------------------------------+
+  #Grab data from found title and trim unwanted text from main_feature_scan.json
   prep_title_file
   #
   #
   #+-----------------------+
+  #+---"Get online data"---+
+  #+-----------------------+
+  edebug "Getting online data"
+  feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
+  edebug "feature name is: $feature_name"
+  omdb_title_result=$(curl -sX GET --header "Accept: */*" "http://www.omdbapi.com/?t=$feature_name&apikey=$omdb_apikey")
+  if [[ $omdb_title_result != *"Movie not found"* ]]; then
+    edebug "omdb matching info is: $omdb_title_result"
+    omdb_title_name_result=$(echo $omdb_title_result | jq --raw-output '.Title')
+    edebug "omdb title name is: $omdb_title_name_result"
+    omdb_year_result=$(echo $omdb_title_result | jq --raw-output '.Year')
+    edebug "omdb year is: $omdb_year_result"
+  else
+    edebug "no online data could be matched to feature name: $feature_name"
+  fi
+  #
+  #
+  #+-----------------------------------------------+
+  #+---"Generate checking data from online info"---+
+  #+-----------------------------------------------+
+  edebug "Getting runtime info..."
+  #extract runtime from mass omdb result
+  omdb_runtime_result=$(echo $omdb_title_result | jq --raw-output '.Runtime')
+  #strip out 'min'
+  omdb_runtime_result=${omdb_runtime_result%????}
+  edebug "omdb runtime is (mins): $omdb_runtime_result ..."
+  #convert to 'secs'
+  secs=$((omdb_runtime_result*60))
+  edebug "...equal to (secs): $secs"
+  #use function to convert seconds to desired runtime format
+  edebug "converting to runtime format..."
+  runtime_check=$(convert_secs_hr_min)
+  edebug "...runtime is: $runtime_check (hh:mm). Checking titles containing this runtime"
+  #check titles_scan.json for titles containing runtime
+  title1=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==1')
+  title2=$(grep -B 2 $runtime_check titles_scan.json | awk 'NR==5')
+  #strip down to just titles value (track), not time!)
+  if [[ ! -z "$title1" ]]; then
+    edebug "Title(s) matching runtime is: $title1"
+  fi
+  if [[ ! -z "$title2" ]]; then
+    edebug "Title(s) matching runtime is: $title2"
+  fi
+  #
+  #
+  #+-----------------------------------------+
+  #+---"Method 1 checked against Method 2"---+
+  #+-----------------------------------------+
+  #
+  test_title_match
+  #
+  #
+elif [[ $title_override != "" ]]; then
+  edebug "creating main_feature_scan.json using title override: $title_override"
+  HandBrakeCLI --json -i $source_loc -t $title_override --scan > main_feature_scan.json
+fi
+#
+#
+#+------------------------------------------------------+
+#+---"Trim unwanted text from main_feature_scan.json"---+
+#+------------------------------------------------------+
+prep_title_file
+#
+#
+  #+-----------------------+
   #+---"Parse JSON Data"---+
   #+-----------------------+
-  #this command uses 'jq' and will extract the Name of the movie according to the bluray data with spaces replaced by underscores
+  #This section requires main_feature_scan_trimmed from prep_title_file function to work,
+  #the command uses 'jq' and will extract the Name of the movie according to the bluray data with spaces replaced by underscores
   feature_name=$(jq --raw-output '.[].TitleList[].Name' main_feature_scan_trimmed.json | head -n 1 | sed -e "s/ /_/g")
   edebug "feature_name returned content from jq is: $feature_name"
+  #create parsed audio from the identified 'title'
   #this command pipes our trimmed file into 'jq', what we get out is a list of audio track names
   main_feature_parse=$(jq '.[].TitleList[].AudioList[].Description' main_feature_scan_trimmed.json > parsed_audio_tracks)
   edebug "main_feature_parse returned content from jq is: $main_feature_parse"
@@ -602,7 +611,7 @@ if [ "$rip_only" != "1" ]; then
   output_loc="$working_dir/$encode_dest/$category/$feature_name/$feature_name".mkv
   if [[ ! -z "$working_dir" ]] && [[ ! -z "$encode_dest" ]] && [[ ! -z "$category" ]] && [[ ! -z "$feature_name" ]]; then
     edebug "valid output directory, creating"
-    mkdir -p "$working_dir/$encode_dest/$category/$feature_name/$feature_name"
+    mkdir -p "$working_dir/$encode_dest/$category/$feature_name"
   else
     eerror "error with necessary variables to create final output location for handbrake"
     exit 65
@@ -636,7 +645,7 @@ if [ "$rip_only" != "1" ]; then
     progress_bar2_init
     #check for any non zero errors
     if [ $? -eq 0 ]; then
-      edebug "...handbrake conversion of $bluray_name bluray rip completed successfully"
+      edebug "...handbrake conversion of: $bluray_name complete."
     else
       eerror "...handbrake produced an error, code: $?"
       exit 66
