@@ -116,11 +116,11 @@ helpFunction () {
    echo -e "\t-r Rip Only: Will cause the script to only rip the disc, not encode. NOTE: -r & -e cannot both be set"
    echo -e "\t-e Encode Only: Will cause the script to encode to container only, no disc rip. NOTE: -r & -e cannot both be set"
    echo -e "\t-s Source delete override: By default the script removes the source files on completion. Selecting this flag will keep the files"
+   echo -e "\t-p Disable the progress bars in the script visible in terminal, useful when debugging rest of script"
    echo -e "\t-c Temp Override: By default the script removes any temp files on completion. Selecting this flag will keep the files, useful if debugging"
    echo -e "\t-t Manually provide the title to rip eg. -t 42"
    echo -e "\t-n Manually provide the feature name to lookup eg. -n "BETTER TITLE", useful for those discs that aren't helpfully named"
-   echo -e "\t-p Disable the progress bars in the script visible in terminal, useful when debugging rest of script"
-   echo -e "\t-q Manually provide the quality to encode in handbrake, eg. -q 21. default value is 19, anything lower than 17 is considered placebo"
+      echo -e "\t-q Manually provide the quality to encode in handbrake, eg. -q 21. default value is 19, anything lower than 17 is considered placebo"
    #
    if [ -d "/tmp/$lockname" ]; then
      edebug "removing lock directory"
@@ -247,7 +247,7 @@ clean_ctrlc () {
 #+------------------------+
 #+---"Get User Options"---+
 #+------------------------+
-while getopts ":SVGHhresct:n:q:" opt
+while getopts ":SVGHhrespct:n:q:" opt
 do
     case "${opt}" in
         S) verbosity=$silent_lvl
@@ -262,14 +262,14 @@ do
         edebug "encode_only selected, only encoding not ripping";;
         s) source_clean_override=1
         edebug "source clean override selected, keeping SOURCE files";;
+        p) bar_override=1
+        edebug "bar_override selected disabling progress bars";;
         c) temp_clean_override=1
         edebug "temp clean override selected, keeping TEMP files";;
         t) title_override=${OPTARG}
         edebug "title_override chosen, using title number: $title_override instead of automatically found main title";;
         n) name_override=${OPTARG}
         edebug "name override given, using supplied title name of: $name_override";;
-        p) bar_override=${OPTARG}
-        edebug "bar_override selected disabling progress bars";;
         q) quality_override=${OPTARG}
         if (( $quality_override >= 17 && $quality_override <= 99 )); then
           quality=$quality_override
@@ -295,12 +295,12 @@ fi
 #+---"Trap ctrl-c"---+
 #+-------------------+
 trap clean_ctrlc SIGINT
+ctrlc_count=0
 #
 #
 #+----------------------------------------------+
 #+---"Check necessary programs are installed"---+
 #+----------------------------------------------+
-ctrlc_count=0
 program_check="HandBrakeCLI"
 prog_check
 program_check="makemkvcon"
@@ -424,12 +424,17 @@ if [[ -z "$encode_only" ]]; then
   makemkv_pid=$!
   pid_name=$makemkv_pid
   sleep 15s # to give time for drive to wind up and files to be created
-  progress_bar2_init
-  if [ $? -eq 0 ]; then
-    edebug "...makemkvcon bluray rip completed successfully"
+  if [[ -z $bar_override ]]; then
+    progress_bar2_init
+    if [ $? -eq 0 ]; then
+      edebug "...makemkvcon bluray rip completed successfully"
+    else
+      eerror "makemkv produced an error, code: $?"
+      exit 66
+    fi
   else
-    eerror "makemkv producded an error, code: $?"
-    exit 66
+    edebug "progress bars overridden"
+    wait $makemkv_pid
   fi
 fi
 #
@@ -463,8 +468,7 @@ edebug "auto_found_main_feature is: $auto_found_main_feature"
 #we cut unwanted "Found main feature title " text from the variable
 auto_found_main_feature=${auto_found_main_feature:25}
 edebug "auto_found_main_feature cut to: $auto_found_main_feature"
-
-
+#
 #NOW CREATE main feature_scan
 edebug "creating main_feature_scan.json ..."
 #do X if no title over-ride, else use the title over-ride
@@ -473,8 +477,7 @@ if [[ -z $title_override ]]; then
 else
   HandBrakeCLI --json -i $source_loc -t $title_override --scan 1> main_feature_scan.json 2> /dev/null
 fi
-
-
+#
 #CLEAN FILE FOR JQ
 clean_main_feature_scan
 #SEARCH FOR FEATURE NAME VIA JQ, unless override in place
@@ -734,13 +737,18 @@ if [[ -z $rip_only ]]; then
   pid_name=$handbrake_pid
   edebug "pid name: $pid_name"
   sleep 10s # to give time file to be created and data being inputted
-  progress_bar2_init
-  #check for any non zero errors
-  if [ $? -eq 0 ]; then
-    edebug "...handbrake conversion of: $bluray_name complete."
+  if [[ -z $bar_override ]]; then
+    progress_bar2_init
+    #check for any non zero errors
+    if [ $? -eq 0 ]; then
+      edebug "...handbrake conversion of: $bluray_name complete."
+    else
+      eerror "...handbrake produced an error, code: $?"
+      exit 66
+    fi
   else
-    eerror "...handbrake produced an error, code: $?"
-    exit 66
+    edebug "progress bars overriden"
+    wait $handbrake_pid
   fi
 fi
 #
