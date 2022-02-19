@@ -290,6 +290,20 @@ if [[ ! -z "$encode_only" && ! -z "$rip_only" ]]; then
   exit 64
 fi
 #
+# Check if running in a terminal
+tty -s
+if [[ $? = 0 ]]; then
+  if [[ -z $bar_override ]]; then
+    edebug "terminal mode detected, using progress bars" #>> /home/jlivin25/bin/terminal_log_test.log
+  else
+    edebug "progress bars overridden" #>> /home/jlivin25/bin/terminal_log_test.log
+  fi
+else
+  edebug "not running in terminal mode, disabling progress bars" #>> /home/jlivin25/bin/terminal_log_test.log
+  bar_override=1
+fi
+#
+edebug "bar_override is: $bar_override"
 #
 #+-------------------+
 #+---"Trap ctrl-c"---+
