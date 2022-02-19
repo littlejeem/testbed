@@ -305,6 +305,20 @@ fi
 #
 edebug "bar_override is: $bar_override"
 #
+# check if media in drive and bail if not
+blockdev --getsize64 $dev_drive > /dev/null
+if [[ $? -gt 0 ]]; then
+  eerror "something wrong with optical media, no media in drive??"
+  if [ -d "/tmp/$lockname" ]; then
+     edebug "removing lock directory"
+     rm -r "/tmp/$lockname"
+   else
+     edebug "problem removing lock directory"
+   fi
+  exit 66
+fi
+#
+#
 #+-------------------+
 #+---"Trap ctrl-c"---+
 #+-------------------+
